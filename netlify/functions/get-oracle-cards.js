@@ -277,7 +277,7 @@ exports.handler = async function(event, context) {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // We'll lock this down in production
+        'Access-Control-Allow-Origin': 'https://www.themagickmechanic.com', // We'll lock this down in production
         'Cache-Control': 'no-store'
       },
       body: JSON.stringify(cards)
