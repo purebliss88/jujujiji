@@ -1,0 +1,293 @@
+// This function will act as a secure proxy to your card data
+exports.handler = async function(event, context) {
+  // Only allow GET requests
+  if (event.httpMethod !== 'GET') {
+    return { 
+      statusCode: 405, 
+      body: JSON.stringify({ error: 'Method not allowed' }) 
+    };
+  }
+
+  // Check if request is coming from your website
+  const referer = event.headers.referer || '';
+  const allowedDomains = [
+    'themagickmechanic.com',
+    'www.themagickmechanic.com',
+    'dachshund-flamingo-5z5y.squarespace.com'
+  ];
+  
+  const isAllowedOrigin = allowedDomains.some(domain => referer.includes(domain));
+  
+  if (!isAllowedOrigin && process.env.NODE_ENV === 'production') {
+    return { 
+      statusCode: 403, 
+      body: JSON.stringify({ error: 'Unauthorized' }) 
+    };
+  }
+
+  try {
+    // Your card data - this stays on the server and never gets sent to the client directly
+    const cards = [
+      {
+        "id": "medicine_drinker",
+        "title": "Medicine Drinker",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/8dc00b3f-a553-48ba-83ea-4455f92f566d/Medicine_Drinker.png",
+        "time": "Now",
+        "energy": "Transmute",
+        "location": "New lands",
+        "element": "Ether",
+        "sun_meaning": "A sensitive being who embodies youthful bravery and strength as they head into their soul's dark corners. The medicine being ingested currently is transforming perceptions of self to more loving ones, but it isn't an easy process. This is a step in learning to accept those things one might typically attack in themselves. This phase of self-inquiry is a pivotal one, and eyes can see ahead toward the prize. However, there's more to drink, and the prize will only be in reach when the drink's finished. Maybe this is a moment to breathe before downing the last gulp.",
+        "moon_meaning": "As we learn to witness the previously less-liked parts of ourselves, bitter tasting truths can scare us from exploring further, even if for a short time. A pause in this moment can be helpful to collect courage, ease our nerves or integrate hard-to-swallow realizations. In this phase, comforts can set in and extended pauses can emerge. Be careful it does not become avoidance. This is not a time to hope things will just go away or change without discomforts being engaged. You will be victorious, and you are supported. Remember this and take that last gulp."
+      },
+      {
+        "id": "twin",
+        "title": "The Twin",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/0e8160d8-4d26-45e4-ba44-3460ac6af728/Twins.png",
+        "time": "Pause",
+        "energy": "Reflect",
+        "location": "Home",
+        "element": "light",
+        "sun_meaning": "One who effortlessly reflects another at a level of sometimes uncomfortable depth. More than a typical brother, sister or partner; they see and hear the other at what may seem like their deepest level of self. This energy arises when we are ready to face ourselves, with the bonus added support-stilts of being lovingly held and seen. When a spotlight is upon someone treated like a criminal, the light can feel hot and uncomfortable. When a spotlight is held by one who truly embraces us and is supporting our transformations, unmasking can feel relieving. A twin energy is one of life's gifts to help us evolve, with love. It's worth remembering this when tough times arise with this person. And to remember sometimes, we need to be the one who can reflect another with raw depth and it's not an easy or welcome job most times.",
+        "moon_meaning": "A twin in our lives, while a gift, can make it more challenging to ground into desired ease or comfort. While the love here is easy to give and receive, challenging it with proclaiming needed boundaries or wanting to go off your co-beaten path can seem like a betrayal of the other. Yet… we don't see that we betray ourselves which is betraying the integrity of the relationship. Ultimately, this refinement of self is a critical growth point and when honored and cultivated grants the broadest and deepest rewards. This typically benefits a meaningful connection between two people, even if it leads to the closing of a chapter. When you are both your truest self, you will both radiate your absolute best selves. If this means division is needed; temporary or otherwise, then it's important to honor that. In life, when a relationship is no longer supportive, a new relationship that is, is coming."
+      },
+      {
+        "id": "creator",
+        "title": "The Creator",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/fef6a9e9-1ab1-429f-8587-c85215436420/thecreator.png",
+        "time": "Create",
+        "energy": "Birth",
+        "location": "Within",
+        "element": "Life",
+        "sun_meaning": "You have the power to bring visions to light, provided you allow the energy coming through to guide the work fully. This may take you into new territories, and feelings of uncertainty. Creation is most empowered when you allow the spirit of 'it' to lead the work. If you try to control or steer the spirit against its nature, you may pervert its essence and goal. As a creator, your ability is to bring an idea to fruit. You begin with a seed and you water that seed. For that seed to grow, it must be given the right environment, nutrients in the soil and correct watering schedule. You are not who dictates what its nature needs, you are the one who identifies its needs, and serves it to successful growth.",
+        "moon_meaning": "Perhaps you are the seed in question. Evaluating your environment, your nourishment and your safety to grow is the message. The irony of creators is some fail to care for themselves in the passion of birthing the creation. In this case, the message is that you're the most important piece of the creation. If a plant has the wrong conditions to grow, it won't fruit, or the fruit will taste foul. You are no different. Are your roots safe to deepen and grow here? Are you hydrating? Getting sun? Are you connecting with the Earth? There's no need to believe in the myth of the suffering artist."
+      },
+      {
+        "id": "noob",
+        "title": "The Noob",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/f238437b-130a-49b6-9fc2-4ed2d407b525/thenoob.png",
+        "time": "Begin",
+        "energy": "Play",
+        "location": "Inspiration",
+        "element": "Fire",
+        "sun_meaning": "It's a lovely experience to not know what's next. To feel like a child again, innocently poking and prodding things. Perhaps knocking those things around or off shelves to test their limits. Innocence. Excitement. Play! And the safety of a supportive environment and friends to learn freely. With that, comes natural course correction when needed. Enjoy this phase as the forward path forms, whether that results in your gathering of your resources to move forward powerfully, or a movement into a more deliberate and surrendered state of recharging.",
+        "moon_meaning": "It can be easy to stay in the state of 'not knowing' as it seems to mean little responsibility. The hidden truth is that in this 'frozen' state there is a betrayal of self, and a hidden fear keeping this state in play. This can appear as repeated cycles of drifting or procrastination. When a person's forward movement seems to start and stop continually, it's usually down to the simple idea of safety, though it may not be obvious why. Oftentimes we hide these things from ourselves as they were seeded at a moment of pain in a more innocent time. Ask yourself these questions: Where do I feel protected by staying here? In what ways does 'not progressing' keep me hidden or safe? What am I afraid to be responsible for? Am I afraid of imagined scenarios of shame and failure? Do I fear imposter syndrome in success? Rejection, ridicule or shame from others scare me? It's time to be honest with yourself and choose your vision and all it costs, or stay in falsehood and continue betraying your heart, soul and best possible life path."
+      },
+      {
+        "id": "dimensional",
+        "title": "The Dimensional Traveler",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/ac6fbecc-5a0a-465e-b5ae-cc81fdf3b1e2/Dimensional.png",
+        "time": "Non Linear",
+        "energy": "Explore",
+        "location": "Everywhere",
+        "element": "Ether",
+        "sun_meaning": "The one who easily sees so many angles, perspectives, layers, textures, realities, probabilities and structures of logic. Your vision, intellect and imagination can sometimes be unbelievable even to you. It can be scary to see so much while living in a world of voices that often encourages limiting and reductive beliefs of what we call reality. Do I have to be like them to fit in? F* no. Your job isn't to fit in. You have sight and vision beyond the norm. You can interact with and relate to the world in a rare way. You are meant to help stretch the vision of those around you, so do not dare contort your spirit to fit in anyone else's ideas of what you are to them. Your perception and mind is a gift to yourself and a gift to that can help others, while also fulfilling your exploratory spirit. It's ok to ignore the pressure of knowing who you are. Part of the fun is realizing the who is some of the art you get to create as a daily process in fresh brush strokes. Some of the people you help might even give you new brushes!",
+        "moon_meaning": "The gift of a multilayered perception can also come with the continued challenge to believe in the self. When you can see from so many angles, how do you sit with the constant messaging to identify with something? The scare tactic is 'be like this, or risk being alone'... but you know you're not alone! It can be hard to remember this. If everyone was like everyone else, wouldn't life's experience become flat? Wouldn't relationships be redundant? The more you let yourself be you, as you know yourself to be right now, the more people who appreciate you will emerge. When the season's right, more people like you will show up. But not too many! Such is the price of being unique."
+      },
+      {
+        "id": "highness",
+        "title": "Her Highness",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/039e6f41-121f-4c47-97f0-3b217267e188/HerHighness.png",
+        "time": "Now and Long Term",
+        "energy": "Ground",
+        "location": "Here",
+        "element": "Earth",
+        "sun_meaning": "They are someone that feels bountiful regardless of circumstances. Rich in many ways; resources, connections, friends, knowledge, taste and intelligence, they know a good time, but with class. Her highness loves luxury and the good things in life. She lives well and wears it like she was born to. While she can seem inaccessible, and possibly aloof, this attribute serves a purpose. Her energy is not for everyone, and not everyone deserves it! To be in her presence is a gift. The people she chooses feel special, because they know she's picky with her people. At times, she may be interpreted to seem superficial. She isn't. All of this is real; it's just not easy for those unfamiliar with her energy to understand.",
+        "moon_meaning": "Her Highness is here to remind you to honor and enjoy the riches within and around you. Sometimes they last a while, sometimes less, and sometimes they just pass through. Beauty and riches are believed to be uncommon, but this is one of society's greatest lies. The world is wealthy. Riches are usually hoarded by those feeling unloved and unable to root in love. Sometimes riches don't look like riches. Sometimes poverty is disguised as superficial riches. If you feel like you have nothing, have emphasized false riches, or suffered a great loss recently, this is a reminder that these are symptoms of a hidden belief of belonging in lack. Money and its culture is one aspect of wealth, but it comes in many forms. Know that we all have riches. You might have a large family who are fiercely loyal and supportive. A home. An influential group of friends. Incredible art skills. An ocean 5 minutes walk from your home. An eye for beauty that brings awe to people. Your health, your vitality and your life! It is time to identify and OWN your riches. Once you do, your acceptance of wealth can expand into other areas of your life and bring you a Kingdom!"
+      },
+      {
+        "id": "emperor",
+        "title": "The Emperor",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/bd9768b8-b5ee-4291-bb90-4d170ee38e55/king+sword.png", 
+        "time": "Now",
+        "energy": "Progress",
+        "location": "Cities and Empires",
+        "element": "Earth",
+        "sun_meaning": "Clarity, inner strength and a fierce intellect are core qualities of The Emperor. An aura of stillness and authority emanates naturally, lacking the force a misaligned ego may display. This energy is one of the fruits born from preparation and structure, where consistency, persistence and dedication have been the daily prayer in this one's life. This may be toward a cause, a collective benefit, a service to many or a mission. Call upon and cultivate these energies to help propel yourself to the next phase of your life.", 
+        "moon_meaning": "While the qualities of an emperor are associated with success, empowerment and necessities of realizing visions, they can create a one-dimensional experience if life balance is mistakenly sacrificed. Rigidity, forcefulness and fear can poison a leader and their quest, when committing and embodying fully into a heartfelt 'why' are absent. This can slowly weaken key, possibly unseen critical aspects of what is being brought to realization. A 'why' based on intellectual ideas, with no basis in love will ultimately feel hollow and require force or other hearts to propel forward. In this case, the leader must question what aspect of their humanity has been sacrificed on the road and what inspired them to let it go. Old world mainstream religion perverted the teachings of sacrifice to encourage self-abuse as honorable. However, a kinder concept is this: sacrifice is a part of committing to a path and can be taken to extremes where not aligned alongside a heartfelt objective. When the heart as a North Star is lacking, people are suddenly betraying friends, exploiting both friends and strangers, and even abusing their own health, heart and humanity. Any form of abuse toward self and others made in sacrifice is destruction. If this message speaks to you, heed this as a moment to observe the path of choices that got you here and re-allocate the future steps of your journey today. There is always the ability and opportunity to change our path and future. Ask where that exists for you." 
+      },
+      {
+        "id": "kungfusifu",
+        "title": "The Kung Fu Sifu",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/8b4d5b3e-cfc3-4285-8501-d6f8fb400f02/kungfumaster.png", 
+        "time": "Eternity",
+        "energy": "Immediacy",
+        "location": "Mountains, Temples, Dojos",
+        "element": "Air",
+        "sun_meaning": "A sagely teacher in continual discovery of great wisdoms from within. One who is walking this path through a high level of devotion and discipline. They are an eternal learner and student, dedicated to evolution and mastery of self, through physical and mental development. Conflicts are chosen with discernment, and battles even moreso, with wins and losses seen as equally valuable. Body/Mind-Awareness, devotion and discipline are the qualities this one holds sacred as pillars of their life path. They embody self respect and seriousness towards this and remain in peace and confidence in this strategy.",
+        "moon_meaning": "The Sifu may take seriousness to an extreme. To a strict disciplinarian, pleasures of life are often viewed as superfluous and distracting, with the added risk of becoming an addiction. To this mindset, engaging activities of pleasure and joy are misconstrued as symptoms of weakness, or a lack of dedication. While declining some pleasures is a necessary sacrifice in discipline, it is a distortion to assume all pleasures are such. Pleasure can serve a necessary expansive ally to serious dedication for the reflections and lessons only contrast can bring. It can also serve to remind one of the full human experience available to them, flavoring the depths of how they may integrate revelations on the path of mastery. For one seeking mastery, celibacy, long term fasting and other forms of pleasure removal are seen as reliable tools to receive deep insights. Commonly, wisdom in the nature of one's addictions and hidden poisons of the psyche are attained. However, if done in an inappropriate environment, time or set of conditions, or to excess, this can create imbalance and misalignment in your full discovery of self. For some - not all - the path of mastery includes play, pleasure, love and joy. Many great masters have experienced technique through all textures of life including happiness, sadness, anger, delight, grief and ecstacy. Consider this a sign to inquire if this is what is missing for you."
+      },
+      {
+        "id": "vampire",
+        "title": "The Prince of Darkness",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/6c3a3922-c77f-4483-9306-e43f016b7265/Prince+of+Darkness.png",
+        "time": "Not Yet",
+        "energy": "Hibernation",
+        "location": "Inside, Caverns, The Womb",
+        "element": "Darkness",
+        "sun_meaning": "The one who is perfectly at peace in solitude and often believed to be a hermit, or recluse. In the safety of their castle, they are safe and undisturbed, preferring their peace and space to develop themselves or whatever they choose. It's here they can meditate upon musings in great depth. Unmoved by social pressures, they are rarely seen in common gatherings and may be the subject of gossip among the basic-minded. Maybe the stories are true? This one remains unmoved. If needed, they can always leave the confines of their abode and remind others of their uniqueness and presence, but for now, this is not needed. Enjoy this phase of disconnection from the herd, and the joy of exploration in the playgrounds of your rich imagination and mind.", 
+        "moon_meaning": "Too much reclusion can erode into an avoidance of life's beauty. When one stops engaging with all the good things in living, it can be easy to fall into the heavier emotional cycles such as bitterness and depression. There's a reason solitary confinement is considered punishment in prisons. To get the most richness out of our lived experience, other people can add reflection, contrast and expansion. Being around certain people helps us grow, face ourselves, love ourselves in ways we didn't see before, and thrive! Tribes in Africa are founded upon a level of inter-connectedness and harmony that the modern world has lost almost entirely; essentially operating on a shared nervous system. The message here is to explore whether you are denying yourself parts of life that could expand you. Has hiding turned you bitter or afraid when in connection to others? If you are experiencing a state of loneliness or depression, perhaps finding or connecting with people - even prioritizing finding your tribe, your chosen family - is the medicine you need. At the least, you'd do well to get some sunlight."
+      },
+      {
+        "id": "merchant",
+        "title": "The Merchant",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/744ad478-5cb1-44a0-8f43-da8663c7fe7a/The+Merchant.png",
+        "time": "Work Hours",
+        "energy": "Building, Opportunity",
+        "location": "Social environments, Markets",
+        "element": "Water",
+        "sun_meaning": "The one who has a keen eye in recognizing opportunities for the growth of self or others. This one has a talent to match-make services or items of value to the needs of a type of person. The Merchant at their best is in alignment with the often unrecognized artistry hidden in the corners of their opportunistic inspirations. This one is particularly gifted to enhance the life experiences of many through helping to meet and anticipate needs. While able to use these talents, they also gain additional advancements in other skills. When a developed form of this self, they are able to easily spin up systems, and networks of operation and flow to deliver the value they decide to provide. These talents in completion of form can yield fortune, fast, intense lessons and a greater field of inspiration and choices to the one aligned with this form of self.", 
+        "moon_meaning": "This one has great talent in recognizing opportunity, but can easily become addicted to the flow of fortunes that can unlock with a successful operation. In this addiction can come a reduction of integrity, and loss of connection to self. Without taking heed of one's alignment, the merchant can fall into habits of exploitation of self, team mates and their markets. Providing false values and eroding their own self respect in known low-value solutions, presented disingenuously. One with the talents of a merchant is able to have many opportunities at fortune and reward, but in the same breath, many opportunities to waste energy chasing money, where the reason for collection is simply to hoard it. When the merchant is working in alignment with their values and inspiration, money often has inspired places to move. When the merchant operates as a machine of commerce unconnected from self, they become a hungry ghost, unable to satiate a hunger born of disconnection to self, and emptiness."
+      },
+      {
+        "id": "meditator",
+        "title": "The Meditator",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/a80324db-00e4-42d9-9b61-7d61e3a93058/Meditator.png",
+        "time": "Eternal",
+        "energy": "Stillness",
+        "location": "Inside",
+        "element": "Spirit",
+        "sun_meaning": "Inner calm, eased reflection and a deep awareness of self are the traits of the meditator. When advanced, equanimity becomes the central quality the meditator draws upon. This one knows what rest truly means. Not simply sleep, but to pause, to slow down and be present. In full present awareness, all questions and answers are found. All sensations are felt, witnessed and accepted. Experiences that activate self-protection in the forms of numbness, avoidance, disconnection and addiction are able to blossom fully into the emotional wisdom they contain and finally integrated into the experience of self. The meditator is the one who knows how to be, rather than do. They know that rest is to simply be in presence; not to disassociate. Presence is how we unwrap the gifts in every situation.",
+        "moon_meaning": "This is your call to rest. Be present in whichever your forms of meditation are. Allow that which you've been avoiding be fully felt and receive the gifts of wisdom to come. You've likely been avoiding what the messages inside and around you have been saying to you. That can be a helpful strategy but not forever. This is now the time to stop. Moving forward in the way you have been is now arresting a critical part of your journey. How? Give yourself permission to take your foot off the gas. Trust you have always been provided for in some form, otherwise how would you be here today. Trust you are and will continue to be provided for and in the spirit of loving yourself fully, grant yourself the space, time and permission to witness all you've not. Sometimes stopping and being in presence with yourself, is the fastest path to the doing of what you're destined to do. All in perfect, divinely orchestrated timing."
+      },
+      {
+        "id": "warrior",
+        "title": "The Warrior",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/1f8ef801-9480-4a21-822a-dc00978d8bc6/celtic+warrior.png",
+        "time": "When Correct",
+        "energy": "Drive",
+        "location": "In the Conflict",
+        "element": "Fire",
+        "sun_meaning": "Unstoppable drive and commitment to The Mission, whatever it may be. These spirits can push through anything. With a force of clarity and the vigor to break through any obstacle, the fire of the warrior is priceless when a series of dense challenges arise. Sometimes the mission given is one of protection. To be able to dedicate oneself to the presence of responsibility for the safety of others is truly a special and sacred task. To be capable of this level of selflessness requires a caring heart and one in dedication to the servitude of others. The qualities of the warrior are not just for combat, but can be used in matters of healing, of transformation and to build a new life when the old no longer works.", 
+        "moon_meaning": "The warrior spirit is often misconstrued with violence. Often, many develop warrior-like attitudes to survive times of violence, oppression or dense challenge. After the passing of those times, it's not uncommon to continue using the warrior spirit's power and intensity to move through life. This is often a mistake. Imagine using a rocket to go to a shop 2 minutes walk from you. Though exhilarating perhaps the first few times, it would be needlessly intense and put your nerves on a high alert state. Eventually, the adrenalin highs become crashes and your energy levels habitually oscillate between wiped out and hyper-vigilant. The warrior is one aspect of being human, albeit a powerful one. All warriors need a rest, balance, harmony, joy, play and peace. After all, what's the point of being a warrior if there's no peace after the battle? In case it wasn't obvious, this is your sign to look to where you are over-exerting yourself, picking battles where none are needed, and staying in the fight when it's past the point of being in service to anybody."
+      },
+      {
+        "id": "firedancer",
+        "title": "The Fire Dancer",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/6878efab-339d-48be-abee-8f7c6911a154/fire+dancer.png",
+        "time": "Now",
+        "energy": "Expression",
+        "location": "Playful Spaces",
+        "element": "Fire",
+        "sun_meaning": "Playful, brave, child-like and lively. This one is a ray of sunshine beaming through the clouds, wearing a party hat. Even a grouch can't help being touched by the warmth and vital nature of the Fire Dancer, even if they're in a particular dour mood or opting to hang onto one. This youthful being loves to play and put on a show. They inspire and entertain as a form of presence, which can also be healing for others. They attain mastery through being as their form of doing. Their presence can feel like a taste of freedom and joy.", 
+        "moon_meaning": "The fire dancer is a breath of fresh air for many. A living dose of inspiration. Seeing the Fire Dancer may be an invitation to let more of your child-like mirthful qualities come through you and to lean into more being rather than doing for this moment in your life. The free-spirited nature of the Fire Dancer may indeed be pointing towards your constriction of expression. Where are you hiding parts of yourself from being seen? What are you ashamed of? What do you 'hate' about yourself? Are you afraid to be vulnerable to the eyes of others? These are the spots for you to be tender and inquisitive, much like an inquiring child, rather than judgmental and divisive like a strict adult. When you truly free yourself from these prison bars of judgement, you can finally step into the feeling of freedom and the vitality it naturally opens up. It's time to free your heart's truth and show who you really are!"
+      },
+      {
+        "id": "polymath",
+        "title": "The Polymath",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/42799d60-4a6a-4a79-9ede-bdb7af44cf6f/real+polymath.png",
+        "time": "Any time",
+        "energy": "Rebirth",
+        "location": "The next version of you",
+        "element": "Death and Life",
+        "sun_meaning": "You are one who has and continues to live many lives. One day you're a financial wiz, the next you're an event planner creating art as a livable experience. Your brain is one people admire and your life is unique and inspiring to many. Witnessing and being around your lived experience is a healing event for others.", 
+        "moon_meaning": "Uncertainty of what's next is not something that typically bothers one like yourself. When a lack of clarity remains in one's path for an extended period of time, it can bring up fears of abandonment, loneliness, inadequacy and more. Depression and other experiences can emerge. Oftentimes depression and anxiety are symptoms. These symptoms can be signs you've been emotionally and mentally revisiting the past, to your near-term living detriment. How can one move forward if they keep looking back? This is your sign to check in with yourself on why you struggle to let go of the past. What are you ashamed of from that time? What pain haven't you let your body witness and free? Why don't you think you deserve your visions? These questions will help lead you to the truth."
+      },
+      {
+        "id": "dreamsurfer",
+        "title": "The Dream Surfer",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/173f2297-f46d-4659-a0f8-9484c1413235/dream+traveler.png",
+        "time": "No time",
+        "energy": "Play",
+        "location": "Your soul",
+        "element": "Ether",
+        "sun_meaning": "The one who feels at home in the mysteries of dreaming and ethers. Connected deeply and widely to their intuition. A channeler or vision and deeply creative. Deciphering the language of subtle energy. Knowing everything is a dream. Your mind is able to play with textures, layers and abstraction as natural language. Your mind is a playground and your younger self's imagination designed the sand pit. This is a reminder to look for opportunities to play with this aspect of yourself more, as a meaningful expansion of your experience of self is on the horizon. Maybe explore dream yoga, art, music, poetry and play. Find a game you can play with others that allows you to flex this unique set of proverbial muscles.",
+        "moon_meaning": "The one who can play in layers of abstraction as normality can often get lost and isolated in this part of their human experience. If you feel alone at this time, the recommendation is to ground yourself. Go into a forest, a beach or your garden and plant your bare feet on the Earth and slow and deepen your breathing. Feel yourself breathing from and into the Earth and bring your attention to feeling sensations in your body. Do this until an emotion, perhaps one that's felt held back or hidden, arises and moves through you. It can help to continue this type of breathing until you reach a place of ease, calm and a feeling of completion. Sometimes all we need to shift out of chaos is to plant ourselves in the Earth and feel what our minds have been racing past."
+      },
+      {
+        "id": "ringmaster",
+        "title": "The Ringmaster",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5a27c194-2bae-46c5-bb2a-4188fe604ddc/Ring+master.png",
+        "time": "The Present",
+        "energy": "Chaos, Rhythm",
+        "location": "Your team",
+        "element": "Air",
+        "sun_meaning": "Mastery amidst chaos. The show-runner. Ability to maintain level-headedness as the eye of the storm. The co-ordinator among the madness. This is the image of one who is a great leader in the challenges of chaos and disarray. They are connected with the flow of creation, the fields of their team members and all else. They thrive in the uncertain knowing success will reveal a path. To own this skillset is to be capable of great changes and co-creations in a servant-leader role.",
+        "moon_meaning": "Sometimes mastery of chaos can make moments of stillness a challenge. When the high goes away, are you able to enjoy the nothing? Does the elimination of stimuli frighten you? Play and dance are great ways to fill that void, but what about when the need for the self is simply to be. To witness the aftermath of self as victorious from the chaos. To be able to witness the chaos outside and not need to connect with it. To be able to expand and contract when the self needs. And if support is needed to come back to yourself, to allow the vulnerability within to ask for that support from those who you might otherwise be a pillar for."
+      },
+      {
+        "id": "devotee",
+        "title": "The Devotee",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/bbd9f042-0037-4272-9b20-ded5130a5404/devotee.png",
+        "time": "Always",
+        "energy": "Commitment, Avoidance",
+        "location": "Wild Earth",
+        "element": "Earth",
+        "sun_meaning": "A being who is consciously, ecstatically given to their purpose. They are heart-forward in their devotion to their cause in service. This can extend into a job role, a spiritual leader, a tribal, familial status or otherwise community-centric position. The devotee is incredibly protected and supported in this ownership of role, watched over by the protectors of those they serve. In this devotional choice of being, the heart-forward devotee surrenders to being a vessel for something seemingly greater than themselves. In that, they become in tune with the needs of whom they serve, and the environment around them. When plugged in this way, they become a channel for the right things to come through.",
+        "moon_meaning": "In a devotional life, some can fall into the extreme of giving their power away, and missing the line where becoming a vessel and becoming a puppet blur. If one is not truly, internally heart-driven by your devotion, chances are they have fallen into being the puppet. This role which becomes more a mask, is often born from a desire to avoid real life, and the feelings of discomfort and disempowerment. When one is seen as a devotional, dedicated embodier of a purpose through role, oftentimes people will automatically hand over their respect. For one avoiding the discomforts of their existence, this can be a potent taste of validation their own loss of self cannot provide. Beware these trappings if you've called in this energy in your reading. This is your pointer to self-explore the true motives of whomever this energy has been called for."
+      },
+      {
+        "id": "phoenix",
+        "title": "The Phoenix",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/e700d531-af11-4703-89e1-5891c77b1a7a/meditator-phoenix.png",  
+        "time": "Now",
+        "energy": "Death and Rebirth",
+        "location": "The Soul",
+        "element": "Fire",
+        "sun_meaning": "The phoenix arises! Their power is ignited, alive and ready to blaze new trails from an aligned place! This is a fertile and powerful time for whomever has drawn the Pheonix. Anything that may cause obstruction cannot be given energy. If an obstruction causes fears to activate a state of drainage, or a nerve system panic, simply refocus attention and re-choose your path of most aligned excitement, passion and expansion, knowing that now this is active for you. This is a meaningful rebirth process. Regardless of the point in the process, this is a pivotal time that will feel rewarding and life-affirming. Keep going!", 
+        "moon_meaning": "Ignited with desires and an aligned path before us, moving toward a clear direction, we feel free, powerful and alive! However, the smoke-tail of our propulsion eventually diminishes and we may be slowing for a good reason! It’s valuable in this moment to explore where we’re at instead of becoming fearful around the loss of that momentum. We can't always be charging ahead. The blast-off energy and powerful movement is an exciting feeling which is easy to attach to. However, it’s important to still remain present and review where you’re at when the propulsion fades. Perhaps now is time for a rest or pause? Regardless, a review of your progress is wise, as it may be neccessary to explore a path adjustment." 
+      },
+      {
+        "id": "pioneer",
+        "title": "The Pioneer",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/e358874e-b9eb-4c59-b00f-0c057680c138/Pioneer.png",
+        "time": "Your future",
+        "energy": "Courage, Vulnerability",
+        "location": "The Unknown",
+        "element": "Destiny",
+        "sun_meaning": "The brave one who moves forward even when they cannot see what's ahead. They trust their impulse, their guidance and their inspiration. It pushes from within and propells forward, with support appearing as if by magic. It gives energy, life and excitement. This being is typically unswayed by the projections of others. Affected emotionally? Sometimes. The ones who cling to the comfort of certainty aren't aligned with the Pioneer. The Pioneer can be present in fear, but they do not give in to it. Fear is a place to explore to the Pioneer. Is the fear saying that you're be tested if you step forward? Are your nerves tensing in response to a place or experience that caused discomfort or harm before? Is it time to face these discomforts and move through them? Are you ready to go through another death and rebirth cycle? Pioneers experience intense cycles of life more than most. Those on this path are well-supported, guided and catalyzed into powerful transformations through trusting their path.",
+        "moon_meaning": "Venturing into the unknown can be exhilirating, life-affirming and even thrill-seeking. Moving forward like this can become addictive and become an unconscious pattern. True pioneering is following a calling, but what happens to us when we know nothing else and we yearn for the highs? What if one struggles to find satsifaction when this isn't happening? Will boredom become an intollerable state? How does one know when they're following the pull or stuck in an ego trap? If it feels like you're in your calling, that's when the forces of the universe, or 'God' as some call it, are working through you. Remember this if you feel stuck in a cycle of chasing The Pioneer's High. Sometimes this is a hunt for a validation hit caused by an unhealed parental or societal wound. And if your identity doesn't know how not to be a pioneer, remember that sometimes we can enter long phases of feeling lost, and needing to wonder, dream, pause or rest completely when pioneering. Part of exploring the unknown is to be occasionally lost, in doubt or process a particularly dense lesson of identity attachment. It's this phase of exploration where questions are formed and eventually, new steps appear to the next destination."
+      },
+      {
+        "id": "darkarts",
+        "title": "Master of the Dark Arts",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/ad739379-290b-4f7d-8648-8468e30f59af/darkarts.png",  
+        "time": "2 Weeks",
+        "energy": "Oneness, Duality",
+        "location": "The Shadows",
+        "element": "Darkness",
+        "sun_meaning": "Cold, sharp and dark is how they appear to many, but that’s a mis-read. This is one who is able to sit peacefully within darkness and remains grounded. They are able to observe that darkness which many become devoured or consumed by. They can sit in great horror and witness it as flavors of the life experience, with wisdom and riches within to gain. Because they’ve been through many-a-hell and come out the other end each time, they intimately know in their body that all discomforts are temporary, and that they will eventually, once again prevail. And they can guide others to do the same.", 
+        "moon_meaning": "In the shadow, the master of the dark arts can lose sight of the strength of their own light. We all have the light and the darkness within us, and in exploration of the shadow we can sometimes lose sight of our truth and forget our power. Is there a path or experience rooted in joy that you’re afraid to engage? Has your identity become too entrenched in your mastery of discomfort? Has it become an ego trap? A rejection of joy as protection from disappointment? This is a message to take a moment to reconnect with your light. Your power is there, especially when you're drowning in darkness." 
+      },
+      {
+        "id": "curator",
+        "title": "The Curator",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/caaec82a-3a09-467b-8af9-f99f371a7ca0/thecurator.png",  
+        "time": "The Present",
+        "energy": "Discern",
+        "location": "Where you feel pulled",
+        "element": "Light",
+        "sun_meaning": "You’ve tasted and explored the richness of life, immersing yourself through a variety of experiences to be where you are today. Bravery and discernment are key qualities you utilize. Seasoned and comfortable in following inspiration, you’re meeting a new opportunity to expand once again. At this stage, you may be embarking on something very new and may be wondering if this what you're supposed to be doing. For you, the answer is this - you have explored and experienced much, not just of your outer world but in how it’s re-sculpted your inner world, inspirations and perceptions. Sometimes after much effort, we get attached to having the final answer. Of course, that’s a trapping of the parts of ego that want safety through ease. The truth is that you’re constantly evolving, changing and shaping yourself, each change curated from the life experiences you’ve been brave to attend to. You’re a continual work in progress. Celebrate yourself as a great piece of living art.", 
+        "moon_meaning": "When self confidence and faith in self takes a hit, we can lose peace with where we are. This is a sign to take a broad view of where you’ve been and where you are today. A rich life is one where many textures have existed. Much like a song has pauses or big build-ups before your favorite bit, life too has its slow moments, its peaceful parts and the moments where experiences are less enjoyable. This can simply mean we’re in a period of reflection, appreciation or re-evaluation. Maybe the next steps you take are meant to bring all your experiences together in one big crescendo where it all clicks? Maybe you’re moving into another set of events that bring you another flavor to add to your magical repertoire? Perhaps you’re simply being given the space you need to integrate all before today. Perhaps you are being challenged to re-evaluate how you exercise discernment in your choices." 
+      },
+      {
+        "id": "suave",
+        "title": "The Suave One",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5051e080-f5a4-4d74-a739-2fbd5bfd86c2/douchebag.png",  
+        "time": "Later or Never",
+        "energy": "Agress or Disengage",
+        "location": "Away",
+        "element": "Dark",
+        "sun_meaning": "Romantic, smooth and adventurous, this being enjoys the thrill of a won seduction, with love gained seen as a prize. They enjoy richness in life, by way of sensory pleasures and highs, including delicious foods, gorgeous art and an appreciation of luxuries. For them, life and experiences become moments to be romanticized and perhaps dramatized. This person moves with a sense of drive, when in pursuit of what arouses and excites, though it is not immediately clear to the chased that this purpose may be compelled by an unexamined impulse, wounding or desire. They possess assertiveness, boldness and appear confident, and at times, can appear aggressive and overbearing. Complex and rich, and sometimes a little sweet with a hidden innocence, this is a unique being and should be met with patience when in the dance of getting to know them.",
+        "moon_meaning": "The shadow of romanticism can sometimes be hiding deep wounds bound in misunderstood innocence. This being can often fall in the trap of seeking only that which arouses or excites. This often leads to an addiction of chasing highs. What happens when the pursued is caught? The hit lands and the high fades away. The interest disappears and the pursued becomes the neglected - a whiplash giving the romance a foul aftertaste. A romantic soul possesses much beauty but when the driving forces are misunderstood, the one who chases can appear as cold, heartless, narcissistic or sociopathic. This is because the addiction of the high pulls us out of the heart - the place the romantic is believed to be behaving from. This is what happens when compulsions are unexamined. Narcissistic spectrum behaviors are best understood rather than demonized. They are a condition to pursue love with low awareness and high selfishness. At extremes, it's a form of 'taking', in order to fill a deep fear of unlovability. This is not a project for you to solve, but a living lesson to give grace, kindness and thanks while you move forward, to somwhere more loving, elsewhere." 
+      },
+      // Add your other cards from paste.txt here
+    ];
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*', // We'll lock this down in production
+        'Cache-Control': 'no-store'
+      },
+      body: JSON.stringify(cards)
+    };
+  } catch (error) {
+    console.log('Error:', error);
+    
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Server error' })
+    };
+  }
+};
