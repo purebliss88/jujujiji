@@ -17,13 +17,14 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 22px; // original is 16
+      font-style: bold;
       transition: background 0.3s ease;
       margin: 20px 0;
     }
     
     .oracle-button:hover {
-      background: #555;
+      background: #FFEE86; // original was #555 
     }
     
     .reading-options {
@@ -117,7 +118,7 @@
     
     .instruction-text {
       margin: 20px 0;
-      font-style: italic;
+      font-style: italic; // originally just italic and font size at 1em
       color: #FFEE86;
       font-size: 1em;
     }
@@ -157,14 +158,14 @@
           const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards');
           
           if (!response.ok) {
-            throw new Error('Failed to load cards');
+            throw new Error('Failed to load cards. Cats might be asleep.');
           }
           
           const data = await response.json();
           setCards(data);
           setLoading(false);
         } catch (err) {
-          setError('Unable to load cards. Please try again later.');
+          setError('Unable to load cards. Please try again.');
           setLoading(false);
         }
       }
@@ -213,7 +214,7 @@
           setCards(data);
           setLoading(false);
         } catch (err) {
-          setError('Unable to load cards. Please try again later.');
+          setError('Unable to load cards due to possible cat napping. Please try again later.');
           setLoading(false);
         }
       }
@@ -223,7 +224,7 @@
     // Loading state
     if (loading) {
       return React.createElement("div", { className: "drawing-area" },
-        React.createElement("p", { className: "instruction-text" }, "Loading oracle cards...")
+        React.createElement("p", { className: "instruction-text" }, "Summoning the cats...")
       );
     }
     
@@ -270,7 +271,7 @@
     if (selectedCards.length < (readingType === 'single' ? 1 : 3)) {
       return React.createElement("div", { className: "drawing-area" }, [
         React.createElement("p", { className: "instruction-text" },
-          "Hold your question in your heart and draw when ready"),
+          "Hold a question in your heart and draw when ready"),
         React.createElement("button", {
           className: "oracle-button",
           onClick: drawCard
