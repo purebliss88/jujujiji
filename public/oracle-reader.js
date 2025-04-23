@@ -14,18 +14,18 @@
       background: #4A0401;
       color: #C79535;
       padding: 15px 30px;
-      border: 3px solid #C79535;   // added border and gold
+      border: 3px solid #C79535;   /* added border and gold */
       border-radius: 8px;
       cursor: pointer;
-      font-size: 22px;   // original is 16
-      font-style: bold;   // newly added
+      font-size: 22px;   /* original is 16 */
+      font-weight: bold;   /* newly added */
       transition: background 0.3s ease;
       margin: 20px 0;
     }
     
     .oracle-button:hover {
-      background: #FFEE86; // original was #555 
-      font-color: #4A0401; // newly added
+      background: #FFEE86;   /* original was #555 */
+      font-color: #4A0401;   /* newly added */
     }
     
     .reading-options {
@@ -53,7 +53,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
-      margin-top: 20px; // was 30
+      margin-top: 20px;   /* was 30 */
     }
     
     .card-back {
@@ -119,7 +119,7 @@
     
     .instruction-text {
       margin: 20px 0;
-      font-style: italic; // originally just italic and font size at 1em
+      font-style: italic;   /* originally just italic and font size at 1em */
       color: #FFEE86;
       font-size: 1em;
     }
@@ -159,14 +159,14 @@
           const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards');
           
           if (!response.ok) {
-            throw new Error('Failed to load cards. Cats might be asleep.');
+            throw new Error('Failed to load cards. Cats might be asleep. Try again to wake them up.');
           }
           
           const data = await response.json();
           setCards(data);
           setLoading(false);
         } catch (err) {
-          setError('Unable to load cards. Please try again.');
+          setError('Failed to load cards. Cats might be asleep. Try again to wake them up.');
           setLoading(false);
         }
       }
@@ -207,7 +207,7 @@
       async function fetchCards() {
         try {
           setLoading(true);
-          const response = await fetch('https://your-netlify-site.netlify.app/.netlify/functions/get-oracle-cards');
+          const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards');
           if (!response.ok) {
             throw new Error('Failed to load cards');
           }
