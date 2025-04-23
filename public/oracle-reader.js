@@ -14,18 +14,18 @@
       background: #4A0401;
       color: #C79535;
       padding: 15px 30px;
-      border: 3px solid #C79535;   // added border and gold
+      border: 3px solid #C79535;   /* added border and gold */
       border-radius: 8px;
       cursor: pointer;
-      font-size: 22px;   // original is 16
-      font-style: bold;   // newly added
+      font-size: 22px;   /* original is 16 */
+      font-weight: bold;   /* newly added */
       transition: background 0.3s ease;
       margin: 20px 0;
     }
     
     .oracle-button:hover {
-      background: #FFEE86; // original was #555 
-      font-color: #4A0401; // newly added
+      background: #FFEE86; /* original was #555 */
+      color: #4A0401; /* newly added */
     }
     
     .reading-options {
@@ -53,7 +53,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
-      margin-top: 20px; // was 30
+      margin-top: 20px;   /* was 30 */
     }
     
     .card-back {
@@ -119,7 +119,7 @@
     
     .instruction-text {
       margin: 20px auto;
-      font-style: italic;
+      font-style: italic;  /* comment */
       color: #FFEE86;
       font-size: 1em;
       padding: 15px 20px;
