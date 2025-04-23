@@ -25,7 +25,7 @@
     
     .oracle-button:hover {
       background: #FFEE86;   /* original was #555 */
-      font-color: #4A0401;   /* newly added */
+      color: #4A0401;   /* newly added and fixed with the word font removed */
     }
     
     .reading-options {
@@ -186,18 +186,27 @@
     
     // Function to draw a card
     const drawCard = () => {
-      if (selectedCards.length >= (readingType === 'single' ? 1 : 3) || cards.length === 0) return;
-      
-      // Get a random card
-      const randomIndex = Math.floor(Math.random() * cards.length);
-      const card = cards[randomIndex];
-      
-      // Randomly assign sun or moon meaning
-      const meaning = Math.random() > 0.5 ? 'sun_meaning' : 'moon_meaning';
-      
+      if (!activeConfig || selectedCards.length >= activeConfig.cardCount || cards.length === 0) return;
+  
+    // Get a random card
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    const card = cards[randomIndex];
+  
+    // Randomly assign sun or moon meaning
+    const meaning = Math.random() > 0.5 ? 'sun_meaning' : 'moon_meaning';
+  
       setSelectedCards([...selectedCards, {...card, displayMeaning: meaning}]);
       setCards(cards.filter((_, index) => index !== randomIndex));
-    };
+  
+    // Prevent scrolling away from the card drawing area
+    // We'll add a slight delay before scrolling to ensure UI has updated
+      setTimeout(() => {
+    const drawingArea = document.getElementById('drawing-area');
+      if (drawingArea) {
+        drawingArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+  };
     
     // Function to reset reading
     const resetReading = () => {
