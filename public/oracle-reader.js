@@ -9,7 +9,7 @@
       padding: 20px;
       font-family: inherit;
     }
-    
+
     .oracle-button {
       background: #4A0401;
       color: #C79535;
@@ -118,11 +118,55 @@
     }
     
     .instruction-text {
-      margin: 20px 0;
-      font-style: italic; // originally just italic and font size at 1em
+      margin: 20px auto;
+      font-style: italic;
       color: #FFEE86;
       font-size: 1em;
+      padding: 15px 20px;
+      background: rgba(7, 16, 55, 0.85);
+      border: 1px solid #C79535;
+      border-radius: 8px;
+      max-width: 80%;
+      text-align: center;
     }
+
+    .position-title {
+      background: #4A0401;
+      color: #C79535;
+      padding: 8px 15px;
+      border-radius: 4px;
+      margin-top: 0;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .sub-instruction-text { 
+      margin: 10px auto;
+      color: #C79535;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
+    .reading-title {
+      text-align: center;
+      color: #C79535;
+      margin: 30px 0;
+      font-size: 1.8em;
+    }
+
+  @media (max-width: 768px) {
+    .card-display {
+      grid-template-columns: 1fr;
+    }
+  
+    .reading-options {
+      grid-template-columns: 1fr;
+    }
+  
+    .instruction-text {
+      max-width: 95%;
+  }
+}
     
     @keyframes cardReveal {
       from {
@@ -143,11 +187,57 @@
   
   // React component for Oracle Card Reader
   function OracleCardReader() {
+  // Add reading configurations
+  const readingConfigurations = {
+    single: {
+      title: "Single Card Reading",
+      description: "Draw one card for immediate guidance",
+      cardCount: 1,
+      positions: [
+        { title: "Your Guidance" }
+      ]
+    },
+    past_present_future: {
+      title: "Past, Present, Future",
+      description: "Explore your timeline with three cards",
+      cardCount: 3,
+      positions: [
+        { title: "Past - What led you here" },
+        { title: "Present - Your current situation" },
+        { title: "Future - Where you're heading" }
+      ]
+    },
+    situation_action_outcome: {
+      title: "Situation, Action, Outcome",
+      description: "Understand a challenge and how to address it",
+      cardCount: 3,
+      positions: [
+        { title: "Situation - The current challenge" },
+        { title: "Action - What to do" },
+        { title: "Outcome - The result of taking action" }
+      ]
+    },
+    five_card_cross: {
+      title: "Five Card Cross",
+      description: "A comprehensive view of your situation",
+      cardCount: 5,
+      positions: [
+        { title: "Center - Core issue" },
+        { title: "Above - What influences you" },
+        { title: "Below - Your foundation" },
+        { title: "Left - Past influences" },
+        { title: "Right - Future outcome" }
+      ]
+    }
+  };
+  
+  // Continue with useState hooks...
     const [readingType, setReadingType] = React.useState(null);
     const [cards, setCards] = React.useState([]);
     const [selectedCards, setSelectedCards] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
+    const [activeConfig, setActiveConfig] = React.useState(null);
     
     // Fetch cards when component mounts
     React.useEffect(() => {
@@ -173,6 +263,19 @@
       
       fetchCards();
     }, []);
+
+    // Add this after the fetchCards useEffect
+    React.useEffect(() => {
+      if (activeConfig && selectedCards.length === activeConfig.cardCount) {
+    // All cards have been drawn, scroll to the results
+      setTimeout(() => {
+      const resultsArea = document.getElementById('reading-results');
+      if (resultsArea) {
+        resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 300);
+  }
+}, [selectedCards.length, activeConfig]);
     
     // Function to shuffle cards
     const shuffleCards = () => {
@@ -186,18 +289,27 @@
     
     // Function to draw a card
     const drawCard = () => {
-      if (selectedCards.length >= (readingType === 'single' ? 1 : 3) || cards.length === 0) return;
-      
-      // Get a random card
-      const randomIndex = Math.floor(Math.random() * cards.length);
-      const card = cards[randomIndex];
-      
-      // Randomly assign sun or moon meaning
-      const meaning = Math.random() > 0.5 ? 'sun_meaning' : 'moon_meaning';
-      
+      if (!activeConfig || selectedCards.length >= activeConfig.cardCount || cards.length === 0) return;
+  
+    // Get a random card
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    const card = cards[randomIndex];
+  
+    // Randomly assign sun or moon meaning
+    const meaning = Math.random() > 0.5 ? 'sun_meaning' : 'moon_meaning';
+  
       setSelectedCards([...selectedCards, {...card, displayMeaning: meaning}]);
       setCards(cards.filter((_, index) => index !== randomIndex));
-    };
+  
+    // Prevent scrolling away from the card drawing area
+    // We'll add a slight delay before scrolling to ensure UI has updated
+    setTimeout(() => {
+    const drawingArea = document.getElementById('drawing-area');
+    if (drawingArea) {
+      drawingArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
+};
     
     // Function to reset reading
     const resetReading = () => {
@@ -242,80 +354,77 @@
     
     // Reading type selection screen
     if (!readingType) {
-      return React.createElement("div", { className: "reading-options" }, [
-        React.createElement("div", { className: "reading-card" }, [
-          React.createElement("h2", null, "Single Card Reading"),
-          React.createElement("p", null, "Draw one card for immediate guidance"),
-          React.createElement("button", {
-            className: "oracle-button",
-            onClick: () => {
-              shuffleCards();
-              setReadingType('single');
-            }
-          }, "Begin Single Card Reading")
-        ]),
-        React.createElement("div", { className: "reading-card" }, [
-          React.createElement("h2", null, "Three Card Reading"),
-          React.createElement("p", null, "Explore a deeper spread with three cards"),
-          React.createElement("button", {
-            className: "oracle-button",
-            onClick: () => {
-              shuffleCards();
-              setReadingType('triple');
-            }
-          }, "Begin Three Card Reading")
-        ])
+      return React.createElement("div", { className: "reading-options" }, 
+        Object.keys(readingConfigurations).map(configKey => {
+      const config = readingConfigurations[configKey];
+      return React.createElement("div", { className: "reading-card", key: configKey }, [
+        React.createElement("h2", null, config.title),
+        React.createElement("p", null, config.description),
+        React.createElement("button", {
+          className: "oracle-button",
+          onClick: () => {
+            shuffleCards();
+            setReadingType(configKey);
+            setActiveConfig(config);
+          }
+        }, `Begin ${config.title}`)
       ]);
-    }
+    })
+  );
+}
     
     // Drawing cards view
-    if (selectedCards.length < (readingType === 'single' ? 1 : 3)) {
-      return React.createElement("div", { className: "drawing-area" }, [
+    if (activeConfig && selectedCards.length < activeConfig.cardCount) {
+      const currentPosition = activeConfig.positions[selectedCards.length];
+      return React.createElement("div", { className: "drawing-area", id: "drawing-area" }, [
         React.createElement("p", { className: "instruction-text" },
-          "Hold a question in your heart and draw when ready"),
+          `Drawing card ${selectedCards.length + 1} of ${activeConfig.cardCount}: ${currentPosition.title}`),
+        React.createElement("p", { className: "sub-instruction-text" },
+          "Focus on this aspect as you draw your card"),
         React.createElement("button", {
           className: "oracle-button",
           onClick: drawCard
-        }, "Draw Card")
-      ]);
-    }
+      }, "Draw Card")
+  ]);
+}
     
     // Reading results view
     return React.createElement("div", null, [
-      React.createElement("div", { className: "card-display" },
+      React.createElement("h2", { className: "reading-title" }, activeConfig.title),
+      React.createElement("div", { className: "card-display", id: "reading-results" },
         selectedCards.map((card, index) => 
-          React.createElement("div", { 
-            key: index,
-            className: "tarot-card card-reveal"
-          }, [
-            React.createElement("img", {
-              className: "card-image",
-              src: card.image_url,
-              alt: card.title
-            }),
-            React.createElement("div", { className: "card-content" }, [
-              React.createElement("h2", null, card.title),
-              React.createElement("div", { className: "card-properties" }, [
-                React.createElement("p", null, `Time: ${card.time}`),
-                React.createElement("p", null, `Energy: ${card.energy}`),
-                React.createElement("p", null, `Location: ${card.location}`),
-                React.createElement("p", null, `Element: ${card.element}`)
-              ]),
-              React.createElement("h3", null, 
-                card.displayMeaning === 'sun_meaning' ? "Sun Meaning" : "Moon Meaning"),
-              React.createElement("p", null, card[card.displayMeaning])
-            ])
-          ])
-        )
-      ),
-      React.createElement("div", { className: "drawing-area" },
-        React.createElement("button", {
-          className: "oracle-button",
-          onClick: resetReading
-        }, "Start New Reading")
-      )
-    ]);
-  }
+      React.createElement("div", { 
+        key: index,
+        className: "tarot-card card-reveal"
+      }, [
+        React.createElement("h3", { className: "position-title" }, activeConfig.positions[index].title),
+        React.createElement("img", {
+          className: "card-image",
+          src: card.image_url,
+          alt: card.title
+        }),
+        React.createElement("div", { className: "card-content" }, [
+          React.createElement("h2", null, card.title),
+          React.createElement("div", { className: "card-properties" }, [
+            React.createElement("p", null, `Time: ${card.time}`),
+            React.createElement("p", null, `Energy: ${card.energy}`),
+            React.createElement("p", null, `Location: ${card.location}`),
+            React.createElement("p", null, `Element: ${card.element}`)
+          ]),
+          React.createElement("h3", null, 
+            card.displayMeaning === 'sun_meaning' ? "Sun Meaning" : "Moon Meaning"),
+          React.createElement("p", null, card[card.displayMeaning])
+        ])
+      ])
+    )
+  ),
+  React.createElement("div", { className: "drawing-area" },
+    React.createElement("button", {
+      className: "oracle-button",
+      onClick: resetReading
+    }, "Start New Reading")
+  )
+]);
   
   // Render the component into the container
   const domContainer = document.getElementById('oracle-reader-container');
