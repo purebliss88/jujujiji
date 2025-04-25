@@ -118,10 +118,16 @@
     }
     
     .instruction-text {
-      margin: 20px 0;
-      font-style: italic;   /* originally just italic and font size at 1em */
+      margin: 20px auto;
+      font-style: italic;
       color: #FFEE86;
       font-size: 1em;
+      padding: 15px 20px;
+      background: rgba(7, 16, 55, 0.85);
+      border: 1px solid #C79535;
+      border-radius: 8px;
+      max-width: 80%;
+      text-align: center;
     }
     
     @keyframes cardReveal {
