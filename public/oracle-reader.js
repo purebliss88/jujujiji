@@ -9,7 +9,7 @@
       padding: 20px;
       font-family: inherit;
     }
-    
+
     .oracle-button {
       background: #4A0401;
       color: #C79535;
@@ -18,14 +18,14 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 22px;   /* original is 16 */
+      font-weight: bold;   /* newly added */
       transition: background 0.3s ease;
       margin: 20px 0;
     }
     
     .oracle-button:hover {
-      background: #FFEE86;   /* original was #555 */
-      font-weight: bold;   /* newly added */
-      color: #4A0401;   /* newly added */
+      background: #FFEE86; /* original was #555 */
+      color: #4A0401; /* newly added */
     }
     
     .reading-options {
@@ -53,7 +53,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
-      margin-top: 20px;   /* was 30 */
+      margin-top: 20px; /* was 30 */
     }
     
     .card-back {
@@ -129,6 +129,44 @@
       max-width: 80%;
       text-align: center;
     }
+
+    .position-title {
+      background: #4A0401;
+      color: #C79535;
+      padding: 8px 15px;
+      border-radius: 4px;
+      margin-top: 0;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .sub-instruction-text { 
+      margin: 10px auto;
+      color: #C79535;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
+    .reading-title {
+      text-align: center;
+      color: #C79535;
+      margin: 30px 0;
+      font-size: 1.8em;
+    }
+
+    @media (max-width: 768px) {
+      .card-display {
+        grid-template-columns: 1fr;
+      }
+    
+      .reading-options {
+        grid-template-columns: 1fr;
+      }
+    
+      .instruction-text {
+        max-width: 95%;
+      }
+    }
     
     @keyframes cardReveal {
       from {
@@ -144,104 +182,62 @@
     .card-reveal {
       animation: cardReveal 0.8s ease-out forwards;
     }
-    
-    .position-title {
-      background: #4A0401;
-      color: #C79535;
-      padding: 8px 15px;
-      border-radius: 4px;
-      margin-top: 0;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-    
-    .sub-instruction-text {
-      margin: 10px auto;
-      color: #C79535;
-      font-size: 0.9em;
-      text-align: center;
-    }
-    
-    .reading-title {
-      text-align: center;
-      color: #C79535;
-      margin: 30px 0;
-      font-size: 1.8em;
-    }
-    
-    @media (max-width: 768px) {
-      .card-display {
-        grid-template-columns: 1fr;
-      }
-      
-      .reading-options {
-        grid-template-columns: 1fr;
-      }
-      
-      .instruction-text {
-        max-width: 95%;
-      }
-    }
-    
   `;
   document.head.appendChild(style);
-
-
   
   // React component for Oracle Card Reader
   function OracleCardReader() {
-  // Add reading configurations
-  const readingConfigurations = {
-    single: {
-      title: "Single Card Reading",
-      description: "Draw one card for immediate guidance",
-      cardCount: 1,
-      positions: [
-        { title: "Your Guidance" }
-      ]
-    },
-    past_present_future: {
-      title: "Past, Present, Future",
-      description: "Explore your timeline with three cards",
-      cardCount: 3,
-      positions: [
-        { title: "Past - What led you here" },
-        { title: "Present - Your current situation" },
-        { title: "Future - Where you're heading" }
-      ]
-    },
-    situation_action_outcome: {
-      title: "Situation, Action, Outcome",
-      description: "Understand a challenge and how to address it",
-      cardCount: 3,
-      positions: [
-        { title: "Situation - The current challenge" },
-        { title: "Action - What to do" },
-        { title: "Outcome - The result of taking action" }
-      ]
-    },
-    five_card_cross: {
-      title: "Five Card Cross",
-      description: "A comprehensive view of your situation",
-      cardCount: 5,
-      positions: [
-        { title: "Center - Core issue" },
-        { title: "Above - What influences you" },
-        { title: "Below - Your foundation" },
-        { title: "Left - Past influences" },
-        { title: "Right - Future outcome" }
+    // Add reading configurations
+    const readingConfigurations = {
+      single: {
+        title: "Single Card Reading",
+        description: "Draw one card for immediate guidance",
+        cardCount: 1,
+        positions: [
+          { title: "Your Guidance" }
+        ]
+      },
+      past_present_future: {
+        title: "Past, Present, Future",
+        description: "Explore your timeline with three cards",
+        cardCount: 3,
+        positions: [
+          { title: "Past - What led you here" },
+          { title: "Present - Your current situation" },
+          { title: "Future - Where you're heading" }
+        ]
+      },
+      situation_action_outcome: {
+        title: "Situation, Action, Outcome",
+        description: "Understand a challenge and how to address it",
+        cardCount: 3,
+        positions: [
+          { title: "Situation - The current challenge" },
+          { title: "Action - What to do" },
+          { title: "Outcome - The result of taking action" }
+        ]
+      },
+      five_card_cross: {
+        title: "Five Card Cross",
+        description: "A comprehensive view of your situation",
+        cardCount: 5,
+        positions: [
+          { title: "Center - Core issue" },
+          { title: "Above - What influences you" },
+          { title: "Below - Your foundation" },
+          { title: "Left - Past influences" },
+          { title: "Right - Future outcome" }
         ]
       }
     };
-  
-  // Continue with useState hooks...
     
+    // State variables
     const [readingType, setReadingType] = React.useState(null);
     const [cards, setCards] = React.useState([]);
     const [selectedCards, setSelectedCards] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
-    const [activeConfig, setActiveConfig] = React.useState(null);    // Just added this Apr 29
+    const [activeConfig, setActiveConfig] = React.useState(null);
     
     // Fetch cards when component mounts
     React.useEffect(() => {
@@ -253,21 +249,21 @@
           const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards');
           
           if (!response.ok) {
-            throw new Error('Failed to load cards. Cats might be asleep. Try again to wake them up.');
+            throw new Error('Failed to load cards. Cats might be asleep.');
           }
           
           const data = await response.json();
           setCards(data);
           setLoading(false);
         } catch (err) {
-          setError('Failed to load cards. Cats might be asleep. Try again to wake them up.');
+          setError('Unable to load cards. Please try again.');
           setLoading(false);
         }
       }
       
       fetchCards();
     }, []);
-
+    
     // Add this after the fetchCards useEffect
     React.useEffect(() => {
       if (activeConfig && selectedCards.length === activeConfig.cardCount) {
@@ -360,16 +356,16 @@
     if (!readingType) {
       return React.createElement("div", { className: "reading-options" }, 
         Object.keys(readingConfigurations).map(configKey => {
-      const config = readingConfigurations[configKey];
-      return React.createElement("div", { className: "reading-card", key: configKey }, [
-        React.createElement("h2", null, config.title),
-        React.createElement("p", null, config.description),
-        React.createElement("button", {
-          className: "oracle-button",
-          onClick: () => {
-            shuffleCards();
-            setReadingType(configKey);
-            setActiveConfig(config);
+          const config = readingConfigurations[configKey];
+          return React.createElement("div", { className: "reading-card", key: configKey }, [
+            React.createElement("h2", null, config.title),
+            React.createElement("p", null, config.description),
+            React.createElement("button", {
+              className: "oracle-button",
+              onClick: () => {
+                shuffleCards();
+                setReadingType(configKey);
+                setActiveConfig(config);
               }
             }, `Begin ${config.title}`)
           ]);
@@ -377,20 +373,20 @@
       );
     }
     
-      // Drawing cards view
-      if (activeConfig && selectedCards.length < activeConfig.cardCount) {
-        const currentPosition = activeConfig.positions[selectedCards.length];
-        return React.createElement("div", { className: "drawing-area", id: "drawing-area" }, [
-          React.createElement("p", { className: "instruction-text" },
-            `Drawing card ${selectedCards.length + 1} of ${activeConfig.cardCount}: ${currentPosition.title}`),
-          React.createElement("p", { className: "sub-instruction-text" },
-            "Focus on this aspect as you draw your card"),
-          React.createElement("button", {
-            className: "oracle-button",
-            onClick: drawCard
-          }, "Draw Card")
-        ]);
-      }
+    // Drawing cards view
+    if (activeConfig && selectedCards.length < activeConfig.cardCount) {
+      const currentPosition = activeConfig.positions[selectedCards.length];
+      return React.createElement("div", { className: "drawing-area", id: "drawing-area" }, [
+        React.createElement("p", { className: "instruction-text" },
+          `Drawing card ${selectedCards.length + 1} of ${activeConfig.cardCount}: ${currentPosition.title}`),
+        React.createElement("p", { className: "sub-instruction-text" },
+          "Focus on this aspect as you draw your card"),
+        React.createElement("button", {
+          className: "oracle-button",
+          onClick: drawCard
+        }, "Draw Card")
+      ]);
+    }
     
     // Reading results view
     return React.createElement("div", null, [
@@ -429,6 +425,7 @@
         }, "Start New Reading")
       )
     ]);
+  }
   
   // Render the component into the container
   const domContainer = document.getElementById('oracle-reader-container');
