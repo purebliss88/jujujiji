@@ -1,9 +1,11 @@
 [build]
   publish = "public"
   functions = "netlify/functions"
+  command = "npm install"
 
 [[headers]]
   for = "/*"
     [headers.values]
-    Access-Control-Allow-Origin = "https://www.themagickmechanic.com"
-    Access-Control-Allow-Methods = "GET"
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
