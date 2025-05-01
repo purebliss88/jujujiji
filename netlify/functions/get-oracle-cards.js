@@ -35,8 +35,6 @@ exports.handler = async function(event, context) {
     // Your card data - this stays on the server and never gets sent to the client directly
     const cards = [
       {
-const cards = [
-      {
         "id": "medicine_drinker",
         "title": "Medicine Drinker",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/8dc00b3f-a553-48ba-83ea-4455f92f566d/Medicine_Drinker.png",
