@@ -437,7 +437,7 @@
       async function fetchCards() {
         try {
           setLoading(true);
-          const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
+          const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?token=jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
           if (!response.ok) {
             throw new Error('Failed to load cards');
           }
