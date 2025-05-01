@@ -1,4 +1,4 @@
-// This function will act as a secure proxy to your card data
+// netlify/functions/get-oracle-cards.js
 exports.handler = async function(event, context) {
   // Only allow GET requests
   if (event.httpMethod !== 'GET') {
@@ -8,7 +8,11 @@ exports.handler = async function(event, context) {
     };
   }
 
-  // Check if request is coming from your website
+  // Add a secret token check
+  const token = event.queryStringParameters?.token || '';
+  const validToken = 'jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23'; // Change this to a random string
+  
+  // Check referer more strictly
   const referer = event.headers.referer || '';
   const allowedDomains = [
     'themagickmechanic.com',
@@ -18,7 +22,9 @@ exports.handler = async function(event, context) {
   
   const isAllowedOrigin = allowedDomains.some(domain => referer.includes(domain));
   
-  if (!isAllowedOrigin && process.env.NODE_ENV === 'production') {
+  // If production mode, strictly enforce referer and token
+  if (process.env.NODE_ENV === 'production' && (!isAllowedOrigin || token !== validToken)) {
+    console.log('Unauthorized access attempt', { referer, token });
     return { 
       statusCode: 403, 
       body: JSON.stringify({ error: 'Unauthorized' }) 
@@ -29,6 +35,8 @@ exports.handler = async function(event, context) {
     // Your card data - this stays on the server and never gets sent to the client directly
     const cards = [
       {
+const cards = [
+      {
         "id": "medicine_drinker",
         "title": "Medicine Drinker",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/8dc00b3f-a553-48ba-83ea-4455f92f566d/Medicine_Drinker.png",
@@ -36,8 +44,8 @@ exports.handler = async function(event, context) {
         "energy": "Transmute",
         "location": "New lands",
         "element": "Ether",
-        "sun_meaning": "A sensitive being who embodies youthful bravery and strength as they head into their soul's dark corners. The medicine being ingested currently is transforming perceptions of self to more loving ones, but it isn't an easy process. This is a step in learning to accept those things one might typically attack in themselves. This phase of self-inquiry is a pivotal one, and eyes can see ahead toward the prize. However, there's more to drink, and the prize will only be in reach when the drink's finished. Maybe this is a moment to breathe before downing the last gulp.",
-        "moon_meaning": "As we learn to witness the previously less-liked parts of ourselves, bitter tasting truths can scare us from exploring further, even if for a short time. A pause in this moment can be helpful to collect courage, ease our nerves or integrate hard-to-swallow realizations. In this phase, comforts can set in and extended pauses can emerge. Be careful it does not become avoidance. This is not a time to hope things will just go away or change without discomforts being engaged. You will be victorious, and you are supported. Remember this and take that last gulp."
+        "sun_meaning": "A sensitive being who embodies youthful bravery and strength as they head into their soul's dark corners. The medicine being ingested currently is transforming perceptions of self to more loving ones. This can be challenging. This is a step in learning to accept those things one might typically attack in themselves. This phase of self-inquiry is a pivotal one, and eyes can see ahead toward the prize. However, there's more to drink, and the prize will only be in reach when the drink's finished. Maybe this is a moment to enjoy a deep breath before taking the last swig.",
+        "moon_meaning": "As we learn to witness the previously less-liked parts of ourselves, bitter tasting truths can scare us from exploring further. A pause in this moment can be helpful to collect courage, ease our nerves or integrate hard-to-swallow realizations. In this phase, comforts can set in and extended pauses can emerge. Be careful it does not become avoidance or procrastination. This is not a time to hope things will just go away or change without discomforts being met. You will be victorious, and you are supported. Remember this and finish that medicine."
       },
       {
         "id": "twin",
@@ -46,9 +54,9 @@ exports.handler = async function(event, context) {
         "time": "Pause",
         "energy": "Reflect",
         "location": "Home",
-        "element": "light",
-        "sun_meaning": "One who effortlessly reflects another at a level of sometimes uncomfortable depth. More than a typical brother, sister or partner; they see and hear the other at what may seem like their deepest level of self. This energy arises when we are ready to face ourselves, with the bonus added support-stilts of being lovingly held and seen. When a spotlight is upon someone treated like a criminal, the light can feel hot and uncomfortable. When a spotlight is held by one who truly embraces us and is supporting our transformations, unmasking can feel relieving. A twin energy is one of life's gifts to help us evolve, with love. It's worth remembering this when tough times arise with this person. And to remember sometimes, we need to be the one who can reflect another with raw depth and it's not an easy or welcome job most times.",
-        "moon_meaning": "A twin in our lives, while a gift, can make it more challenging to ground into desired ease or comfort. While the love here is easy to give and receive, challenging it with proclaiming needed boundaries or wanting to go off your co-beaten path can seem like a betrayal of the other. Yet… we don't see that we betray ourselves which is betraying the integrity of the relationship. Ultimately, this refinement of self is a critical growth point and when honored and cultivated grants the broadest and deepest rewards. This typically benefits a meaningful connection between two people, even if it leads to the closing of a chapter. When you are both your truest self, you will both radiate your absolute best selves. If this means division is needed; temporary or otherwise, then it's important to honor that. In life, when a relationship is no longer supportive, a new relationship that is, is coming."
+        "element": "Light",
+        "sun_meaning": "One who effortlessly reflects another at a level of sometimes uncomfortable depth. More than a typical brother, sister or partner, they see and hear the other at what may seem like their deepest level of self. This energy arises when we are ready to face ourselves, with the bonus added support-stilts of being lovingly held and seen. When a spotlight is upon someone treated like a criminal, the light can feel hot and uncomfortable. When a spotlight is held by one who truly embraces us and is supporting our transformations, unmasking can feel relieving. A twin energy is one of life's gifts to help us evolve, with love. It's worth remembering this when tough times arise with this person. And to remember sometimes, we need to be the one who can reflect another with raw depth and it's not an easy or welcome job most times.",
+        "moon_meaning": "A twin in our lives, while a gift, can make it more challenging to ground into desired ease or comfort. While the love here is easy to give and receive, challenging it with proclaiming needed boundaries or wanting to go off your co-beaten path can seem like a betrayal of the other. Yet… we don't see that we betray ourselves which then betrays the integrity of the relationship. Ultimately, this refinement of self is a critical growth point and when honored and cultivated grants the grandest and deepest rewards. This typically benefits a meaningful connection between two people, even if it leads to the closing of a chapter. When both in a relationship choose to be their truest self, the world around them changes to an aligned one. If this alignment creates division; temporary or otherwise, then it's important to honor that. In life, when a relationship is no longer supportive, a new relationship that is, is coming."
       },
       {
         "id": "creator",
@@ -58,8 +66,8 @@ exports.handler = async function(event, context) {
         "energy": "Birth",
         "location": "Within",
         "element": "Life",
-        "sun_meaning": "You have the power to bring visions to light, provided you allow the energy coming through to guide the work fully. This may take you into new territories, and feelings of uncertainty. Creation is most empowered when you allow the spirit of 'it' to lead the work. If you try to control or steer the spirit against its nature, you may pervert its essence and goal. As a creator, your ability is to bring an idea to fruit. You begin with a seed and you water that seed. For that seed to grow, it must be given the right environment, nutrients in the soil and correct watering schedule. You are not who dictates what its nature needs, you are the one who identifies its needs, and serves it to successful growth.",
-        "moon_meaning": "Perhaps you are the seed in question. Evaluating your environment, your nourishment and your safety to grow is the message. The irony of creators is some fail to care for themselves in the passion of birthing the creation. In this case, the message is that you're the most important piece of the creation. If a plant has the wrong conditions to grow, it won't fruit, or the fruit will taste foul. You are no different. Are your roots safe to deepen and grow here? Are you hydrating? Getting sun? Are you connecting with the Earth? There's no need to believe in the myth of the suffering artist."
+        "sun_meaning": "You have the power to bring visions to light, provided that you allow the energy coming through to guide the work fully. This may take you into new territories including feelings of uncertainty. Creation is most empowered when you allow the spirit of 'it' to lead the work. If you try to control or steer the spirit against its nature, you may pervert its essence and goal. As a creator nurturing a garden of visions, the journey involves cultivating an idea from seed to fruition through all kinds of weather. You begin with a seed and you water that seed. For that seed to grow, it must be given the right environment, nutrients in the soil and correct watering schedule. You are not who dictates what it needs, you are the one who identifies and responds to its needs and serves the seed to its successful fruiting.",
+        "moon_meaning": "Perhaps you are the seed in question. This may be a time to evaluate your environment, your nourishment and your safety to grow. The irony of creators is some fail to care for themselves in the passion of birthing the creation. In this case, the message is that you're the most important piece of the creation. If a plant has the wrong conditions to grow, it won't fruit, or the fruit will taste foul. You are no different. Are your roots safe to deepen and grow here? Are you hydrating? Getting sun? Are you connecting with the Earth? There's no need to believe in the myth of the suffering artist."
       },
       {
         "id": "noob",
@@ -70,7 +78,7 @@ exports.handler = async function(event, context) {
         "location": "Inspiration",
         "element": "Fire",
         "sun_meaning": "It's a lovely experience to not know what's next. To feel like a child again, innocently poking and prodding things. Perhaps knocking those things around or off shelves to test their limits. Innocence. Excitement. Play! And the safety of a supportive environment and friends to learn freely. With that, comes natural course correction when needed. Enjoy this phase as the forward path forms, whether that results in your gathering of your resources to move forward powerfully, or a movement into a more deliberate and surrendered state of recharging.",
-        "moon_meaning": "It can be easy to stay in the state of 'not knowing' as it seems to mean little responsibility. The hidden truth is that in this 'frozen' state there is a betrayal of self, and a hidden fear keeping this state in play. This can appear as repeated cycles of drifting or procrastination. When a person's forward movement seems to start and stop continually, it's usually down to the simple idea of safety, though it may not be obvious why. Oftentimes we hide these things from ourselves as they were seeded at a moment of pain in a more innocent time. Ask yourself these questions: Where do I feel protected by staying here? In what ways does 'not progressing' keep me hidden or safe? What am I afraid to be responsible for? Am I afraid of imagined scenarios of shame and failure? Do I fear imposter syndrome in success? Rejection, ridicule or shame from others scare me? It's time to be honest with yourself and choose your vision and all it costs, or stay in falsehood and continue betraying your heart, soul and best possible life path."
+        "moon_meaning": "It can be easy to stay in the state of 'not knowing' as it seems to mean little responsibility. The hidden truth is that in this semi-frozen state there is a betrayal of self, and a hidden fear keeping this state in play. This can appear as repeated cycles of drifting or procrastination. When a person's forward movement seems to start and stop continually, it's usually down to the simple idea of safety, though it may not be obvious why. Oftentimes we hide these things from ourselves as they were seeded at a moment of pain in a more innocent time. Ask yourself these questions: Where do I feel protected by staying here? In what ways does 'not progressing' keep me hidden or safe? What am I afraid to be responsible for? Am I afraid of imagined scenarios of shame and failure? Do I fear imposter syndrome in success? Rejection, ridicule or shame from others scare me? It's time to be honest with self. Choose the vision and all that it costs, or stay in a falsehood and continue betraying the heart, soul and best possible life path."
       },
       {
         "id": "dimensional",
@@ -86,7 +94,7 @@ exports.handler = async function(event, context) {
       {
         "id": "highness",
         "title": "Her Highness",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/039e6f41-121f-4c47-97f0-3b217267e188/HerHighness.png",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/ce97cead-b77c-48d3-b1d1-548c12c620c2/HerHighness.png",
         "time": "Now and Long Term",
         "energy": "Ground",
         "location": "Here",
@@ -125,7 +133,7 @@ exports.handler = async function(event, context) {
         "location": "Inside, Caverns, The Womb",
         "element": "Darkness",
         "sun_meaning": "The one who is perfectly at peace in solitude and often believed to be a hermit, or recluse. In the safety of their castle, they are safe and undisturbed, preferring their peace and space to develop themselves or whatever they choose. It's here they can meditate upon musings in great depth. Unmoved by social pressures, they are rarely seen in common gatherings and may be the subject of gossip among the basic-minded. Maybe the stories are true? This one remains unmoved. If needed, they can always leave the confines of their abode and remind others of their uniqueness and presence, but for now, this is not needed. Enjoy this phase of disconnection from the herd, and the joy of exploration in the playgrounds of your rich imagination and mind.", 
-        "moon_meaning": "Too much reclusion can erode into an avoidance of life's beauty. When one stops engaging with all the good things in living, it can be easy to fall into the heavier emotional cycles such as bitterness and depression. There's a reason solitary confinement is considered punishment in prisons. To get the most richness out of our lived experience, other people can add reflection, contrast and expansion. Being around certain people helps us grow, face ourselves, love ourselves in ways we didn't see before, and thrive! Tribes in Africa are founded upon a level of inter-connectedness and harmony that the modern world has lost almost entirely; essentially operating on a shared nervous system. The message here is to explore whether you are denying yourself parts of life that could expand you. Has hiding turned you bitter or afraid when in connection to others? If you are experiencing a state of loneliness or depression, perhaps finding or connecting with people - even prioritizing finding your tribe, your chosen family - is the medicine you need. At the least, you'd do well to get some sunlight."
+        "moon_meaning": "Too much reclusion can erode into an avoidance of life's beauty. When one stops engaging with all the good things in living, it can be easy to fall into the heavier emotional cycles such as bitterness and depression. There's a reason solitary confinement is considered punishment in prisons. To get the most richness out of our lived experience, other people can add reflection, contrast and expansion. Being around certain people helps us grow, face ourselves, love ourselves in ways we didn't see before, and thrive! The Zulu tribe of Africa are founded upon a level of inter-connectedness and harmony that the modern world has lost almost entirely; essentially operating on a shared nervous system. The message here is to explore whether you are denying yourself parts of life that could expand you. Has hiding turned you bitter or afraid when in connection to others? If you are experiencing a state of loneliness or depression, perhaps finding or connecting with people - even prioritizing finding your tribe, your chosen family - is the medicine you need. At the least, you'd do well to get some sunlight."
       },
       {
         "id": "merchant",
@@ -157,8 +165,8 @@ exports.handler = async function(event, context) {
         "energy": "Drive",
         "location": "In the Conflict",
         "element": "Fire",
-        "sun_meaning": "Unstoppable drive and commitment to The Mission, whatever it may be. These spirits can push through anything. With a force of clarity and the vigor to break through any obstacle, the fire of the warrior is priceless when a series of dense challenges arise. Sometimes the mission given is one of protection. To be able to dedicate oneself to the presence of responsibility for the safety of others is truly a special and sacred task. To be capable of this level of selflessness requires a caring heart and one in dedication to the servitude of others. The qualities of the warrior are not just for combat, but can be used in matters of healing, of transformation and to build a new life when the old no longer works.", 
-        "moon_meaning": "The warrior spirit is often misconstrued with violence. Often, many develop warrior-like attitudes to survive times of violence, oppression or dense challenge. After the passing of those times, it's not uncommon to continue using the warrior spirit's power and intensity to move through life. This is often a mistake. Imagine using a rocket to go to a shop 2 minutes walk from you. Though exhilarating perhaps the first few times, it would be needlessly intense and put your nerves on a high alert state. Eventually, the adrenalin highs become crashes and your energy levels habitually oscillate between wiped out and hyper-vigilant. The warrior is one aspect of being human, albeit a powerful one. All warriors need a rest, balance, harmony, joy, play and peace. After all, what's the point of being a warrior if there's no peace after the battle? In case it wasn't obvious, this is your sign to look to where you are over-exerting yourself, picking battles where none are needed, and staying in the fight when it's past the point of being in service to anybody."
+        "sun_meaning": "Unstoppable drive and commitment to The Mission, whatever it may be. These spirits can persevere through anything. With a force of clarity and drive to break through any obstacle, the fire of the warrior is essential when challenges arise. Sometimes the mission given is one of protection. Sometimes it's a mission of resilient non-action when the desire is to act. To be able to dedicate oneself to the presence of responsibility for the safety of others is truly a special and sacred task. To be capable of this level of selflessness requires a caring heart and one in dedication to the servitude of others. The qualities of the warrior are not just for combat, but can be used in matters of healing, of transformation, of peace, and to build a new life when the old no longer works.", 
+        "moon_meaning": "The warrior spirit is often misconstrued with violence. Often, many develop warrior-like attitudes to survive times of violence, oppression or dense challenge. After the passing of those times, it common to continue using the warrior spirit's power and intensity to move through life. This is often a mistake. Imagine using a rocket to go to a shop 2 minutes walk away. Though exhilarating perhaps the first few times, it would be needlessly intense and put the nerves on a high alert state. Eventually, the adrenaline highs are followed by crashes and energy levels oscillate between absolute exhaustion and hyper-arousal. The warrior is one aspect of being human, albeit a powerful one. All warriors need a rest, balance, harmony, joy, play, love and peace. After all, what's the point of being a warrior if there's no enjoyment of the peace earned from battle? In case it wasn't obvious, this is a sign to look to where you are over-exerting yourself, picking battles where none are needed, and staying in the fight when it's past the point of being in service to anybody."
       },
       {
         "id": "firedancer",
@@ -212,8 +220,8 @@ exports.handler = async function(event, context) {
         "energy": "Commitment, Avoidance",
         "location": "Wild Earth",
         "element": "Earth",
-        "sun_meaning": "A being who is consciously, ecstatically given to their purpose. They are heart-forward in their devotion to their cause in service. This can extend into a job role, a spiritual leader, a tribal, familial status or otherwise community-centric position. The devotee is incredibly protected and supported in this ownership of role, watched over by the protectors of those they serve. In this devotional choice of being, the heart-forward devotee surrenders to being a vessel for something seemingly greater than themselves. In that, they become in tune with the needs of whom they serve, and the environment around them. When plugged in this way, they become a channel for the right things to come through.",
-        "moon_meaning": "In a devotional life, some can fall into the extreme of giving their power away, and missing the line where becoming a vessel and becoming a puppet blur. If one is not truly, internally heart-driven by your devotion, chances are they have fallen into being the puppet. This role which becomes more a mask, is often born from a desire to avoid real life, and the feelings of discomfort and disempowerment. When one is seen as a devotional, dedicated embodier of a purpose through role, oftentimes people will automatically hand over their respect. For one avoiding the discomforts of their existence, this can be a potent taste of validation their own loss of self cannot provide. Beware these trappings if you've called in this energy in your reading. This is your pointer to self-explore the true motives of whomever this energy has been called for."
+        "sun_meaning": "A being who is consciously, ecstatically living their purpose. They are heart-forward in their devotion to their cause. To them, it is their service. This energy can extend into a job role, a spiritual leadership, a tribe, a familial status or otherwise community-centric position. The devotee is incredibly protected and supported in the claiming of this role, watched over by the protectors of those they serve. In this devotional choice of being, the heart-forward devotee surrenders to being a vessel for something greater than themselves. In that, they become in tune with the needs of whom they serve, and the environment around them. When plugged-in this way, they become a channel for the most aligned things to come through.",
+        "moon_meaning": "In a devotional life, some can fall into trappings that although look like devotion, are actually a shirking of responsibility through handing over power. Another way to look at this is to consider the difference between a vessel and a puppet. If one is not truly, internally heart-driven by their devotion, it's possible they've become a puppet for a dogma or force. This mask is often born from a desire to avoid responsibility for their life, and feelings of discomfort and disempowerment arising from the challenge of that. Beware these trappings of false devotion. This is a message to explore the deeper truths and motives of devotion around whom this being represents in your oracle."
       },
       {
         "id": "phoenix",
@@ -251,7 +259,7 @@ exports.handler = async function(event, context) {
       {
         "id": "curator",
         "title": "The Curator",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/caaec82a-3a09-467b-8af9-f99f371a7ca0/thecurator.png",  
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/42552a41-8eb4-443f-b98d-c52ca740af08/curator.png",  
         "time": "The Present",
         "energy": "Discern",
         "location": "Where you feel pulled",
@@ -267,18 +275,19 @@ exports.handler = async function(event, context) {
         "energy": "Agress or Disengage",
         "location": "Away",
         "element": "Dark",
-        "sun_meaning": "Romantic, smooth and adventurous, this being enjoys the thrill of a won seduction, with love gained seen as a prize. They enjoy richness in life, by way of sensory pleasures and highs, including delicious foods, gorgeous art and an appreciation of luxuries. For them, life and experiences become moments to be romanticized and perhaps dramatized. This person moves with a sense of drive, when in pursuit of what arouses and excites, though it is not immediately clear to the chased that this purpose may be compelled by an unexamined impulse, wounding or desire. They possess assertiveness, boldness and appear confident, and at times, can appear aggressive and overbearing. Complex and rich, and sometimes a little sweet with a hidden innocence, this is a unique being and should be met with patience when in the dance of getting to know them.",
+        "sun_meaning": "Romantic, smooth and adventurous, this being enjoys the thrill of a won seduction, with love gained seen as a prize. They enjoy richness in life by way of sensory pleasures and highs, such as delicious foods, gorgeous art and general luxuries. For this one, life and experiences become moments to be romanticized and perhaps dramatized. This person moves with a sense of drive when in pursuit of what arouses and excites. It is not immediately clear to the chased that this purpose may be compelled by an unexamined wounding or desire. They possess assertiveness, boldness and appear confident, and at times, this can over-correct into aggressive and overbearing presence. Complex and rich, and sometimes sweet with a hidden innocence, this is a unique being and should be met with patience when in the dance of getting to know them.",
         "moon_meaning": "The shadow of romanticism can sometimes be hiding deep wounds bound in misunderstood innocence. This being can often fall in the trap of seeking only that which arouses or excites. This often leads to an addiction of chasing highs. What happens when the pursued is caught? The hit lands and the high fades away. The interest disappears and the pursued becomes the neglected - a whiplash giving the romance a foul aftertaste. A romantic soul possesses much beauty but when the driving forces are misunderstood, the one who chases can appear as cold, heartless, narcissistic or sociopathic. This is because the addiction of the high pulls us out of the heart - the place the romantic is believed to be behaving from. This is what happens when compulsions are unexamined. Narcissistic spectrum behaviors are best understood rather than demonized. They are a condition to pursue love with low awareness and high selfishness. At extremes, it's a form of 'taking', in order to fill a deep fear of unlovability. This is not a project for you to solve, but a living lesson to give grace, kindness and thanks while you move forward, to somwhere more loving, elsewhere." 
       },
-      // Add your other cards from paste.txt here
+      // Keep all your other cards here - I've removed them for brevity
     ];
 
     return {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://www.themagickmechanic.com', // We'll lock this down in production
-        'Cache-Control': 'no-store'
+        'Access-Control-Allow-Origin': isAllowedOrigin ? new URL(referer).origin : 'https://www.themagickmechanic.com',
+        'Cache-Control': 'no-store, private',
+        'Pragma': 'no-cache'
       },
       body: JSON.stringify(cards)
     };
