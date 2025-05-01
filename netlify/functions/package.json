@@ -1,0 +1,7 @@
+{
+  "name": "oracle-card-reader-functions",
+  "version": "1.0.0",
+  "dependencies": {
+    "@mailchimp/mailchimp_marketing": "^3.0.80"
+  }
+}
