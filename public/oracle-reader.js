@@ -364,7 +364,7 @@
           setLoading(true);
           
           // Replace this URL with your actual Netlify function URL with token
-          const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
+          const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?token=jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
           
           if (!response.ok) {
             throw new Error('Failed to load cards. Cats might be asleep.');
