@@ -1,13 +1,11 @@
 // netlify/functions/save-email.js
 const mailchimp = require('@mailchimp/mailchimp_marketing');
-
 exports.handler = async function(event, context) {
   // Set CORS headers
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
   };
-
   if (event.httpMethod !== 'POST') {
     return { 
       statusCode: 405, 
@@ -15,7 +13,6 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({ error: 'Method not allowed' }) 
     };
   }
-
   try {
     const { email, reading } = JSON.parse(event.body);
     
@@ -28,10 +25,10 @@ exports.handler = async function(event, context) {
       };
     }
     
-    // Configure Mailchimp - use your actual API key and server prefix
+    // Configure Mailchimp - use environment variables
     mailchimp.setConfig({
-      apiKey: process.env.1a173cb58237f419b8ff61943560d09f-us3, // MAILCHIMP_API_KEY is after the first .
-      server: process.env.us3 // e.g., "us3" MAILCHIMP_SERVER_PREFIX
+      apiKey: process.env.MAILCHIMP_API_KEY,
+      server: process.env.MAILCHIMP_SERVER_PREFIX
     });
     
     try {
@@ -50,7 +47,7 @@ exports.handler = async function(event, context) {
       
       // Add subscriber to list (but don't send email yet)
       try {
-        await mailchimp.lists.addListMember(process.env.TMM2018, {  // MAILCHIMP_LIST_ID
+        await mailchimp.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
           email_address: email,
           status: "subscribed",
           merge_fields: {
