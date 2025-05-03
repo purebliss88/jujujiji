@@ -559,32 +559,36 @@
               const email = document.getElementById('user-email').value;
               if (email && email.includes('@')) {
                 // Send the email and reading data to your endpoint
-                fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                 // Change this in the email form section:
-                  body: JSON.stringify({
-                    email: email,
-                    reading: {
-                      type: activeConfig.title,
-                      cards: selectedCards.map((card, i) => ({
-                        position: activeConfig.positions[i].title,
-                        card: card.title,
-                        meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
-                        text: card[card.displayMeaning],
-                        imageUrl: card.image_url  // Add this line to include images
-                      }))
+                  fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      email: email,
+                      reading: {
+                        type: activeConfig.title,
+                        cards: selectedCards.map((card, i) => ({
+                          position: activeConfig.positions[i].title,
+                          card: card.title,
+                          meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
+                          text: card[card.displayMeaning],
+                          imageUrl: card.image_url  // Add this line to include images
+                        }))
+                      }
+                    })
+                  })
+                  .then(response => {
+                    if (response.ok) {
+                      alert('Thank you! Your reading has been sent to your email.');
+                    } else {
+                      alert('There was an error sending your reading. Please try again.');
                     }
                   })
-                .then(response => {
-                  if (response.ok) {
-                    alert('Thank you! Your reading has been sent to your email.');
-                  } else {
+                  .catch(error => {
+                    console.error('Error:', error);
                     alert('There was an error sending your reading. Please try again.');
-                  }
-                })
+                  });
                 .catch(error => {
                   console.error('Error:', error);
                   alert('There was an error sending your reading. Please try again.');
