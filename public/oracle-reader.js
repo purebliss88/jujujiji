@@ -582,16 +582,12 @@
                     if (response.ok) {
                       alert('Thank you! Your reading has been sent to your email.');
                     } else {
-                      alert('There was an error sending your reading. Please try again.');
+                      alert('The cats got distracted and failed to send your reading. Please try again later.');
                     }
                   })
                   .catch(error => {
                     console.error('Error:', error);
-                    alert('There was an error sending your reading. Please try again.');
-                  });
-                .catch(error => {
-                  console.error('Error:', error);
-                  alert('There was an error sending your reading. Please try again.');
+                    alert('The cats got distracted and failed to send your reading. Please try again later.');
                 });
               } else {
                 alert('Please enter a valid email address.');
