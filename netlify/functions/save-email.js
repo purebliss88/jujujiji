@@ -1,20 +1,53 @@
 // netlify/functions/save-email.js
 const mailchimp = require('@mailchimp/mailchimp_marketing');
+
 exports.handler = async function(event, context) {
-  // Set CORS headers
+  // Set up CORS headers for all responses
   const headers = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': 'https://www.themagickmechanic.com',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
   };
+
+  // Handle OPTIONS method for CORS preflight
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: ''
+    };
+  }
+
+  // Only allow POST after passing preflight
   if (event.httpMethod !== 'POST') {
     return { 
       statusCode: 405, 
-      headers,
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ error: 'Method not allowed' }) 
     };
   }
+
+  // Add Content-Type for actual responses
+  headers['Content-Type'] = 'application/json';
+
   try {
-    const { email, reading } = JSON.parse(event.body);
+    // Parse request body
+    let requestBody;
+    try {
+      requestBody = JSON.parse(event.body);
+    } catch (e) {
+      console.error('Failed to parse request body:', e);
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Invalid JSON in request body' })
+      };
+    }
+
+    const { email, reading } = requestBody;
     
     // Validate email
     if (!email || !email.includes('@')) {
@@ -25,16 +58,17 @@ exports.handler = async function(event, context) {
       };
     }
     
-    // Configure Mailchimp - use environment variables
-    mailchimp.setConfig({
-      apiKey: process.env.MAILCHIMP_API_KEY,
-      server: process.env.MAILCHIMP_SERVER_PREFIX
-    });
+    // Log incoming data
+    console.log('Email:', email);
+    console.log('Reading type:', reading.type);
+    console.log('Cards:', reading.cards.length);
     
     try {
-      // First log data for debugging
-      console.log('Email:', email);
-      console.log('Reading type:', reading.type);
+      // Configure Mailchimp
+      mailchimp.setConfig({
+        apiKey: process.env.MAILCHIMP_API_KEY,
+        server: process.env.MAILCHIMP_SERVER_PREFIX
+      });
       
       // Format reading for email body
       let readingText = `Your ${reading.type} from The Magick Mechanic\n\n`;
@@ -45,7 +79,7 @@ exports.handler = async function(event, context) {
         readingText += `${card.text}\n\n`;
       });
       
-      // Add subscriber to list (but don't send email yet)
+      // Add subscriber to list
       try {
         await mailchimp.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
           email_address: email,
@@ -59,40 +93,53 @@ exports.handler = async function(event, context) {
         console.log('Successfully added/updated subscriber');
       } catch (listError) {
         console.error('Mailchimp list error:', listError);
-        // Still proceed to try sending the transactional email
+        // Continue to try to send email even if list subscription fails
       }
       
-      // Send a simple transactional email for now
-      // We're not using a template here to keep it simple
-      const response = await mailchimp.messages.send({
-        message: {
-          subject: `Your ${reading.type} from The Magick Mechanic`,
-          html: `<h1>Your Oracle Card Reading</h1><p>The Magickal Cats are excited to consult you!</p><p>Your reading will be available soon.</p>`,
-          text: readingText,
-          from_email: "noreply@themagickmechanic.com",
-          from_name: "The Magick Mechanic",
-          to: [{
-            email: email,
-            type: "to"
-          }]
-        }
-      });
-      
-      console.log('Email sent:', response);
-      
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ 
-          success: true,
-          message: "Thank you! Your reading is traveling through the ethers to your inbox."
-        })
-      };
+      // Try to send transactional email
+      // Note: This might not be available on your Mailchimp plan
+      try {
+        const response = await mailchimp.messages.send({
+          message: {
+            subject: `Your ${reading.type} from The Magick Mechanic`,
+            html: `<h1>Your Oracle Card Reading</h1><p>The Magickal Cats are excited to consult you!</p><p>Your reading will be available soon.</p>`,
+            text: readingText,
+            from_email: "noreply@themagickmechanic.com",
+            from_name: "The Magick Mechanic",
+            to: [{
+              email: email,
+              type: "to"
+            }]
+          }
+        });
+        
+        console.log('Email sent:', response);
+        
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ 
+            success: true,
+            message: "Thank you! Your reading is traveling through the ethers to your inbox."
+          })
+        };
+      } catch (emailError) {
+        console.error('Email sending error:', emailError);
+        // Return success but with fallback message
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ 
+            success: true,
+            message: "Thank you for subscribing! We'll send your reading shortly."
+          })
+        };
+      }
       
     } catch (mailchimpError) {
-      console.error('Mailchimp error:', mailchimpError);
+      console.error('Mailchimp setup error:', mailchimpError);
       
-      // Return a user-friendly message
+      // Return a user-friendly message even on error
       return {
         statusCode: 200,
         headers,
