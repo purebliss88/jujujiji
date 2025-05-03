@@ -564,6 +564,7 @@
                   headers: {
                     'Content-Type': 'application/json',
                   },
+                 // Change this in the email form section:
                   body: JSON.stringify({
                     email: email,
                     reading: {
@@ -572,11 +573,11 @@
                         position: activeConfig.positions[i].title,
                         card: card.title,
                         meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
-                        text: card[card.displayMeaning]
+                        text: card[card.displayMeaning],
+                        imageUrl: card.image_url  // Add this line to include images
                       }))
                     }
                   })
-                })
                 .then(response => {
                   if (response.ok) {
                     alert('Thank you! Your reading has been sent to your email.');
@@ -609,7 +610,7 @@
         React.createElement("p", null, [
           "© " + new Date().getFullYear() + " The Magick Mechanic. All rights reserved.",
           React.createElement("br"),
-          "This Oracle Card Reader and all card content are protected by copyright law. Unauthorized reproduction, distribution, or use of these cards or readings for commercial purposes is prohibited."
+          "This Oracle Card Reader and all card content are protected by copyright law. Unauthorized reproduction, distribution, or use of these cards or readings is prohibited."
         ])
       ])
     ]);
