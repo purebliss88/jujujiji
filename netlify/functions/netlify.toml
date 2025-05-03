@@ -4,8 +4,8 @@
   command = "npm install"
 
 [[headers]]
-  for = "/*"
+  for = "/.netlify/functions/*"
     [headers.values]
-    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Origin = "https://www.themagickmechanic.com"
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
