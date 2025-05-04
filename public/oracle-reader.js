@@ -315,14 +315,14 @@
           { title: "Your Guidance" }
         ]
       },
-      past_present_future: {
-        title: "Past, Present, Future",
-        description: "Explore your timeline with three cards",
+      reasons_thing: {
+        title: "The forces moving around an important decision",
+        description: "Ask what forces exist in recommendation and protest of a decision",
         cardCount: 3,
         positions: [
-          { title: "Past - What led you here" },
-          { title: "Present - Your current situation" },
-          { title: "Future - Where you're heading" }
+          { title: "Forces moving in support of your decision" },
+          { title: "Forces moving against your decision" },
+          { title: "What energies to embody to sway the outcome in your favor" }
         ]
       },
       situation_action_outcome: {
@@ -336,17 +336,30 @@
         ]
       },
       five_card_cross: {
-        title: "Five Card Cross",
+        title: "Five Card Cross / Spread",
         description: "A comprehensive view of your situation",
         cardCount: 5,
         positions: [
-          { title: "Center - Core issue" },
-          { title: "Above - What influences you" },
-          { title: "Below - Your foundation" },
-          { title: "Left - Past influences" },
-          { title: "Right - Future outcome" }
+          { title: "1 - Core issue" },
+          { title: "2 - What influences you" },
+          { title: "3 - Your foundation" },
+          { title: "4 - Past influences" },
+          { title: "5 - Future outcome" }
         ]
-      }
+      },
+      who_am_i: {
+        title: "Archetypal Reading",
+        description: "Who do I need to be to achieve what I desire?",
+        cardCount: 6,
+        positions: [
+          { title: "How I got here - What qualities did you most embody" },
+          { title: "The present - What qualities do you embody most today" },
+          { title: "Resistance - What qualities keep you away from your desire" },
+          { title: "Empowerment - What qualities must you embody to best succeed" },
+          { title: "Support - The types of people who will be supportive to your quest" },
+          { title: "Reward - The gifts that will come from success" }
+        ]
+      },
     };
     
     // State variables
@@ -367,7 +380,7 @@
           const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?token=jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
           
           if (!response.ok) {
-            throw new Error('Failed to load cards. Cats might be asleep.');
+            throw new Error('Failed to load cards. The cats might be asleep.');
           }
           
           const data = await response.json();
@@ -560,35 +573,37 @@
               if (email && email.includes('@')) {
                 // Send the email and reading data to your endpoint
                   fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      email: email,
-                      reading: {
-                        type: activeConfig.title,
-                        cards: selectedCards.map((card, i) => ({
-                          position: activeConfig.positions[i].title,
-                          card: card.title,
-                          meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
-                          text: card[card.displayMeaning],
-                          imageUrl: card.image_url  // Add this line to include images
-                        }))
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        email: email,
+                        reading: {
+                          type: activeConfig.title,
+                          cards: selectedCards.map((card, i) => ({
+                            position: activeConfig.positions[i].title,
+                            card: card.title,
+                            meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
+                            text: card[card.displayMeaning],
+                            imageUrl: card.image_url
+                          }))
+                        }
+                      })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                      if (data.success) {
+                        alert('Thank you! Your reading has been sent to your email.');
+                      } else {
+                        alert('Failed to send your reading: ' + (data.message || 'Unknown error'));
+                        console.error('Email error:', data);
                       }
                     })
-                  })
-                  .then(response => {
-                    if (response.ok) {
-                      alert('Thank you! Your reading has been sent to your email.');
-                    } else {
+                    .catch(error => {
+                      console.error('Error:', error);
                       alert('The cats got distracted and failed to send your reading. Please try again later.');
-                    }
-                  })
-                  .catch(error => {
-                    console.error('Error:', error);
-                    alert('The cats got distracted and failed to send your reading. Please try again later.');
-                });
+                    });
               } else {
                 alert('Please enter a valid email address.');
               }
@@ -608,7 +623,7 @@
       // Copyright notice
       React.createElement("div", { className: "copyright-notice" }, [
         React.createElement("p", null, [
-          "© " + new Date().getFullYear() + " The Magick Mechanic. All rights reserved.",
+          "© " + new Date().getFullYear() + "Copyright 2025 The Magick Mechanic and Daniel Boutros. All rights reserved.",
           React.createElement("br"),
           "This Oracle Card Reader and all card content are protected by copyright law. Unauthorized reproduction, distribution, or use of these cards or readings is prohibited."
         ])
