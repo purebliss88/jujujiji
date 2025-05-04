@@ -316,7 +316,7 @@
         ]
       },
       reasons_thing: {
-        title: "The forces moving around an important decision",
+        title: "The forces around an important decision",
         description: "Ask what forces exist in recommendation and protest of a decision",
         cardCount: 3,
         positions: [
@@ -358,6 +358,19 @@
           { title: "Empowerment - What qualities must you embody to best succeed" },
           { title: "Support - The types of people who will be supportive to your quest" },
           { title: "Reward - The gifts that will come from success" }
+        ]
+      },
+      relationship_grid: {
+        title: "Relationship Challenge",
+        description: "Hidden forces present in a relationship",
+        cardCount: 6,
+        positions: [
+          { title: "Who you are being in this dynamic" },
+          { title: "Who they are being in this dynamic" },
+          { title: "What is destructive in the dynamic" },
+          { title: "What is healthy in the dynamic" },
+          { title: "What qualities you can embody to elevate the dynamic" },
+          { title: "The transformation that will occur if successful" }
         ]
       },
     };
