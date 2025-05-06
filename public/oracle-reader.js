@@ -60,7 +60,7 @@
     }
 
     /* Add specific layouts for different reading types */
-    .five-card-display {
+    /* .five-card-display {
       display: grid;
       grid-template-areas:
         ".     above  ."
@@ -90,7 +90,7 @@
 
     .five-card-display .tarot-card:nth-child(5) {
       grid-area: right;
-    }
+    } */
     
     .card-back {
       height: 150px;
@@ -309,68 +309,68 @@
     const readingConfigurations = {
       single: {
         title: "Single Card Reading",
-        description: "Draw one card for immediate guidance",
+        description: "Draw one card for immediate guidance.",
         cardCount: 1,
         positions: [
           { title: "Your Guidance" }
         ]
       },
       reasons_thing: {
-        title: "The forces around an important decision",
-        description: "Ask what forces exist in recommendation and protest of a decision",
+        title: "The forces surrounding an important decision",
+        description: "What forces are at play around your important decision?",
         cardCount: 3,
         positions: [
-          { title: "Forces moving in support of your decision" },
-          { title: "Forces moving against your decision" },
-          { title: "What energies to embody to sway the outcome in your favor" }
+          { title: "The force(s) moving in support of your decision." },
+          { title: "The force(s) moving against your decision." },
+          { title: "What energies you can embody to sway the outcome in your favor." }
         ]
       },
       situation_action_outcome: {
         title: "Situation, Action, Outcome",
-        description: "Understand a challenge and how to address it",
+        description: "Understand a challenge and how to address it.",
         cardCount: 3,
         positions: [
-          { title: "Situation - The current challenge" },
-          { title: "Action - What to do" },
-          { title: "Outcome - The result of taking action" }
+          { title: "Situation - The current challenge." },
+          { title: "Action - What to do." },
+          { title: "Outcome - The result of taking action." }
         ]
       },
       five_card_cross: {
-        title: "Five Card Cross / Spread",
-        description: "A comprehensive view of your situation",
+        title: "Five Card Spread",
+        description: "A comprehensive view of your situation.",
         cardCount: 5,
         positions: [
-          { title: "1 - Core issue" },
-          { title: "2 - What influences you" },
-          { title: "3 - Your foundation" },
-          { title: "4 - Past influences" },
-          { title: "5 - Future outcome" }
+          { title: "1 - Core issue." },
+          { title: "2 - What influences you." },
+          { title: "3 - Your foundation." },
+          { title: "4 - Past influences." },
+          { title: "5 - Future outcome." }
         ]
       },
       who_am_i: {
-        title: "Archetypal Reading",
-        description: "Who do I need to be to achieve what I desire?",
+        title: "The Archetype Reading",
+        description: "Who do you need to be to achieve what you desire?",
         cardCount: 6,
         positions: [
-          { title: "How I got here - What qualities did you most embody" },
-          { title: "The present - What qualities do you embody most today" },
-          { title: "Resistance - What qualities keep you away from your desire" },
-          { title: "Empowerment - What qualities must you embody to best succeed" },
-          { title: "Support - The types of people who will be supportive to your quest" },
-          { title: "Reward - The gifts that will come from success" }
+          { title: "How I got here - What qualities did you most embody." },
+          { title: "The present - What qualities do you embody most today." },
+          { title: "Resistance - What qualities keep you away from your desire." },
+          { title: "Empowerment - What qualities must you embody to best succeed." },
+          { title: "Support - The types of people who will be supportive to your quest." },
+          { title: "Reward - The gifts that will come from success." }
         ]
       },
       relationship_grid: {
-        title: "Relationship Challenge",
-        description: "Hidden forces present in a relationship",
+        title: "Relationship Reading",
+        description: "What hidden forces are present in your chosen relationship?",
         cardCount: 6,
         positions: [
-          { title: "Who you are being in this dynamic" },
-          { title: "Who they are being in this dynamic" },
-          { title: "What is destructive in the dynamic" },
-          { title: "What is healthy in the dynamic" },
-          { title: "What qualities you can embody to elevate the dynamic" },
-          { title: "The transformation that will occur if successful" }
+          { title: "Who you are being in this dynamic." },
+          { title: "Who they are being in this dynamic." },
+          { title: "What is destructive in the dynamic." },
+          { title: "What is healthy in the dynamic." },
+          { title: "What qualities you can embody to elevate the dynamic." },
+          { title: "The transformation that will occur if successful." }
         ]
       },
     };
@@ -465,7 +465,7 @@
           setLoading(true);
           const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?token=jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
           if (!response.ok) {
-            throw new Error('Failed to load cards');
+            throw new Error('Sleeping cats. Failed to summon cards');
           }
           const data = await response.json();
           setCards(data);
