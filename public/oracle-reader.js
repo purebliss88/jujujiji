@@ -266,7 +266,7 @@
         max-width: 95%;
       }
 
-      .five-card-display {
+    /*  .five-card-display {
         display: grid;
         grid-template-areas:
           "center"
@@ -275,7 +275,7 @@
           "left"
           "right";
         grid-template-columns: 1fr;
-      }
+      } */
     }
     
     @keyframes cardReveal {
