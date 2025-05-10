@@ -51,12 +51,19 @@
     
     .card-display {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: 1fr 1fr;   /* setting columns for display of card readings */
       gap: 30px;
       margin-top: 30px;
       max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
+    }
+    
+    // And make it responsive by adjusting for mobile
+    @media (max-width: 768px) {
+      .card-display {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Add specific layouts for different reading types */
