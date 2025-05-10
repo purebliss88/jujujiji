@@ -66,6 +66,17 @@
       }
     }
 
+    // Reading container screen jump protection
+      .reading-container {
+        min-height: 700px;   /* Adjust this value based on your typical content height */
+        position: relative;
+        transition: min-height 0.3s ease;
+      }
+      
+      .drawing-area {
+        min-height: 300px; /* Adjust as needed */
+      }
+
     /* Add specific layouts for different reading types */
     /* .five-card-display {
       display: grid;
@@ -415,16 +426,20 @@
       fetchCards();
     }, []);
     
-    // Add this after the fetchCards useEffect
+    // Existing useEffect for scrolling
     React.useEffect(() => {
       if (activeConfig && selectedCards.length === activeConfig.cardCount) {
         // All cards have been drawn, scroll to the results
         setTimeout(() => {
           const resultsArea = document.getElementById('reading-results');
           if (resultsArea) {
-            resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            resultsArea.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start',
+              inline: 'nearest'
+            });
           }
-        }, 300);
+        }, 500); // Increased timeout to give DOM time to update
       }
     }, [selectedCards.length, activeConfig]);
     
@@ -527,20 +542,22 @@
     // Drawing cards view
     if (activeConfig && selectedCards.length < activeConfig.cardCount) {
       const currentPosition = activeConfig.positions[selectedCards.length];
-      return React.createElement("div", { className: "drawing-area", id: "drawing-area" }, [
-        React.createElement("p", { className: "instruction-text" },
-          `Drawing card ${selectedCards.length + 1} of ${activeConfig.cardCount}: ${currentPosition.title}`),
-        React.createElement("p", { className: "sub-instruction-text" },
-          "Focus on this aspect as you draw your card"),
-        React.createElement("button", {
-          className: "oracle-button",
-          onClick: drawCard
-        }, "Draw Card")
+      return React.createElement("div", { className: "reading-container" }, [
+        React.createElement("div", { className: "drawing-area", id: "drawing-area" }, [
+          React.createElement("p", { className: "instruction-text" },
+            `Drawing card ${selectedCards.length + 1} of ${activeConfig.cardCount}: ${currentPosition.title}`),
+          React.createElement("p", { className: "sub-instruction-text" },
+            "Focus on this aspect as you draw your card"),
+          React.createElement("button", {
+            className: "oracle-button",
+            onClick: drawCard
+          }, "Draw Card")
+        ])
       ]);
     }
     
     // Reading results view
-    return React.createElement("div", null, [
+    return React.createElement("div", { className: "reading-container" }, [
       React.createElement("h2", { className: "reading-title" }, activeConfig.title),
       React.createElement("div", { 
         className: activeConfig.cardCount === 5 ? "five-card-display" : "card-display", 
