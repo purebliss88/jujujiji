@@ -717,5 +717,6 @@
   }
   
   // Render the component into the container
+  const domContainer = document.getElementById('oracle-reader-container');
   ReactDOM.render(React.createElement(OracleCardReader), domContainer);
 })();
