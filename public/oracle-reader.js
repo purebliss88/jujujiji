@@ -519,7 +519,19 @@
     const resetReading = () => {
       setReadingType(null);
       setSelectedCards([]);
-      // Refetch to reset
+      
+    // Scroll back to the reading options
+      setTimeout(() => {
+        const readingOptions = document.querySelector('.reading-options');
+        if (readingOptions) {
+          readingOptions.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start'
+          });
+        }
+      }, 100);
+      
+    // Refetch to reset
       async function fetchCards() {
         try {
           setLoading(true);
@@ -531,7 +543,7 @@
           setCards(data);
           setLoading(false);
         } catch (err) {
-          setError('Unable to load cards due to possible cat napping. Please try again later.');
+          setError('Unable to load cards due to cats probably napping. Please try again later.');
           setLoading(false);
         }
       }
@@ -657,7 +669,7 @@
               const email = document.getElementById('user-email').value;
               if (email && email.includes('@')) {
                 // Send the email and reading data to your endpoint
-                fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
+                fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/mailjet-reading', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
