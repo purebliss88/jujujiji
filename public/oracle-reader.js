@@ -8,6 +8,8 @@
       margin: 0 auto;
       padding: 20px;
       font-family: inherit;
+      /* Add smooth scroll behavior */
+      scroll-behavior: smooth;
     }
 
     .oracle-button {
@@ -168,6 +170,7 @@
       border-radius: 4px;
     }
     
+    /* Prevent layout shifts during card interactions */
     .tarot-card {
       background: #071037;
       border: 1px solid #C79535;
@@ -176,6 +179,7 @@
       color: white;
       max-width: 100%;
       box-sizing: border-box;
+      contain: layout style paint; /* Prevent layout shifts */
     }
     
     .card-image {
@@ -281,20 +285,7 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
-    @media (min-width: 768px) {
-      .email-input-group {
-        flex-direction: row;
-      }
-      
-      .email-input {
-        flex: 1;
-      }
-      
-      .email-submit {
-        width: auto;
-      }
-    }
-
+    /* Prevent jumping on mobile */
     @media (max-width: 768px) {
       .card-display {
         grid-template-columns: 1fr;
@@ -302,6 +293,8 @@
       
       .reading-options {
         grid-template-columns: 1fr;  /* Single column on mobile */
+        padding: 20px 15px;
+        margin-bottom: 20px;
       }
       
       .instruction-text {
@@ -324,6 +317,39 @@
       .reading-container[data-cards="3"] { min-height: 2400px; }
       .reading-container[data-cards="5"] { min-height: 4000px; }
       .reading-container[data-cards="6"] { min-height: 4800px; }
+      
+      /* Smoother mobile animations */
+      .tarot-card {
+        transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+    }
+
+    /* Desktop-specific adjustments */
+    @media (min-width: 769px) {
+      .reading-options {
+        padding: 30px 20px;
+        margin-bottom: 30px;
+      }
+      
+      .tarot-card {
+        transition: transform 0.5s ease-in-out;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .email-input-group {
+        flex-direction: row;
+      }
+      
+      .email-input {
+        flex: 1;
+      }
+      
+      .email-submit {
+        width: auto;
+      }
     }
     
     @keyframes cardReveal {
@@ -342,6 +368,31 @@
     }
   `;
   document.head.appendChild(style);
+  
+  // Device detection utility
+  const getDeviceType = () => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+    const isTablet = /ipad|android(?!.*mobile)/i.test(userAgent);
+    const screenWidth = window.innerWidth;
+    
+    if (isMobile && screenWidth < 768) return 'mobile';
+    if (isTablet || (screenWidth >= 768 && screenWidth < 1024)) return 'tablet';
+    return 'desktop';
+  };
+
+  // Viewport height fix for mobile browsers
+  const setViewportHeight = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
+
+  // Initialize viewport fixes
+  window.addEventListener('load', setViewportHeight);
+  window.addEventListener('resize', setViewportHeight);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(setViewportHeight, 100);
+  });
   
   // Helper function to format text with paragraphs
   function formatText(text) {
@@ -515,23 +566,50 @@
       }, 100);
     };
     
-    // Function to reset reading
+    // Enhanced reset function with device-aware scrolling
     const resetReading = () => {
       setReadingType(null);
       setSelectedCards([]);
+      setActiveConfig(null);
       
-    // Scroll back to the reading options
+      // Device-aware scrolling behavior
+      const deviceType = getDeviceType();
+      const scrollOptions = {
+        mobile: {
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        },
+        tablet: {
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest'
+        },
+        desktop: {
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'start'
+        }
+      };
+      
+      // Scroll back to reading options with device-specific behavior
       setTimeout(() => {
         const readingOptions = document.querySelector('.reading-options');
         if (readingOptions) {
-          readingOptions.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start'
-          });
+          // Use device-specific scroll options
+          readingOptions.scrollIntoView(scrollOptions[deviceType]);
+          
+          // Additional mobile-specific adjustments
+          if (deviceType === 'mobile') {
+            // Small delay to ensure smooth scroll completion
+            setTimeout(() => {
+              window.scrollBy(0, -20); // Slight adjustment for mobile
+            }, 300);
+          }
         }
       }, 100);
       
-    // Refetch to reset
+      // Refetch cards
       async function fetchCards() {
         try {
           setLoading(true);
