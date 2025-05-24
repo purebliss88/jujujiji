@@ -517,8 +517,8 @@
             // First, ensure the container is visible
             resultsArea.style.opacity = '0';
             resultsArea.scrollIntoView({ 
-              behavior: 'auto',  // Use auto instead of smooth for initial position
-              block: 'start',
+              behavior: 'smooth',  // Changed to smooth
+              block: 'start',      // Keep at start to show the full reading
               inline: 'nearest'
             });
             
@@ -577,7 +577,7 @@
       const scrollOptions = {
         mobile: {
           behavior: 'smooth',
-          block: 'start',
+          block: 'start',      // Keep at start to show the full reading
           inline: 'nearest'
         },
         tablet: {
@@ -587,8 +587,8 @@
         },
         desktop: {
           behavior: 'smooth',
-          block: 'start',
-          inline: 'start'
+          block: 'center',     // Changed from 'start' to 'center'
+          inline: 'start'      // Original at start
         }
       };
       
@@ -599,11 +599,16 @@
           // Use device-specific scroll options
           readingOptions.scrollIntoView(scrollOptions[deviceType]);
           
-          // Additional mobile-specific adjustments
+          // Additional adjustments for different devices
           if (deviceType === 'mobile') {
             // Small delay to ensure smooth scroll completion
             setTimeout(() => {
               window.scrollBy(0, -20); // Slight adjustment for mobile
+            }, 300);
+          } else if (deviceType === 'desktop') {
+            // Scroll up a bit more on desktop to show content above reading options
+            setTimeout(() => {
+              window.scrollBy(0, -80); // Scroll up 80px to show more context above
             }, 300);
           }
         }
@@ -660,6 +665,17 @@
                 shuffleCards();
                 setReadingType(configKey);
                 setActiveConfig(config);
+                
+                // Scroll to the drawing area after setting reading type
+                setTimeout(() => {
+                  const drawingArea = document.getElementById('drawing-area');
+                  if (drawingArea) {
+                    drawingArea.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'center'
+                    });
+                  }
+                }, 200);
               }
             }, `Begin ${config.title}`)
           ]);
