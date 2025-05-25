@@ -238,8 +238,8 @@
       font-size: 1.8em;
       background: #4A0401;
       padding: 20px;
-      border-radius: 12px;
-      border: 1px solid #C79535;
+      /*  border-radius: 12px;  */
+      /*  border: 1px solid #C79535; */
     }
 
     .email-form {
