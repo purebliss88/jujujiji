@@ -289,6 +289,17 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
+    /* New Reading button spacing - closer on desktop */
+    .new-reading-button {
+      margin-top: 40px; /* Default mobile spacing */
+    }
+
+    @media (min-width: 769px) {
+      .new-reading-button {
+        margin-top: 20px; /* Half distance on desktop */
+      }
+    }
+
     /* Prevent jumping on mobile */
     @media (max-width: 768px) {
       .card-display {
@@ -805,8 +816,7 @@
       
       // New Reading button - closer to email form on desktop
       React.createElement("div", { 
-        className: "drawing-area",
-        style: { marginTop: window.innerWidth >= 769 ? "20px" : "40px" } // Half distance on desktop
+        className: "drawing-area new-reading-button"
       },
         React.createElement("button", {
           className: "oracle-button",
