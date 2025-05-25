@@ -1,4 +1,13 @@
-// Oracle Card Reader
+// New Reading button - closer to email form on desktop
+      React.createElement("div", { 
+        className: "drawing-area",
+        style: { marginTop: window.innerWidth >= 769 ? "20px" : "40px" } // Half distance on desktop
+      },
+        React.createElement("button", {
+          className: "oracle-button",
+          onClick: resetReading
+        }, "Start New Reading")
+      ),// Oracle Card Reader
 (function() {
   // Create styles
   const style = document.createElement('style');
@@ -236,6 +245,10 @@
       color: #C79535;
       margin: 30px 0;
       font-size: 1.8em;
+      background: #4A0401;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #C79535;
     }
 
     .email-form {
@@ -505,6 +518,11 @@
       }
       
       fetchCards();
+      
+      // On first load, scroll to top to show instructions above reading options
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
     }, []);
     
     // Improved scrolling behavior
@@ -803,8 +821,11 @@
         ])
       ]),
       
-      // New Reading button
-      React.createElement("div", { className: "drawing-area" },
+      // New Reading button - closer to email form on desktop
+      React.createElement("div", { 
+        className: "drawing-area",
+        style: { marginTop: window.innerWidth >= 769 ? "20px" : "40px" } // Half distance on desktop
+      },
         React.createElement("button", {
           className: "oracle-button",
           onClick: resetReading
