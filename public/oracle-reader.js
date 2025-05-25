@@ -577,7 +577,7 @@
       const scrollOptions = {
         mobile: {
           behavior: 'smooth',
-          block: 'start',      // Keep at start to show the full reading
+          block: 'start',
           inline: 'nearest'
         },
         tablet: {
@@ -588,7 +588,7 @@
         desktop: {
           behavior: 'smooth',
           block: 'center',     // Changed from 'start' to 'center'
-          inline: 'start'      // Original at start
+          inline: 'start'
         }
       };
       
