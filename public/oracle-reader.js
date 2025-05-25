@@ -1,13 +1,4 @@
-// New Reading button - closer to email form on desktop
-      React.createElement("div", { 
-        className: "drawing-area",
-        style: { marginTop: window.innerWidth >= 769 ? "20px" : "40px" } // Half distance on desktop
-      },
-        React.createElement("button", {
-          className: "oracle-button",
-          onClick: resetReading
-        }, "Start New Reading")
-      ),// Oracle Card Reader
+// Oracle Card Reader
 (function() {
   // Create styles
   const style = document.createElement('style');
@@ -584,49 +575,40 @@
       }, 100);
     };
     
-    // Enhanced reset function with device-aware scrolling
+    // Enhanced reset function with Squarespace-aware scrolling
     const resetReading = () => {
       setReadingType(null);
       setSelectedCards([]);
       setActiveConfig(null);
       
-      // Device-aware scrolling behavior
-      const deviceType = getDeviceType();
-      const scrollOptions = {
-        mobile: {
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest'
-        },
-        tablet: {
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'nearest'
-        },
-        desktop: {
-          behavior: 'smooth',
-          block: 'center',     // Changed from 'start' to 'center'
-          inline: 'start'
-        }
-      };
-      
-      // Scroll back to reading options with device-specific behavior
+      // Scroll back to Oracle Reader container within the Squarespace page
       setTimeout(() => {
-        const readingOptions = document.querySelector('.reading-options');
-        if (readingOptions) {
-          // Use device-specific scroll options
-          readingOptions.scrollIntoView(scrollOptions[deviceType]);
+        // First try to find the Oracle Reader container
+        const oracleContainer = document.getElementById('oracle-reader-container');
+        
+        if (oracleContainer) {
+          // Get the container's position relative to the entire page
+          const containerRect = oracleContainer.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const containerTop = containerRect.top + scrollTop;
           
-          // Additional adjustments for different devices
-          if (deviceType === 'mobile') {
-            // Small delay to ensure smooth scroll completion
+          // Scroll to show the container with some padding above it
+          window.scrollTo({
+            top: containerTop - 100, // 100px padding above the container
+            behavior: 'smooth'
+          });
+        } else {
+          // Fallback: try to find reading options and scroll to them
+          const readingOptions = document.querySelector('.reading-options');
+          if (readingOptions) {
+            readingOptions.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start'
+            });
+            
+            // Additional adjustment to show content above
             setTimeout(() => {
-              window.scrollBy(0, -20); // Slight adjustment for mobile
-            }, 300);
-          } else if (deviceType === 'desktop') {
-            // Scroll up a bit more on desktop to show content above reading options
-            setTimeout(() => {
-              window.scrollBy(0, -80); // Scroll up 80px to show more context above
+              window.scrollBy(0, -150);
             }, 300);
           }
         }
