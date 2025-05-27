@@ -239,7 +239,6 @@
       background: #4A0401;
       padding: 20px;
       border-radius: 12px;
-      border: 1px solid #C79535;
     }
 
     .email-form {
@@ -267,7 +266,7 @@
     .email-form-description {
       color: #FEF7F2; /* OFFWHITE */
       margin-bottom: 25px;
-      line-height: 1.5;
+      line-height: 1.2;
       font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
       letter-spacing: 2.5px; /* LS 25 */
     }
@@ -279,7 +278,7 @@
     }
 
     .email-input {
-      padding: 15px;
+      padding: 10px;
       border: 2px solid #C79535; /* ACC GOLD border */
       border-radius: 8px;
       font-size: 16px;
@@ -287,14 +286,14 @@
       color: #020202; /* BLACK text */
       font-weight: 500;
       font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
-      letter-spacing: 2.5px; /* LS 25 */
+      letter-spacing: 2.2px; /* LS 25 */
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .email-input::placeholder {
       color: #161719; /* CHARCOAL for placeholder */
       font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
-      letter-spacing: 2.5px;
+      letter-spacing: 2.2px;
     }
 
     .email-input:focus {
