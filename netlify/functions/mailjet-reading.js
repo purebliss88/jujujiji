@@ -32,7 +32,7 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // Create professional HTML template
+    // Create professional HTML template with brand colors and fonts
     const htmlTemplate = `
     <!DOCTYPE html>
     <html lang="en">
@@ -41,30 +41,34 @@ exports.handler = async function(event, context) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Your ${reading.type} Reading</title>
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+            /* Import Google Fonts as fallbacks */
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Inter:wght@300;400;500&display=swap');
             
             body { 
                 margin: 0; 
                 padding: 0; 
-                font-family: 'Crimson Text', Georgia, serif; 
-                background: linear-gradient(135deg, #071037 0%, #1a1a2e 50%, #16213e 100%);
-                color: #333;
+                font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+                letter-spacing: 2.5px;
+                background: linear-gradient(135deg, #071037 0%, #161719 50%, #0A2E44 100%);
+                color: #FEF7F2;
             }
             
             .email-container {
                 max-width: 650px;
                 margin: 0 auto;
-                background: #ffffff;
+                background: #020202;
                 border-radius: 15px;
                 overflow: hidden;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                box-shadow: 0 20px 40px rgba(199, 149, 53, 0.3);
+                border: 2px solid #C79535;
             }
             
             .header {
-                background: linear-gradient(135deg, #C79535 0%, #DAA520 100%);
+                background: linear-gradient(135deg, #4A0401 0%, #720400 100%);
                 padding: 40px 30px;
                 text-align: center;
                 position: relative;
+                border-bottom: 3px solid #C79535;
             }
             
             .header::before {
@@ -74,24 +78,30 @@ exports.handler = async function(event, context) {
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.3)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
-                opacity: 0.3;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(199,149,53,0.4)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+                opacity: 0.6;
             }
             
             .header h1 {
-                color: #fff;
+                color: #C79535;
                 font-size: 32px;
-                font-weight: 600;
-                margin: 0 0 10px 0;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                font-family: 'Rasputin', Georgia, 'Times New Roman', serif;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 4.4px;
+                margin: 0 0 8px 0;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
                 position: relative;
                 z-index: 1;
             }
             
             .header .subtitle {
-                color: rgba(255,255,255,0.9);
+                color: #FFEE86;
                 font-size: 18px;
+                font-family: 'Polarity Light', 'Helvetica Neue Light', Helvetica, sans-serif;
                 font-style: italic;
+                text-transform: uppercase;
+                letter-spacing: 11.1px;
                 margin: 0;
                 position: relative;
                 z-index: 1;
@@ -99,140 +109,191 @@ exports.handler = async function(event, context) {
             
             .content {
                 padding: 40px 30px;
+                background: #161719;
             }
             
             .reading-intro {
                 text-align: center;
-                margin-bottom: 40px;
+                margin-bottom: 30px;
                 padding: 25px;
-                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                background: linear-gradient(135deg, #071037 0%, #0A2E44 100%);
                 border-radius: 10px;
-                border-left: 5px solid #C79535;
+                border: 2px solid #C79535;
+                box-shadow: 0 8px 20px rgba(199, 149, 53, 0.2);
             }
             
             .reading-intro h2 {
-                color: #071037;
+                color: #C79535;
                 font-size: 24px;
-                margin: 0 0 10px 0;
+                font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
                 font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 4.4px;
+                margin: 0 0 8px 0;
             }
             
             .reading-intro p {
-                color: #666;
+                color: #FEF7F2;
                 font-size: 16px;
+                font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+                letter-spacing: 2.5px;
                 margin: 0;
-                line-height: 1.6;
+                line-height: 1.4;
             }
             
             .card {
-                margin: 35px 0;
-                padding: 30px;
+                margin: 25px 0;
+                padding: 25px;
                 border: 2px solid #C79535;
                 border-radius: 15px;
-                background: linear-gradient(135deg, #fff 0%, #fefefe 100%);
-                box-shadow: 0 8px 25px rgba(199, 149, 53, 0.15);
+                background: linear-gradient(135deg, #020202 0%, #161719 100%);
+                box-shadow: 0 8px 25px rgba(199, 149, 53, 0.25);
                 position: relative;
-                overflow: hidden;
-            }
-            
-            .card::before {
-                content: '';
-                position: absolute;
-                top: -2px;
-                left: -2px;
-                right: -2px;
-                bottom: -2px;
-                background: linear-gradient(45deg, #C79535, #DAA520, #C79535);
-                border-radius: 15px;
-                z-index: -1;
-            }
-            
-            .card::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: #fff;
-                border-radius: 13px;
-                z-index: -1;
             }
             
             .card-position {
-                color: #4A0401;
-                font-size: 22px;
+                color: #C79535;
+                font-size: 20px;
+                font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
                 font-weight: 600;
-                margin: 0 0 15px 0;
                 text-transform: uppercase;
-                letter-spacing: 1px;
+                letter-spacing: 4.4px;
+                margin: 0 0 10px 0;
             }
             
             .card-name {
-                color: #071037;
-                font-size: 28px;
-                font-weight: 600;
-                margin: 0 0 10px 0;
-                line-height: 1.3;
+                color: #FFEE86;
+                font-size: 26px;
+                font-family: 'Rasputin', Georgia, 'Times New Roman', serif;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 4.4px;
+                margin: 0 0 8px 0;
+                line-height: 1.2;
             }
             
             .card-meaning {
                 display: inline-block;
-                background: linear-gradient(135deg, #C79535 0%, #DAA520 100%);
-                color: white;
+                background: linear-gradient(135deg, #720400 0%, #4A0401 100%);
+                color: #C79535;
                 padding: 8px 16px;
+                border: 1px solid #C79535;
                 border-radius: 20px;
                 font-size: 14px;
+                font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
                 font-weight: 600;
                 text-transform: uppercase;
-                letter-spacing: 0.5px;
-                margin: 0 0 20px 0;
+                letter-spacing: 4.4px;
+                margin: 0 0 15px 0;
             }
             
             .card-text {
-                color: #444;
+                color: #FEF7F2;
                 font-size: 16px;
-                line-height: 1.8;
+                font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+                letter-spacing: 2.5px;
+                line-height: 1.4;
                 margin: 0;
-                text-align: justify;
+                text-align: left;
             }
             
             .footer {
                 background: #071037;
-                color: #fff;
-                padding: 40px 30px;
+                color: #FEF7F2;
+                padding: 30px;
                 text-align: center;
+                border-top: 3px solid #C79535;
             }
             
             .footer-message {
                 font-size: 18px;
+                font-family: 'Polarity Light', 'Helvetica Neue Light', Helvetica, sans-serif;
                 font-style: italic;
-                margin: 0 0 20px 0;
+                text-transform: uppercase;
+                letter-spacing: 11.1px;
+                margin: 0 0 15px 0;
                 color: #C79535;
             }
             
             .footer-link {
-                color: #C79535;
+                color: #FFEE86;
                 text-decoration: none;
-                font-weight: 600;
+                font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+                font-weight: 500;
+                letter-spacing: 2.5px;
                 border-bottom: 1px solid transparent;
-                transition: border-bottom-color 0.3s ease;
+                transition: all 0.3s ease;
             }
             
             .footer-link:hover {
-                border-bottom-color: #C79535;
+                border-bottom-color: #FFEE86;
+                color: #A1EBE4;
             }
             
+            /* MARKETING SECTION - COMMENTED OUT BY DEFAULT */
+            /*
+            .marketing-section {
+                background: linear-gradient(135deg, #12545D 0%, #0A2E44 100%);
+                padding: 25px 30px;
+                margin: 20px 0;
+                border-radius: 10px;
+                border: 2px solid #A1EBE4;
+                text-align: center;
+            }
+            
+            .marketing-title {
+                color: #A1EBE4;
+                font-size: 22px;
+                font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 4.4px;
+                margin: 0 0 10px 0;
+            }
+            
+            .marketing-text {
+                color: #FEF7F2;
+                font-size: 16px;
+                font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+                letter-spacing: 2.5px;
+                line-height: 1.4;
+                margin: 0 0 15px 0;
+            }
+            
+            .marketing-cta {
+                display: inline-block;
+                background: #A1EBE4;
+                color: #020202;
+                padding: 12px 24px;
+                border-radius: 25px;
+                text-decoration: none;
+                font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 4.4px;
+                font-size: 14px;
+                transition: all 0.3s ease;
+            }
+            
+            .marketing-cta:hover {
+                background: #12545D;
+                color: #A1EBE4;
+                border: 1px solid #A1EBE4;
+            }
+            */
+            
             .copyright {
-                color: #888;
+                color: #A1EBE4;
                 font-size: 12px;
-                margin: 20px 0 0 0;
+                font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+                letter-spacing: 2.5px;
+                margin: 15px 0 0 0;
             }
             
             .divider {
-                height: 3px;
+                height: 2px;
                 background: linear-gradient(90deg, transparent 0%, #C79535 50%, transparent 100%);
-                margin: 30px 0;
+                margin: 20px 0;
                 border-radius: 2px;
             }
             
@@ -247,7 +308,13 @@ exports.handler = async function(event, context) {
                 }
                 
                 .header h1 {
-                    font-size: 26px;
+                    font-size: 24px;
+                    letter-spacing: 3px;
+                }
+                
+                .header .subtitle {
+                    font-size: 14px;
+                    letter-spacing: 8px;
                 }
                 
                 .content {
@@ -256,15 +323,24 @@ exports.handler = async function(event, context) {
                 
                 .card {
                     padding: 20px;
-                    margin: 25px 0;
+                    margin: 20px 0;
                 }
                 
                 .card-name {
-                    font-size: 24px;
+                    font-size: 22px;
+                    letter-spacing: 3px;
+                }
+                
+                .card-position, .card-meaning {
+                    letter-spacing: 3px;
                 }
                 
                 .footer {
-                    padding: 30px 20px;
+                    padding: 25px 20px;
+                }
+                
+                .footer-message {
+                    letter-spacing: 8px;
                 }
             }
         </style>
@@ -288,9 +364,18 @@ exports.handler = async function(event, context) {
                         <h4 class="card-name">${card.card}</h4>
                         <div class="card-meaning">${card.meaning} Energy</div>
                         <div class="divider"></div>
-                        <p class="card-text">${card.text.replace(/\n/g, '<br><br>')}</p>
+                        <p class="card-text">${card.text.replace(/\n/g, '<br>')}</p>
                     </div>
                 `).join('')}
+                
+                <!-- MARKETING SECTION - UNCOMMENT TO ACTIVATE -->
+                <!--
+                <div class="marketing-section">
+                    <h3 class="marketing-title">Ready for More Mystical Insights?</h3>
+                    <p class="marketing-text">Join our exclusive community for weekly oracle guidance, special readings, and mystical wisdom delivered directly to your inbox.</p>
+                    <a href="https://www.themagickmechanic.com/newsletter" class="marketing-cta">Join the Circle</a>
+                </div>
+                -->
             </div>
             
             <div class="footer">
@@ -302,16 +387,16 @@ exports.handler = async function(event, context) {
     </body>
     </html>`;
 
-    // Create simple text version
+    // Create simple text version with brand styling
     let textContent = `✨ Your ${reading.type} from The Magick Mechanic ✨\n\n`;
-    textContent += `The Oracle Hath Spoken!\n`;
+    textContent += `THE ORACLE HATH SPOKEN!\n`;
     textContent += `The Magickal cats have awakened to bring you this ${reading.type.toLowerCase()}. Each card carries wisdom meant specifically for you at this moment in your journey.\n\n`;
     textContent += '━'.repeat(50) + '\n\n';
     
     reading.cards.forEach((card, index) => {
       textContent += `${card.position.toUpperCase()}\n`;
-      textContent += `${card.card}\n`;
-      textContent += `${card.meaning} Energy\n\n`;
+      textContent += `${card.card.toUpperCase()}\n`;
+      textContent += `${card.meaning.toUpperCase()} ENERGY\n\n`;
       textContent += `${card.text}\n`;
       if (index < reading.cards.length - 1) {
         textContent += '\n' + '─'.repeat(30) + '\n\n';
@@ -319,7 +404,7 @@ exports.handler = async function(event, context) {
     });
     
     textContent += '\n\n━'.repeat(50) + '\n';
-    textContent += 'May this reading illuminate your path forward\n\n';
+    textContent += 'MAY THIS READING ILLUMINATE YOUR PATH FORWARD\n\n';
     textContent += 'Visit The Magick Mechanic at https://www.themagickmechanic.com for more mystical insights\n\n';
     textContent += `© ${new Date().getFullYear()} Daniel Boutros and The Magick Mechanic. All rights reserved.`;
 
@@ -329,7 +414,7 @@ exports.handler = async function(event, context) {
       process.env.MAILJET_SECRET_KEY
     );
 
-    // Send email with enhanced template
+    // Send email with enhanced branded template
     const request = await mailjet.post('send', { version: 'v3.1' }).request({
       Messages: [
         {
