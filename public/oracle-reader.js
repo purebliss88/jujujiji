@@ -239,27 +239,37 @@
       background: #4A0401;
       padding: 20px;
       border-radius: 12px;
-      /*      border: 1px solid #C79535;    */
+      border: 1px solid #C79535;
     }
 
     .email-form {
       max-width: 600px;
       margin: 40px auto;
-      padding: 20px;
-      background: rgba(7, 16, 55, 0.85);
-      border: 1px solid #C79535;
+      padding: 30px;
+      background: #161719; /* CHARCOAL background */
+      border: 2px solid #C79535; /* ACC GOLD border */
       border-radius: 12px;
       text-align: center;
+      box-shadow: 0 4px 20px rgba(199, 149, 53, 0.2);
     }
 
     .email-form-title {
-      color: #C79535;
+      color: #C79535; /* ACC GOLD */
       margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.4em;
+      font-weight: bold;
+      font-family: 'Rasputin', Georgia, 'Times New Roman', serif;
+      text-transform: uppercase;
+      letter-spacing: 4.4px; /* LS 44 */
     }
 
     .email-form-description {
-      color: white;
-      margin-bottom: 20px;
+      color: #FEF7F2; /* OFFWHITE */
+      margin-bottom: 25px;
+      line-height: 1.5;
+      font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+      letter-spacing: 2.5px; /* LS 25 */
     }
 
     .email-input-group {
@@ -269,15 +279,53 @@
     }
 
     .email-input {
-      padding: 12px;
-      border: 1px solid #C79535;
-      border-radius: 6px;
+      padding: 15px;
+      border: 2px solid #C79535; /* ACC GOLD border */
+      border-radius: 8px;
       font-size: 16px;
-      background: rgba(255, 255, 255, 0.9);
+      background: #FEF7F2; /* OFFWHITE background */
+      color: #020202; /* BLACK text */
+      font-weight: 500;
+      font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+      letter-spacing: 2.5px; /* LS 25 */
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .email-input::placeholder {
+      color: #161719; /* CHARCOAL for placeholder */
+      font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+      letter-spacing: 2.5px;
+    }
+
+    .email-input:focus {
+      outline: none;
+      border-color: #FFEE86; /* YELLOW on focus */
+      box-shadow: 0 0 0 3px rgba(255, 238, 134, 0.2);
     }
 
     .email-submit {
       width: 100%;
+      background: #4A0401; /* DEEP RED */
+      color: #C79535; /* ACC GOLD text */
+      border: 2px solid #C79535;
+      padding: 15px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
+      font-weight: 600; /* Semi Bold */
+      text-transform: uppercase;
+      letter-spacing: 4.4px; /* LS 44 */
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .email-submit:hover {
+      background: #720400; /* BRIGHT RED on hover */
+      color: #FFEE86; /* YELLOW text on hover */
+      border-color: #FFEE86;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(199, 149, 53, 0.3);
     }
 
     .copyright-notice {
@@ -292,11 +340,12 @@
     /* New Reading button spacing - closer on desktop */
     .new-reading-button {
       margin-top: 40px; /* Default mobile spacing */
+      min-height: auto; /* Override drawing-area min-height */
     }
 
     @media (min-width: 769px) {
       .new-reading-button {
-        margin-top: 20px; /* Half distance on desktop */
+        margin-top: 15px; /* Much closer on desktop */
       }
     }
 
