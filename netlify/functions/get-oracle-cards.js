@@ -300,15 +300,26 @@ exports.handler = async function(event, context) {
       },
       {
         "id": "beauty",
-        "title": "The Beauty",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5a160bde-760e-4102-9020-c1e94fb56863/child+of+beauty.png",  
+        "title": "Beauty",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/810a091b-6d79-4629-9258-ef36f0d22a6d/beauty+main.png",  
         "time": "The Present",
         "energy": "Appreciate or Disassociate",
         "location": "Home",
         "element": "Earth",
         "sun_meaning": "Beauty is one of nature's most powerful qualities to bring people to a point of attention or recognition. It can be found everywhere in existence, from the perfect to the profane and even the painful. Beauty is as abundant as it is subjective. It can be recognized in a deeply authentic moment, or it can be noticed out of the corner of one's eye. \n\n. Beauty is also often so unaware of itself. Genuine beauty isn't seeking to be recognized; it simply radiates what it is in all its honesty and powerfully affects all who meet it. \n\nThe ancient wise folk deliberately utilized beauty so their temples would inspire awe, as awe is a feeling believed to connect us to the rememberance of divinity. Beauty is transformative. It inspires people to a grand goal internal and external. \n\nHow are you using beauty in a positive manner in your life? Are you appreciating what is beautiful around you? This is a reminder.",
-        "moon_meaning": "Beauty is often misinterpreted and misused in today's world. Sometimes we feel we're attracted to beauty when what we're really drawn to is an energy representing an incomplete emotional cycle, or trauma. \n\nBeauty as we recognize it when misaligned, is a recognition of something we are magnetized to, as if a force pulling us toward it. We let it consume our thoughts and distract us. That is, until we seek to comprehend what we are truly drawn it. \n\nIs it beauty, or is it a pain we've not yet learned or allowed ourselves to heal? This invitation is to explore what you currently find beautiful, and exmaine the truth of this feeling. Chances are you've missed a key detail and may be moving toward something that is not as initially interpreted." 
+        "moon_meaning": "Beauty is often misinterpreted and misused in today's world. Sometimes we feel we're attracted to beauty when what we're really drawn to is an energy representing an incomplete emotional cycle, or trauma, mirrored through another. \n\nBeauty as we recognize it when misaligned, is a recognition of something we are magnetized to, as if a force pulling us toward it. We let it consume our thoughts and distract us. That is, until we seek to comprehend what we are truly drawn to. \n\nIs it beauty, or is it a pain we've not yet learned or allowed ourselves to heal? This invitation is to explore what you currently find beautiful, and exmaine the truth of the feeling. Chances are you've missed a key detail and may be moving toward something that is not as initially interpreted." 
       },
+      {
+        "id": "sleepy",
+        "title": "Sleeper Cat",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/96707f72-c722-4dca-a8ab-1ce74caf78a8/cloudcat.png",
+        "time": "Late Evening",
+        "energy": "Rest or Resist",
+        "location": "Sanctuary",
+        "element": "Air",
+        "sun_meaning": "Finally! A space to rest. To simply let the body, mind and heart take a deep breath in and exhale all tension held in the body for so long. The deeper and more meaningful the rest, the greater the movements to follow. The kind of rest calling to you is the slowing down, de-armoring, rejuvinating kind. \n\nThe type you cannot shortcut or speed up. Where guilt is prohibited from eyeballing you as you surrender to your nerves de-escalating day by day. The kind where your digital notifications remain ignored, or at least significantly de-prioritized. A rest that is enhanced over time, so muscles can slowly empty of tension, pain and strain. \n\nDespite societal assertions to the contrary, rest is not a thing we earn; it's a neccessity so our bodies, minds and hearts can empty of emotional inflamations, then reconfigure and synchronize to guide us toward our most aligned excitement and fulfilling life. It is this ever-evolving grounding point that becomes our true foundation of where our most radiant inner light grows from.",
+        "moon_meaning": "If you find yourself stagnant, uninspired and unmotivated, yet desiring to create something meaningful, this is your cue to prioritize inspiration. When we feel stagnation for a long period of time, but hold a yearning to create something, it's due to a lack of inspiration as a guiding light or propelling force. \n\nInspiration rarely fails to awaken the energies within, however, when felt, it's also a signal sign-posting toward something connected to your authnetic alignment. Does a person ever feel inspired by something they don't care for? Looking for that which genuinely inspires is one of the most reliable ways to find alignment, and a path to your authentic voice and heart. \n\nThis is your sign to use your eyes, ears, heart and full senses to find what inspires the fire within you. Do not give in to the temptation of the familiar and easy; seek that which reminds you why you want to be alive, here on this Earth, even right now. It may be something obvious, or something that surprises you completely. Be open to all possibilities!" 
+      }, 
       // Keep all your other cards here - I've removed them for brevity
     ];
 
