@@ -300,14 +300,14 @@ exports.handler = async function(event, context) {
       },
       {
         "id": "beauty",
-        "title": "Beauty",
+        "title": "The Beauty",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/810a091b-6d79-4629-9258-ef36f0d22a6d/beauty+main.png",  
         "time": "The Present",
         "energy": "Appreciate or Disassociate",
         "location": "Home",
         "element": "Earth",
         "sun_meaning": "Beauty is one of nature's most powerful qualities to bring people to a point of attention or recognition. It can be found everywhere in existence, from the perfect to the profane and even the painful. Beauty is as abundant as it is subjective. It can be recognized in a deeply authentic moment, or it can be noticed out of the corner of one's eye. \n\n. Beauty is also often so unaware of itself. Genuine beauty isn't seeking to be recognized; it simply radiates what it is in all its honesty and powerfully affects all who meet it. \n\nThe ancient wise folk deliberately utilized beauty so their temples would inspire awe, as awe is a feeling believed to connect us to the rememberance of divinity. Beauty is transformative. It inspires people to a grand goal internal and external. \n\nHow are you using beauty in a positive manner in your life? Are you appreciating what is beautiful around you? This is a reminder.",
-        "moon_meaning": "Beauty is often misinterpreted and misused in today's world. Sometimes we feel we're attracted to beauty when what we're really drawn to is an energy representing an incomplete emotional cycle, or trauma, mirrored through another. \n\nBeauty as we recognize it when misaligned, is a recognition of something we are magnetized to, as if a force pulling us toward it. We let it consume our thoughts and distract us. That is, until we seek to comprehend what we are truly drawn to. \n\nIs it beauty, or is it a pain we've not yet learned or allowed ourselves to heal? This invitation is to explore what you currently find beautiful, and exmaine the truth of the feeling. Chances are you've missed a key detail and may be moving toward something that is not as initially interpreted." 
+        "moon_meaning": "Beauty is often misinterpreted and misused in today's world. Sometimes we feel we're attracted to beauty when what we're really drawn to is an energy representing an incomplete emotional cycle, or trauma, mirrored through another. \n\nAttraction as we experience it when misaligned, is a recognition of a force pulling us toward it, but not always with the awareness of what the truth of the attraction is; thinking it as 'beauty'. We let it consume our thoughts and distract us. That is, until we seek to comprehend what we are truly drawn to. \n\nIs it beauty, or is it a pain we've not yet learned or allowed ourselves to heal? Are we feeling attraction to what is good for us, or something comfortable and familiar? This invitation is to explore what you currently find beautiful, and exmaine the truth of the feeling. Chances are you've missed a key detail and may be moving toward something that is not as initially interpreted." 
       },
       {
         "id": "sleepy",
