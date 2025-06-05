@@ -322,7 +322,7 @@ exports.handler = async function(event, context) {
       }, 
       {
         "id": "manipulator",
-        "title": "The Politician",
+        "title": "The Warlock",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/87108913-f250-4eb8-ba36-ff62501a019d/Manipulator.png",  
         "time": "Unstable",
         "energy": "Influence and Control",
