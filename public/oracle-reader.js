@@ -805,7 +805,7 @@
       
       // Email collection form
       React.createElement("div", { className: "email-form" }, [
-        React.createElement("h3", { className: "email-form-title" }, "Get this reading by email"),
+        React.createElement("h3", { className: "email-form-title" }, "Send this reading to your email inbox!"),
         React.createElement("p", { className: "email-form-description" }, 
           "Enter your email address to receive a copy of your reading and future insights:"),
         React.createElement("div", { className: "email-input-group" }, [
@@ -844,7 +844,7 @@
                   .then(response => response.json())
                   .then(data => {
                     if (data.success) {
-                      alert('Thank you! Your reading has been sent to your email.');
+                      alert('Thank you! This reading has been sent to your email.');
                     } else {
                       alert('Failed to send your reading: ' + (data.message || 'Unknown error'));
                       console.error('Email error:', data);
