@@ -471,14 +471,14 @@
     const readingConfigurations = {
       single: {
         title: "Single Card Reading",
-        description: "Draw one card for immediate guidance.",
+        description: "Feel a question in your heart and draw a card for guidance.",
         cardCount: 1,
         positions: [
           { title: "Your Guidance" }
         ]
       },
       reasons_thing: {
-        title: "The forces surrounding an important decision",
+        title: "Forces within an important decision",
         description: "What forces are at play around your important decision?",
         cardCount: 3,
         positions: [
@@ -489,7 +489,7 @@
       },
       situation_action_outcome: {
         title: "Situation, Action, Outcome",
-        description: "Understand a challenge and how to address it.",
+        description: "Explore a current challenge and how to address it.",
         cardCount: 3,
         positions: [
           { title: "Situation - The current challenge." },
@@ -511,7 +511,7 @@
       },
       who_am_i: {
         title: "The Archetype Reading",
-        description: "Who do you need to be to achieve what you desire?",
+        description: "Who do you need to be, to achieve what you desire?",
         cardCount: 6,
         positions: [
           { title: "How I got here - What qualities did you most embody." },
@@ -524,7 +524,7 @@
       },
       relationship_grid: {
         title: "Relationship Reading",
-        description: "What hidden forces are present in your chosen relationship?",
+        description: "What hidden forces are present in your relationship?",
         cardCount: 6,
         positions: [
           { title: "Who you are being in this dynamic." },
