@@ -346,16 +346,18 @@ exports.handler = async function(event, context) {
         </style>
     </head>
     <body>
-        <div class="email-container">
-            <div class="header">
+
+    <!-- HEADER UNDER THE MAIN READING TITLES
+            <div class="email-container">
+                <div class="header">
                 <h1>✨ Your ${reading.type} ✨</h1>
                 <p class="subtitle">A mystical message from Daniel Boutros at The Magick Mechanic</p>
-            </div>
+            </div> -->
             
             <div class="content">
                 <div class="reading-intro">
                     <h2>The Oracle Hath Spoken!</h2>
-                    <p>The Magickal cats have awakened to bring you this ${reading.type.toLowerCase()}. Each card carries wisdom meant specifically for you at this moment in your journey.</p>
+                    <p>The Magickal cats have awakened to bring you this ${reading.type.toLowerCase()}. Each card carries wisdom meant for you at this moment in your journey.</p>
                 </div>
                 
                 ${reading.cards.map(card => `
@@ -380,7 +382,7 @@ exports.handler = async function(event, context) {
             
             <div class="footer">
                 <p class="footer-message">May this reading illuminate your path forward</p>
-                <p>Visit <a href="https://www.themagickmechanic.com" class="footer-link">The Magick Mechanic</a> for more mystical insights</p>
+                <p>Visit <a href="https://www.themagickmechanic.com">The Magick Mechanic</a>  for more insights, support and more...</p>
                 <p class="copyright">© ${new Date().getFullYear()} Daniel Boutros and The Magick Mechanic. All rights reserved.</p>
             </div>
         </div>
@@ -390,7 +392,7 @@ exports.handler = async function(event, context) {
     // Create simple text version with brand styling
     let textContent = `✨ Your ${reading.type} from The Magick Mechanic ✨\n\n`;
     textContent += `THE ORACLE HATH SPOKEN!\n`;
-    textContent += `The Magickal cats have awakened to bring you this ${reading.type.toLowerCase()}. Each card carries wisdom meant specifically for you at this moment in your journey.\n\n`;
+    textContent += `The Magickal cats have awakened to bring you this ${reading.type.toLowerCase()}. Each card carries wisdom meant for you at this moment in your journey.\n\n`;
     textContent += '━'.repeat(50) + '\n\n';
     
     reading.cards.forEach((card, index) => {
@@ -404,8 +406,8 @@ exports.handler = async function(event, context) {
     });
     
     textContent += '\n\n━'.repeat(50) + '\n';
-    textContent += 'MAY THIS READING ILLUMINATE YOUR PATH FORWARD\n\n';
-    textContent += 'Visit The Magick Mechanic at https://www.themagickmechanic.com for more mystical insights\n\n';
+    textContent += 'MAY THIS READING LIGHT YOUR PATH FORWARD\n\n';
+    textContent += 'Visit The Magick Mechanic at https://www.themagickmechanic.com for more insights, support and more...\n\n';
     textContent += `© ${new Date().getFullYear()} Daniel Boutros and The Magick Mechanic. All rights reserved.`;
 
     // Initialize Mailjet
