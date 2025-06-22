@@ -470,7 +470,7 @@
     // Add reading configurations
     const readingConfigurations = {
       single: {
-        title: "Single Card Reading",
+        title: "Single Card reading",
         description: "Feel a question in your heart and draw a card for guidance.",
         cardCount: 1,
         positions: [
@@ -478,18 +478,18 @@
         ]
       },
       reasons_thing: {
-        title: "Forces within an important decision",
-        description: "What forces are at play around your important decision?",
+        title: "Forces behind a big decision reading",
+        description: "What forces are at play around your big decision?",
         cardCount: 3,
         positions: [
-          { title: "The force(s) moving in support of your decision." },
-          { title: "The force(s) moving against your decision." },
+          { title: "Key force(s) moving in support of your decision." },
+          { title: "Key force(s) moving against your decision." },
           { title: "What energies you can embody to sway the outcome in your favor." }
         ]
       },
       situation_action_outcome: {
-        title: "Situation, Action, Outcome",
-        description: "Explore a current challenge and how to address it.",
+        title: "Situation, Action, Outcome reading",
+        description: "Explore your current challenge and how to address it.",
         cardCount: 3,
         positions: [
           { title: "Situation - The current challenge." },
@@ -499,7 +499,7 @@
       },
       five_card_cross: {
         title: "Five Card Spread",
-        description: "A comprehensive view of your situation.",
+        description: "A deep view of your situation.",
         cardCount: 5,
         positions: [
           { title: "1 - Core issue." },
@@ -510,8 +510,8 @@
         ]
       },
       who_am_i: {
-        title: "The Archetype Reading",
-        description: "Who do you need to be, to achieve what you desire?",
+        title: "Your Path to Success reading",
+        description: "What does the path look like for you achieving your vision?",
         cardCount: 6,
         positions: [
           { title: "How I got here - What qualities did you most embody." },
@@ -523,8 +523,8 @@
         ]
       },
       relationship_grid: {
-        title: "Relationship Reading",
-        description: "What hidden forces are present in your relationship?",
+        title: "Relationship reading",
+        description: "What hidden forces are present in your connection?",
         cardCount: 6,
         positions: [
           { title: "Who you are being in this dynamic." },
@@ -532,7 +532,7 @@
           { title: "What is destructive in the dynamic." },
           { title: "What is healthy in the dynamic." },
           { title: "What qualities you can embody to elevate the dynamic." },
-          { title: "The transformation that will occur if successful." }
+          { title: "The change that will occur if successful." }
         ]
       },
     };
