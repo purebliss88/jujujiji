@@ -502,11 +502,11 @@
         description: "A deep view of your situation.",
         cardCount: 5,
         positions: [
-          { title: "1 - Core issue." },
-          { title: "2 - What influences you." },
-          { title: "3 - Your foundation." },
-          { title: "4 - Past influences." },
-          { title: "5 - Future outcome." }
+          { title: "Core issue" },
+          { title: "What influences you" },
+          { title: "Your foundation" },
+          { title: "Past influences" },
+          { title: "Future outcome" }
         ]
       },
       who_am_i: {
@@ -516,8 +516,8 @@
         positions: [
           { title: "How I got here - What qualities did you most embody." },
           { title: "The present - What qualities do you embody most today." },
-          { title: "Resistance - What qualities keep you away from your desire." },
-          { title: "Empowerment - What qualities must you embody to best succeed." },
+          { title: "Friction - What qualities keep you away from your desire." },
+          { title: "Your Powers - What qualities must you embody to best succeed." },
           { title: "Support - The types of people who will be supportive to your quest." },
           { title: "Reward - The gifts that will come from success." }
         ]
