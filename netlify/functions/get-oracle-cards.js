@@ -385,7 +385,7 @@ exports.handler = async function(event, context) {
         "element": "Earth, Air",
         "sun_meaning": "The one who this card represents is at a fork in the road. This is a choice point placed before two pathways. This is helpful to view as, 'who will I choose to be?', rather than, 'what do I do?'. \n\nMany get stuck in the 'what am I meant to choose', but that is a symptom of one who is not fully aware of their abilities in authoring their existence. You have agency and free will. You are the creator of the art that is the paintbrush known as 'you' and the painting known as 'your life'. \n\nPre-determinism is often a symptom to resigning the responsibility as one given the gift of life. You have the gift. Now is when you get to choose how you wish to play with it.",
         "moon_meaning": "Is the one this card connects to taking their status for granted? Do they want to have it all without the comprehension of what that will cost? Sometimes we want all paths at once, but lack the grounding or sense of thoughtfulness in how to wield that reality. \n\nThe ones that seem to have it all often get there through a strong vision and making of choices, some of which are challenging. They know what it's like to steward a vision. To be respons-able. \n\nTo choose their desired vision with a knowing and commitment of having give of self to achieve it. Change of self on this path is inevitable. Making a choice which leads to change is unavoidable. \n\nContinuing to stay in a place of avoiding a choice is actively choosing to not be author of your change. Life will force your hand if you stay there too long."
-      }
+      },
       {
         "id": "romanbikes",
         "title": "Tribal Alignment",
