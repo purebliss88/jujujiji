@@ -185,7 +185,7 @@ exports.handler = async function(event, context) {
         "energy": "Rebirth",
         "location": "The next version of you",
         "element": "Death and Life",
-        "sun_meaning": "You are one who has and continues to live many lives. One day you're a financial wiz, the next you're an event planner creating art as a livable experience. \n\nYour brain is one people admire and your life is unique and inspiring to many. Witnessing and being around your lived experience is a healing event for others.", 
+        "sun_meaning": "You are one who has and continues to live many lives. One day you're a financial wiz, the next you're an event planner creating art as a livable experience. \n\nYour brain is one people admire and your life is unique and alluring to many. Witnessing and being around your lived experience is an inspiring and sometimes healing event for others!", 
         "moon_meaning": "Uncertainty of what's next is not something that typically bothers one like yourself. When a lack of clarity remains in one's path for an extended period of time, it can bring up fears of abandonment, loneliness, inadequacy and more. Depression and other experiences can emerge. \n\nThese emotions can be signs you've been emotionally and mentally revisiting the past to your near-term living detriment. How can one move forward if they keep looking back? This is your sign to check in with yourself on why you struggle to let go of the past. \n\nWhat are you ashamed of from that time? What pain haven't you let your body witness and free? Why don't you think you deserve your visions? These questions will help lead you to the truth."
       },
       {
