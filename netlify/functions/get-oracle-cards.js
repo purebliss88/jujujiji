@@ -413,7 +413,7 @@ exports.handler = async function(event, context) {
         "title": "Techno Cat",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/9b46fe56-44b1-45f9-9607-5c59abaf2be5/techno.png",  
         "time": "Bright Future",
-        "energy": "Progress or Surpression",
+        "energy": "Expansion or Disconnection",
         "location": "The Workshop",
         "element": "Air, Spirit, Ether",
         "sun_meaning": "Technology is meant to evolve and expand our human experience and capacity for expression and creation. \n\nIt's a powerful part of our lives and when truly free, can run wild with possibility. 'Infinite' is one of the unspoken promises of technology's growth, and the one this speaks to feels aligned with that possibility. \n\nTechnology enables exponential growth. In healthy alignment with the flow of nature, resources and social consciousness, it can create amazing opportunities to improve the condition of human lives globally.",
@@ -421,7 +421,7 @@ exports.handler = async function(event, context) {
       }, 
       {
         "id": "knightmoney",
-        "title": "Knight of Money",
+        "title": "Knight of Achievement",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/48622114-f59c-4174-85ae-d9574ed96691/knight+of+money.png",  
         "time": "Now",
         "energy": "Chase or Break a Cycle",
