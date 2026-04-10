@@ -408,6 +408,41 @@ exports.handler = async function(event, context) {
         "sun_meaning": "This one claims a hard earned victory! An important chapter is complete. Now is the time where blessings flow, including wisdom, rewards and more. \n\nEffort, work ethic, perseverance, and inner strength are qualities which have increased in this period. New life paths and opprtunities follow.",
         "moon_meaning": "A gift of victory is the ability to bask in the glow of an earned reward. However, sometimes the desire for that high can blind us to a premature celebration. \n\nThe encouragement in this moment is not to rush towards claiming the win, but to pause and review. You are close, but not there yet! In this pause, truths will arise and victory can then be given a plan to secure." 
       },
+      {
+        "id": "futurist",
+        "title": "Techno Cat",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/9b46fe56-44b1-45f9-9607-5c59abaf2be5/techno.png",  
+        "time": "Bright Future",
+        "energy": "Progress or Surpression",
+        "location": "The Workshop",
+        "element": "Air, Spirit, Ether",
+        "sun_meaning": "Technology is meant to evolve and expand our human experience and capacity for expression and creation. \n\nIt's a powerful part of our lives and when truly free, can run wild with possibility. 'Infinite' is one of the unspoken promises of technology's growth, and the one this speaks to feels aligned with that possibility. \n\nTechnology enables exponential growth. In healthy alignment with the flow of nature, resources and social consciousness, it can create amazing opportunities to improve the condition of human lives globally.",
+        "moon_meaning": "With great power comes great responsibility. Technology represents the expansion of great ability and can easily corrupt into a pursuit of rapid power. \n\nWhen the reach of tech is so vast, it can permeate so much of people's lives and so easily be used to harm them. Technology in this case can be a metaphor. \n\nIs there a great power or enabling opportunity before you that can be easily corrupted? Are you feeling tempted by something that can empower you, which also challenges your ethics? \n\nThis is a time to get deeply honest with yourself and your motives, as the power being offered to you carries a dark cost that must be brought to light if your path is to remain in alignment." 
+      }, 
+      {
+        "id": "knightmoney",
+        "title": "Knight of Money",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/48622114-f59c-4174-85ae-d9574ed96691/knight+of+money.png",  
+        "time": "Now",
+        "energy": "Chase or Break a Cycle",
+        "location": "On a mission",
+        "element": "Spirit",
+        "sun_meaning": "This is the one who is achivement-oriented. They pursue, hustle and move forward relentlessly, fired up with passion and a vision.\n\nWhen this person has chosen a mission, they are the one who can complete it to success.\n\nThis person can be a valuable team-mate when planning tasks within a group, and with alignment and pacing, they will help you complete whatever it is you are driven towards.\n\nThey do not fear hard work or the pain of the grind to get where they need to go and are able to move through obstacles, knowing it's all part of the journey toward a winning end result.",
+        "moon_meaning": "It is most beneficial when to hunt, hustle or chase is utilized as a temporary strategy, than a lifestyle and this being is in love with the thrill of constantly setting goals to achieve.\n\nThis being can get easily sucked into the cycle of the chase, and burn themselves out. Worse, they can lose touch with their own essence and can easily lose alignment with who they truly are.\n\nIf you've heard the term 'hungy ghost', they can become one, cycling in patterns of achievement for achievement's sake, not knowing the heart that drove them previously checked out of the adventure. This can create a hollow existence of achieving without true satisfaction.\n\nThe being you drew this card for is stuck in a cycle and can break it if they choose. Once they do, the path, and a true sense of freedom, should start to emerge." 
+      }, 
+      { 
+        "id": "earthdad",
+        "title": "Earth Guardian",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/e76bd0f8-821e-47f6-9705-3b92338a2b4e/earth+guard.png", 
+        "time": "Long term",
+        "energy": "Responsibility or Self-Neglect",
+        "location": "Within",
+        "emotions": "Worry, Pride, Overwhelm, Groundedness",
+        "sun_title": "A paternal presence who holds their tribe, family or team as a cohesive unit they feel responsibility toward",
+        "moon_title": "A leader who sacrifices themselves at the altar of self sacrifice, eventually falling to resentment",
+        "sun_meaning": "The one who holds responsibility for the well-being of many. The crown that holds everything and everyone.\n\nA leader who holds their tribe, family or team as a cohesive unit they feel a duty of care toward. This is a steward of responsibility who takes the role as a calling and an integral part of their identity.\n\nOften felt as a caregiving presence; this one is familiar with self-sacrifice for a greater good, and their core role as service. They can hold and lead a family, a community, a tribe, and an organization of hundreds if they choose to."
+        "moon_meaning": "One who carries so much for others can often find themselves in self-neglect and burnout. To wear a crown that carries everyone, is to have a compressed neck and back issues.\n\nThe crown which holds the needs of all may begin to weigh downward, become heavy, burdensome, even draining.\n\nThis being can get easily swept up in the needs of others' and lose their own grounding, and the gift of their own stabilizing presence.\n\nIn this case, the invitation is to do some figurative house-cleaning. Is what you are carrying neccessary? Should someone else be carrying it? Can it be placed on a list or delegated so you don't have to carry it in your mental attention?\n\nMental and emotional attention uses energy. If it's spread too wide and thin, one cannot ground their minds and therefore their presence. A feeling of burnout and loss of connection with one's own needs often comes with this." 
+      },
     ];
 
     return {
