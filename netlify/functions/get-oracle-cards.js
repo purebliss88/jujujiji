@@ -437,9 +437,7 @@ exports.handler = async function(event, context) {
         "time": "Long term",
         "energy": "Responsibility or Self-Neglect",
         "location": "Within",
-        "emotions": "Worry, Pride, Overwhelm, Groundedness",
-        "sun_title": "A paternal presence who holds their tribe, family or team as a cohesive unit they feel responsibility toward",
-        "moon_title": "A leader who sacrifices themselves at the altar of self sacrifice, eventually falling to resentment",
+        "element": "Earth",
         "sun_meaning": "The one who holds responsibility for the well-being of many. The crown that holds everything and everyone.\n\nA leader who holds their tribe, family or team as a cohesive unit they feel a duty of care toward. This is a steward of responsibility who takes the role as a calling and an integral part of their identity.\n\nOften felt as a caregiving presence; this one is familiar with self-sacrifice for a greater good, and their core role as service. They can hold and lead a family, a community, a tribe, and an organization of hundreds if they choose to."
         "moon_meaning": "One who carries so much for others can often find themselves in self-neglect and burnout. To wear a crown that carries everyone, is to have a compressed neck and back issues.\n\nThe crown which holds the needs of all may begin to weigh downward, become heavy, burdensome, even draining.\n\nThis being can get easily swept up in the needs of others' and lose their own grounding, and the gift of their own stabilizing presence.\n\nIn this case, the invitation is to do some figurative house-cleaning. Is what you are carrying neccessary? Should someone else be carrying it? Can it be placed on a list or delegated so you don't have to carry it in your mental attention?\n\nMental and emotional attention uses energy. If it's spread too wide and thin, one cannot ground their minds and therefore their presence. A feeling of burnout and loss of connection with one's own needs often comes with this." 
       },
