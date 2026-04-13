@@ -497,18 +497,6 @@
           { title: "Outcome - The result of taking action." }
         ]
       },
-      five_card_cross: {
-        title: "Five Card Spread",
-        description: "A deep view of your situation.",
-        cardCount: 5,
-        positions: [
-          { title: "Core issue" },
-          { title: "What influences you" },
-          { title: "Your foundation" },
-          { title: "Past influences" },
-          { title: "Future outcome" }
-        ]
-      },
       who_am_i: {
         title: "Your Path to Success reading",
         description: "What does the path look like for you achieving your vision?",
@@ -533,6 +521,37 @@
           { title: "What is healthy in the dynamic." },
           { title: "What qualities you can embody to elevate the dynamic." },
           { title: "The change that will occur if successful." }
+        ]
+      },
+       biz_grid: {
+        title: "Business Reading",
+        description: "The current energetic arc of your biz.",
+        cardCount: 24,
+        positions: [
+          { title: "The energy of your biz : past" },
+          { title: "The energy of your biz : present" },
+          { title: "The energy of your biz during next 3 months" },
+          { title: "Market and Customers : past" },
+          { title: "Market and Customers : present" },
+          { title: "Market and Customers during next 3 months" },
+          { title: "Product and Offering : past" },
+          { title: "Product and Offering : present" },
+          { title: "Product and Offering during next 3 months" },
+          { title: "Ops and Execution : past" },
+          { title: "Ops and Execution : present" },
+          { title: "Ops and Execution : next 3 months" },
+          { title: "Finances and Resources : past" },
+          { title: "Finances and Resources : present" },
+          { title: "Finances and Resources during next 3 months" },
+          { title: "Strategy and Timing : past" },
+          { title: "Strategy and Timing : present" },
+          { title: "Strategy and Timing during next 3 months" },
+          { title: "Biggest threat right now" },
+          { title: "Biggest opportunity right now" },
+          { title: "What is working against your biz" },
+          { title: "What do you most need to embody" },
+          { title: "What does your plan need to embody" },
+          { title: "How your biz looks in 3 months" }
         ]
       },
     };
