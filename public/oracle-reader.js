@@ -8,7 +8,6 @@
       margin: 0 auto;
       padding: 20px;
       font-family: inherit;
-      /* Add smooth scroll behavior */
       scroll-behavior: smooth;
     }
 
@@ -31,43 +30,62 @@
     }
     
     .reading-options {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);  /* Fixed 2 columns for desktop */
-      gap: 30px;
-      margin: 40px 0;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin: 40px auto;
+      max-width: 800px;
     }
     
     .reading-card {
       background: #071037;
-      border: 1px solid #C79535;
+      border: 2px solid #C79535;
       border-radius: 12px;
-      padding: 25px;
-      text-align: center;
+      padding: 20px;
       color: white;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      cursor: pointer;
       display: flex;
-      flex-direction: column;
-      min-height: 300px;
+      align-items: center;
+      gap: 20px;
+      min-height: 100px;
     }
     
     .reading-card:hover {
-      transform: translateY(-5px);
+      transform: translateX(5px);
+      border-color: #FFEE86;
+      background: rgba(7, 16, 55, 0.95);
     }
     
-    .reading-card h2 {
-      margin-bottom: 15px;
+    .reading-thumbnail {
+      width: 80px;
+      height: 80px;
+      min-width: 80px;
+      border-radius: 8px;
+      background: #4A0401;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      border: 2px solid #C79535;
     }
     
-    .reading-card p {
+    .reading-info {
       flex: 1;
-      margin-bottom: 20px;
+      text-align: left;
     }
     
-    .reading-card .oracle-button {
-      margin-top: auto;  /* Pushes button to bottom */
+    .reading-info h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.3em;
+      color: #C79535;
+    }
+    
+    .reading-info p {
+      margin: 0;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.4;
     }
     
     .card-display {
@@ -98,47 +116,14 @@
     /* Different heights for different reading types */
     .reading-container[data-cards="1"] { min-height: 600px; }
     .reading-container[data-cards="3"] { min-height: 800px; }
-    .reading-container[data-cards="5"] { min-height: 900px; }
     .reading-container[data-cards="6"] { min-height: 1000px; }
+    .reading-container[data-cards="24"] { min-height: 2000px; }
     
     .drawing-area {
       min-height: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-    }
-    
-    /* Add specific layouts for different reading types */
-    .five-card-display {
-      display: grid;
-      grid-template-areas:
-        ".     above  ."
-        "left  center right"
-        ".     below  .";
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-      max-width: 900px;
-      margin: 30px auto;
-    }
-
-    .five-card-display .tarot-card:nth-child(1) {
-      grid-area: center;
-    }
-
-    .five-card-display .tarot-card:nth-child(2) {
-      grid-area: above;
-    }
-
-    .five-card-display .tarot-card:nth-child(3) {
-      grid-area: below;
-    }
-
-    .five-card-display .tarot-card:nth-child(4) {
-      grid-area: left;
-    }
-
-    .five-card-display .tarot-card:nth-child(5) {
-      grid-area: right;
     }
     
     .card-back {
@@ -170,7 +155,6 @@
       border-radius: 4px;
     }
     
-    /* Prevent layout shifts during card interactions */
     .tarot-card {
       background: #071037;
       border: 1px solid #C79535;
@@ -179,7 +163,9 @@
       color: white;
       max-width: 100%;
       box-sizing: border-box;
-      contain: layout style paint; /* Prevent layout shifts */
+      contain: layout style paint;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     
     .card-image {
@@ -191,6 +177,26 @@
     
     .card-content {
       margin-top: 15px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    
+    .card-content p {
+      margin: 0 0 15px 0;
+      line-height: 1.6;
+      text-align: left;
+    }
+    
+    .card-content h2 {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    
+    .card-content h3 {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
     
     .card-properties {
@@ -212,6 +218,8 @@
       border-radius: 8px;
       max-width: 80%;
       text-align: center;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     .position-title {
@@ -222,6 +230,9 @@
       margin-top: 0;
       margin-bottom: 15px;
       text-align: center;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
     }
 
     .sub-instruction-text { 
@@ -239,36 +250,38 @@
       background: #4A0401;
       padding: 20px;
       border-radius: 12px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     .email-form {
       max-width: 600px;
       margin: 40px auto;
       padding: 30px;
-      background: #161719; /* CHARCOAL background */
-      border: 2px solid #C79535; /* ACC GOLD border */
+      background: #161719;
+      border: 2px solid #C79535;
       border-radius: 12px;
       text-align: center;
       box-shadow: 0 4px 20px rgba(199, 149, 53, 0.2);
     }
 
     .email-form-title {
-      color: #C79535; /* ACC GOLD */
+      color: #C79535;
       margin-top: 0;
       margin-bottom: 15px;
       font-size: 1.4em;
       font-weight: bold;
       font-family: 'Rasputin', Georgia, 'Times New Roman', serif;
       text-transform: uppercase;
-      letter-spacing: 4.4px; /* LS 44 */
+      letter-spacing: 4.4px;
     }
 
     .email-form-description {
-      color: #FEF7F2; /* OFFWHITE */
+      color: #FEF7F2;
       margin-bottom: 25px;
       line-height: 1.2;
       font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
-      letter-spacing: 2.5px; /* LS 25 */
+      letter-spacing: 2.5px;
     }
 
     .email-input-group {
@@ -279,49 +292,49 @@
 
     .email-input {
       padding: 10px;
-      border: 2px solid #C79535; /* ACC GOLD border */
+      border: 2px solid #C79535;
       border-radius: 8px;
       font-size: 16px;
-      background: #FEF7F2; /* OFFWHITE background */
-      color: #020202; /* BLACK text */
+      background: #FEF7F2;
+      color: #020202;
       font-weight: 500;
       font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
-      letter-spacing: 2.2px; /* LS 25 */
+      letter-spacing: 2.2px;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .email-input::placeholder {
-      color: #161719; /* CHARCOAL for placeholder */
+      color: #161719;
       font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
       letter-spacing: 2.2px;
     }
 
     .email-input:focus {
       outline: none;
-      border-color: #FFEE86; /* YELLOW on focus */
+      border-color: #FFEE86;
       box-shadow: 0 0 0 3px rgba(255, 238, 134, 0.2);
     }
 
     .email-submit {
       width: 100%;
-      background: #4A0401; /* DEEP RED */
-      color: #C79535; /* ACC GOLD text */
+      background: #4A0401;
+      color: #C79535;
       border: 2px solid #C79535;
       padding: 15px 25px;
       font-size: 18px;
       font-weight: bold;
       font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
-      font-weight: 600; /* Semi Bold */
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 4.4px; /* LS 44 */
+      letter-spacing: 4.4px;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
     .email-submit:hover {
-      background: #720400; /* BRIGHT RED on hover */
-      color: #FFEE86; /* YELLOW text on hover */
+      background: #720400;
+      color: #FFEE86;
       border-color: #FFEE86;
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(199, 149, 53, 0.3);
@@ -336,72 +349,56 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
-    /* New Reading button spacing - closer on desktop */
     .new-reading-button {
-      margin-top: 40px; /* Default mobile spacing */
-      min-height: auto; /* Override drawing-area min-height */
+      margin-top: 40px;
+      min-height: auto;
     }
 
     @media (min-width: 769px) {
       .new-reading-button {
-        margin-top: 15px; /* Much closer on desktop */
+        margin-top: 15px;
       }
     }
 
-    /* Prevent jumping on mobile */
     @media (max-width: 768px) {
       .card-display {
         grid-template-columns: 1fr;
       }
       
-      .reading-options {
-        grid-template-columns: 1fr;  /* Single column on mobile */
-        padding: 20px 15px;
-        margin-bottom: 20px;
+      .reading-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .reading-info {
+        text-align: center;
       }
       
       .instruction-text {
         max-width: 95%;
       }
       
-      .five-card-display {
-        display: grid;
-        grid-template-areas:
-          "center"
-          "above"
-          "below"
-          "left"
-          "right";
-        grid-template-columns: 1fr;
-      }
-      
-      /* Adjust container heights for mobile */
       .reading-container[data-cards="1"] { min-height: 800px; }
       .reading-container[data-cards="3"] { min-height: 2400px; }
-      .reading-container[data-cards="5"] { min-height: 4000px; }
       .reading-container[data-cards="6"] { min-height: 4800px; }
+      .reading-container[data-cards="24"] { min-height: 19200px; }
       
-      /* Smoother mobile animations */
       .tarot-card {
         transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
       }
+      
+      .email-input-group {
+        flex-direction: column;
+      }
     }
 
-    /* Desktop-specific adjustments */
     @media (min-width: 769px) {
-      .reading-options {
-        padding: 30px 20px;
-        margin-bottom: 30px;
-      }
-      
       .tarot-card {
         transition: transform 0.5s ease-in-out;
       }
-    }
-
-    @media (min-width: 768px) {
+      
       .email-input-group {
         flex-direction: row;
       }
@@ -470,81 +467,90 @@
     // Add reading configurations
     const readingConfigurations = {
       single: {
-        title: "Single Card reading",
-        description: "Feel a question in your heart and draw a card for guidance.",
+        title: "Single Card Reading",
+        description: "Feel a question in your heart and draw a card for guidance",
         cardCount: 1,
+        emoji: "🔮",
         positions: [
           { title: "Your Guidance" }
         ]
       },
-      reasons_thing: {
-        title: "Forces behind a big decision reading",
-        description: "What forces are at play around your big decision?",
-        cardCount: 3,
-        positions: [
-          { title: "Key force(s) moving in support of your decision." },
-          { title: "Key force(s) moving against your decision." },
-          { title: "What energies you can embody to sway the outcome in your favor." }
-        ]
-      },
       situation_action_outcome: {
-        title: "Situation, Action, Outcome reading",
-        description: "Explore your current challenge and how to address it.",
+        title: "Situation, Action, Outcome",
+        description: "Explore your current challenge and how to address it",
         cardCount: 3,
+        emoji: "🎯",
         positions: [
-          { title: "Situation - The current challenge." },
-          { title: "Action - What to do." },
-          { title: "Outcome - The result of taking action." }
+          { title: "Situation - The current challenge" },
+          { title: "Action - What to do" },
+          { title: "Outcome - The result of taking action" }
         ]
       },
-      who_am_i: {
-        title: "Your Path to Success reading",
-        description: "What does the path look like for you achieving your vision?",
-        cardCount: 6,
+      forces_decision: {
+        title: "Forces Behind a Big Decision",
+        description: "What forces are at play around your big decision?",
+        cardCount: 5,
+        emoji: "⚖️",
         positions: [
-          { title: "How I got here - What qualities did you most embody." },
-          { title: "The present - What qualities do you embody most today." },
-          { title: "Friction - What qualities keep you away from your desire." },
-          { title: "Your Powers - What qualities must you embody to best succeed." },
-          { title: "Support - The types of people who will be supportive to your quest." },
-          { title: "Reward - The gifts that will come from success." }
+          { title: "Key force(s) moving in support of your decision" },
+          { title: "Energies I'm being drawn or inspired by" },
+          { title: "Key force(s) moving against your decision" },
+          { title: "Energies I'm feeling fear around" },
+          { title: "What energies you can embody to sway the outcome in your favor" }
         ]
       },
-      relationship_grid: {
-        title: "Relationship reading",
+      relationship: {
+        title: "Relationship Reading",
         description: "What hidden forces are present in your connection?",
         cardCount: 6,
+        emoji: "💕",
         positions: [
-          { title: "Who you are being in this dynamic." },
-          { title: "Who they are being in this dynamic." },
-          { title: "What is destructive in the dynamic." },
-          { title: "What is healthy in the dynamic." },
-          { title: "What qualities you can embody to elevate the dynamic." },
-          { title: "The change that will occur if successful." }
+          { title: "Who you are being in this dynamic" },
+          { title: "Who they are being in this dynamic" },
+          { title: "What is destructive in the dynamic" },
+          { title: "What is healthy in the dynamic" },
+          { title: "What qualities you can embody to elevate the dynamic" },
+          { title: "The change that will occur if successful" }
         ]
       },
-       biz_grid: {
-        title: "Business Reading",
-        description: "The current energetic arc of your biz.",
-        cardCount: 24,
+      path_to_success: {
+        title: "Your Path to Success",
+        description: "What does the path look like for you achieving your vision?",
+        cardCount: 7,
+        emoji: "🌟",
         positions: [
-          { title: "The energy of your biz : past" },
-          { title: "The energy of your biz : present" },
+          { title: "How I got here - What qualities did you most embody" },
+          { title: "The present - What qualities do you embody most today" },
+          { title: "Friction - What qualities keep you away from your desire" },
+          { title: "Your Powers - What qualities must you embody to best succeed" },
+          { title: "Support - The types of people who will be supportive to your quest" },
+          { title: "Signals - What energies will be present when I'm on the right path?" },
+          { title: "Reward - The gifts that will come from success" }
+        ]
+      },
+      business: {
+        title: "Business Reading",
+        description: "The current energetic arc of your business",
+        cardCount: 24,
+        emoji: "💼",
+        positions: [
+          { title: "The energy of your biz: past" },
+          { title: "The energy of your biz: present" },
           { title: "The energy of your biz during next 3 months" },
-          { title: "Market and Customers : past" },
-          { title: "Market and Customers : present" },
+          { title: "Market and Customers: past" },
+          { title: "Market and Customers: present" },
           { title: "Market and Customers during next 3 months" },
-          { title: "Product and Offering : past" },
-          { title: "Product and Offering : present" },
+          { title: "Product and Offering: past" },
+          { title: "Product and Offering: present" },
           { title: "Product and Offering during next 3 months" },
-          { title: "Ops and Execution : past" },
-          { title: "Ops and Execution : present" },
-          { title: "Ops and Execution : next 3 months" },
-          { title: "Finances and Resources : past" },
-          { title: "Finances and Resources : present" },
+          { title: "Ops and Execution: past" },
+          { title: "Ops and Execution: present" },
+          { title: "Ops and Execution: next 3 months" },
+          { title: "Finances and Resources: past" },
+          { title: "Finances and Resources: present" },
           { title: "Finances and Resources during next 3 months" },
-          { title: "Strategy and Timing : past" },
-          { title: "Strategy and Timing : present" },
+          { title: "Strategy and Timing: past" },
+          { title: "Strategy and Timing: present" },
           { title: "Strategy and Timing during next 3 months" },
           { title: "Biggest threat right now" },
           { title: "Biggest opportunity right now" },
@@ -553,7 +559,7 @@
           { title: "What does your plan need to embody" },
           { title: "How your biz looks in 3 months" }
         ]
-      },
+      }
     };
     
     // State variables
@@ -570,7 +576,6 @@
         try {
           setLoading(true);
           
-          // Replace this URL with your actual Netlify function URL with token
           const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?token=jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
           
           if (!response.ok) {
@@ -588,7 +593,6 @@
       
       fetchCards();
       
-      // On first load, scroll to top to show instructions above reading options
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 100);
@@ -597,19 +601,16 @@
     // Improved scrolling behavior
     React.useEffect(() => {
       if (activeConfig && selectedCards.length === activeConfig.cardCount) {
-        // All cards have been drawn, scroll to the results
         setTimeout(() => {
           const resultsArea = document.getElementById('reading-results');
           if (resultsArea) {
-            // First, ensure the container is visible
             resultsArea.style.opacity = '0';
             resultsArea.scrollIntoView({ 
-              behavior: 'smooth',  // Changed to smooth
-              block: 'start',      // Keep at start to show the full reading
+              behavior: 'smooth',
+              block: 'start',
               inline: 'nearest'
             });
             
-            // Then fade in for smoother experience
             setTimeout(() => {
               resultsArea.style.transition = 'opacity 0.5s ease';
               resultsArea.style.opacity = '1';
@@ -633,18 +634,14 @@
     const drawCard = () => {
       if (!activeConfig || selectedCards.length >= activeConfig.cardCount || cards.length === 0) return;
       
-      // Get a random card
       const randomIndex = Math.floor(Math.random() * cards.length);
       const card = cards[randomIndex];
       
-      // Randomly assign sun or moon meaning
       const meaning = Math.random() > 0.5 ? 'sun_meaning' : 'moon_meaning';
       
       setSelectedCards([...selectedCards, {...card, displayMeaning: meaning}]);
       setCards(cards.filter((_, index) => index !== randomIndex));
       
-      // Prevent scrolling away from the card drawing area
-      // We'll add a slight delay before scrolling to ensure UI has updated
       setTimeout(() => {
         const drawingArea = document.getElementById('drawing-area');
         if (drawingArea) {
@@ -653,30 +650,25 @@
       }, 100);
     };
     
-    // Enhanced reset function with Squarespace-aware scrolling
+    // Enhanced reset function
     const resetReading = () => {
       setReadingType(null);
       setSelectedCards([]);
       setActiveConfig(null);
       
-      // Scroll back to Oracle Reader container within the Squarespace page
       setTimeout(() => {
-        // First try to find the Oracle Reader container
         const oracleContainer = document.getElementById('oracle-reader-container');
         
         if (oracleContainer) {
-          // Get the container's position relative to the entire page
           const containerRect = oracleContainer.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           const containerTop = containerRect.top + scrollTop;
           
-          // Scroll to show the container with some padding above it
           window.scrollTo({
-            top: containerTop - 100, // 100px padding above the container
+            top: containerTop - 100,
             behavior: 'smooth'
           });
         } else {
-          // Fallback: try to find reading options and scroll to them
           const readingOptions = document.querySelector('.reading-options');
           if (readingOptions) {
             readingOptions.scrollIntoView({ 
@@ -684,7 +676,6 @@
               block: 'start'
             });
             
-            // Additional adjustment to show content above
             setTimeout(() => {
               window.scrollBy(0, -150);
             }, 300);
@@ -692,7 +683,6 @@
         }
       }, 100);
       
-      // Refetch cards
       async function fetchCards() {
         try {
           setLoading(true);
@@ -734,28 +724,30 @@
       return React.createElement("div", { className: "reading-options" }, 
         Object.keys(readingConfigurations).map(configKey => {
           const config = readingConfigurations[configKey];
-          return React.createElement("div", { className: "reading-card", key: configKey }, [
-            React.createElement("h2", null, config.title),
-            React.createElement("p", null, config.description),
-            React.createElement("button", {
-              className: "oracle-button",
-              onClick: () => {
-                shuffleCards();
-                setReadingType(configKey);
-                setActiveConfig(config);
-                
-                // Scroll to the drawing area after setting reading type
-                setTimeout(() => {
-                  const drawingArea = document.getElementById('drawing-area');
-                  if (drawingArea) {
-                    drawingArea.scrollIntoView({ 
-                      behavior: 'smooth', 
-                      block: 'center'
-                    });
-                  }
-                }, 200);
-              }
-            }, `Begin ${config.title}`)
+          return React.createElement("div", { 
+            className: "reading-card", 
+            key: configKey,
+            onClick: () => {
+              shuffleCards();
+              setReadingType(configKey);
+              setActiveConfig(config);
+              
+              setTimeout(() => {
+                const drawingArea = document.getElementById('drawing-area');
+                if (drawingArea) {
+                  drawingArea.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center'
+                  });
+                }
+              }, 200);
+            }
+          }, [
+            React.createElement("div", { className: "reading-thumbnail" }, config.emoji),
+            React.createElement("div", { className: "reading-info" }, [
+              React.createElement("h2", { key: "title" }, config.title),
+              React.createElement("p", { key: "desc" }, config.description)
+            ])
           ]);
         })
       );
@@ -766,16 +758,17 @@
       const currentPosition = activeConfig.positions[selectedCards.length];
       return React.createElement("div", { 
         className: "reading-container",
-        "data-cards": activeConfig.cardCount  // Add this attribute
+        "data-cards": activeConfig.cardCount
       }, [
-        React.createElement("div", { className: "drawing-area", id: "drawing-area" }, [
-          React.createElement("p", { className: "instruction-text" },
+        React.createElement("div", { className: "drawing-area", id: "drawing-area", key: "drawing" }, [
+          React.createElement("p", { className: "instruction-text", key: "instruction" },
             `Drawing card ${selectedCards.length + 1} of ${activeConfig.cardCount}: ${currentPosition.title}`),
-          React.createElement("p", { className: "sub-instruction-text" },
+          React.createElement("p", { className: "sub-instruction-text", key: "sub" },
             "Focus on this aspect as you draw your card"),
           React.createElement("button", {
             className: "oracle-button",
-            onClick: drawCard
+            onClick: drawCard,
+            key: "button"
           }, "Draw Card")
         ])
       ]);
@@ -784,37 +777,35 @@
     // Reading results view
     return React.createElement("div", { 
       className: "reading-container",
-      "data-cards": activeConfig.cardCount  // Add this attribute
+      "data-cards": activeConfig.cardCount
     }, [
-      React.createElement("h2", { className: "reading-title" }, activeConfig.title),
+      React.createElement("h2", { className: "reading-title", key: "title" }, activeConfig.title),
       React.createElement("div", { 
-        className: activeConfig.cardCount === 1 
-          ? "single-card-display" 
-          : activeConfig.cardCount === 5 
-            ? "five-card-display" 
-            : "card-display", 
-        id: "reading-results" 
+        className: activeConfig.cardCount === 1 ? "single-card-display" : "card-display",
+        id: "reading-results",
+        key: "results"
       },
         selectedCards.map((card, index) => 
           React.createElement("div", { 
             key: index,
             className: "tarot-card card-reveal"
           }, [
-            React.createElement("h3", { className: "position-title" }, activeConfig.positions[index].title),
+            React.createElement("h3", { className: "position-title", key: "pos" }, activeConfig.positions[index].title),
             React.createElement("img", {
               className: "card-image",
               src: card.image_url,
-              alt: card.title
+              alt: card.title,
+              key: "img"
             }),
-            React.createElement("div", { className: "card-content" }, [
-              React.createElement("h2", null, card.title),
-              React.createElement("div", { className: "card-properties" }, [
-                React.createElement("p", null, `Time: ${card.time}`),
-                React.createElement("p", null, `Energy: ${card.energy}`),
-                React.createElement("p", null, `Location: ${card.location}`),
-                React.createElement("p", null, `Element: ${card.element}`)
+            React.createElement("div", { className: "card-content", key: "content" }, [
+              React.createElement("h2", { key: "name" }, card.title),
+              React.createElement("div", { className: "card-properties", key: "props" }, [
+                React.createElement("p", { key: "time" }, `Time: ${card.time}`),
+                React.createElement("p", { key: "energy" }, `Energy: ${card.energy}`),
+                React.createElement("p", { key: "location" }, `Location: ${card.location}`),
+                React.createElement("p", { key: "element" }, `Element: ${card.element}`)
               ]),
-              React.createElement("h3", null, 
+              React.createElement("h3", { key: "meaning-type" }, 
                 card.displayMeaning === 'sun_meaning' ? "Sun Meaning" : "Moon Meaning"),
               formatText(card[card.displayMeaning])
             ])
@@ -823,25 +814,26 @@
       ),
       
       // Email collection form
-      React.createElement("div", { className: "email-form" }, [
-        React.createElement("h3", { className: "email-form-title" }, "Send this reading to your email inbox!"),
-        React.createElement("p", { className: "email-form-description" }, 
+      React.createElement("div", { className: "email-form", key: "email" }, [
+        React.createElement("h3", { className: "email-form-title", key: "email-title" }, "Send this reading to your email inbox!"),
+        React.createElement("p", { className: "email-form-description", key: "email-desc" }, 
           "Enter your email address to receive a copy of your reading and future insights:"),
-        React.createElement("div", { className: "email-input-group" }, [
+        React.createElement("div", { className: "email-input-group", key: "email-group" }, [
           React.createElement("input", {
             type: "email",
             className: "email-input",
             placeholder: "Your email address",
-            id: "user-email"
+            id: "user-email",
+            key: "email-input"
           }),
           React.createElement("button", {
             className: "oracle-button email-submit",
+            key: "email-button",
             onClick: (e) => {
               e.preventDefault();
               const email = document.getElementById('user-email').value;
               if (email && email.includes('@')) {
-                // Send the email and reading data to your endpoint
-                fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/mailjet-reading', {
+                fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
@@ -881,9 +873,10 @@
         ])
       ]),
       
-      // New Reading button - closer to email form on desktop
+      // New Reading button
       React.createElement("div", { 
-        className: "drawing-area new-reading-button"
+        className: "drawing-area new-reading-button",
+        key: "new-reading"
       },
         React.createElement("button", {
           className: "oracle-button",
@@ -892,9 +885,9 @@
       ),
       
       // Copyright notice
-      React.createElement("div", { className: "copyright-notice" }, [
+      React.createElement("div", { className: "copyright-notice", key: "copyright" }, [
         React.createElement("p", null, [
-          "Copyright 2025 The Magick Mechanic and Daniel Boutros. All rights reserved.",
+          "Copyright 2026 The Magick Mechanic and Daniel Boutros. All rights reserved.",
           React.createElement("br"),
           "This Oracle Card Reader and all card content are protected by copyright law. Unauthorized reproduction, distribution, or use of these cards or readings is prohibited."
         ])
