@@ -234,7 +234,12 @@
       text-align: center;
       word-wrap: break-word;
       overflow-wrap: break-word;
-      hyphens: auto;
+      min-height: 120px;  /* Increased to accommodate 5 lines */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.3;
+      font-size: 0.95em;  /* Reduced from default to make text smaller */
     }
 
     .sub-instruction-text { 
@@ -363,6 +368,10 @@
     }
 
     @media (max-width: 768px) {
+      .position-title {
+        min-height: 130px;  /* Increased for mobile */
+        font-size: 0.85em;  /* Even smaller on mobile */
+      
       .card-display {
         grid-template-columns: 1fr;
       }
@@ -495,15 +504,15 @@
         emoji: "⚖️",
         positions: [
           { title: "Key force(s) moving in support of your decision" },
-          { title: "Energies I'm being drawn or inspired by" },
+          { title: "Energies you're being drawn or inspired by" },
           { title: "Key force(s) moving against your decision" },
-          { title: "Energies I'm feeling fear around" },
-          { title: "What energies you can embody to sway the outcome in your favor" }
+          { title: "Energies you're feeling fear around" },
+          { title: "What you can embody to improve the outcome?" }
         ]
       },
       relationship: {
         title: "Relationship Reading",
-        description: "What hidden forces are present in your connection?",
+        description: "What hidden forces exist between you?",
         cardCount: 6,
         emoji: "💕",
         positions: [
@@ -511,7 +520,7 @@
           { title: "Who they are being in this dynamic" },
           { title: "What is destructive in the dynamic" },
           { title: "What is healthy in the dynamic" },
-          { title: "What qualities you can embody to elevate the dynamic" },
+          { title: "What qualities can you embody to improve the dynamic" },
           { title: "The change that will occur if successful" }
         ]
       },
@@ -522,9 +531,9 @@
         emoji: "🌟",
         positions: [
           { title: "How I got here - What qualities did you most embody" },
-          { title: "The present - What qualities do you embody most today" },
-          { title: "Friction - What qualities keep you away from your desire" },
-          { title: "Your Powers - What qualities must you embody to best succeed" },
+          { title: "The present - What qualities do you embody most now" },
+          { title: "Friction - What keeps you away from your desire" },
+          { title: "Your Powers - What must you embody now to best succeed" },
           { title: "Support - The types of people who will be supportive to your quest" },
           { title: "Signals - What energies will be present when I'm on the right path?" },
           { title: "Reward - The gifts that will come from success" }
