@@ -441,6 +441,18 @@ exports.handler = async function(event, context) {
         "sun_meaning": "The one who holds responsibility for the well-being of many. The crown that holds everything and everyone.\n\nA leader who holds their tribe, family or team as a cohesive unit they feel a duty of care toward. This is a steward of responsibility who takes the role as a calling and an integral part of their identity.\n\nOften felt as a caregiving presence; this one is familiar with self-sacrifice for a greater good, and their core role as service. They can hold and lead a family, a community, a tribe, and an organization of hundreds if they choose to.",
         "moon_meaning": "One who carries so much for others can often find themselves in self-neglect and burnout. To wear a crown that carries everyone, is to have a compressed neck and back issues.\n\nThe crown which holds the needs of all may begin to weigh downward, become heavy, burdensome, even draining.\n\nThis being can get easily swept up in the needs of others' and lose their own grounding, and the gift of their own stabilizing presence.\n\nIn this case, the invitation is to do some figurative house-cleaning. Is what you are carrying neccessary? Should someone else be carrying it? Can it be placed on a list or delegated so you don't have to carry it in your mental attention?\n\nMental and emotional attention uses energy. If it's spread too wide and thin, one cannot ground their minds and therefore their presence. A feeling of burnout and loss of connection with one's own needs often comes with this." 
       },
+      { 
+        "id": "dmtcat",
+        "title": "God Cat",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/04b43d25-93fe-42d2-99fc-15a7bf8783b1/dmtkitty.png",  
+        "time": "Non existent",
+        "energy": "Dissolusion or Illusion",
+        "location": "Universe",
+        "element": "Everything, Nothing",
+        "sun_meaning": "Some believe each of us is divinity experiencing itself.\n\nMuch like we experience sound through our physical ears, God, Creator or Universe is believed to be experiencing itself through each person as a super-sense to meet the contrasting elements of existence.\n\nWe can safely access this experiential state through meditations, spontaneous spiritual awakenings or therepeutic plant medicine ceremonies, safely.\n\nAccessing this state can also activate profound healing miracles, perspectives and a re-grounding into a new experience of self.\n\nConnecting with this breaks down the trappings of conditioned identities and reminds us of the infinite vastness of existence. This message is a reminder that you can access this state and reconnection with it may bring you a much-needed reconnection to the truth of your 'self', and the answers you seek. You are not separated from this experience, and it is always accessible to you.",
+        "moon_meaning": "Self-creation is a process of decades and for many, it can turn into a spiral, a stunting or a broken record.\n\nThe illusion of separation can keep us stuck, and that separation is usually coming from within. Has your path of evolution become one of not-good-enough-ness or constant suffering?\n\nHow can an expression of divinity be not good or 'God' enough? Even if perceived as broken, unfinished, lost or one who has lost, you are always a perfect creation, and living, continually re-creating art.\n\nYou are always loved. Your value is in presence and sharing your true expression.\n\nThere are people who've not met you who love you. Let yourself experience the value of your own presence and experience the love within it" 
+      },
+
     ];
 
     return {
