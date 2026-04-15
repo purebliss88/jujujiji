@@ -185,7 +185,7 @@
     
     .card-content p {
       margin: 0 0 10px 0;
-      line-height: 1.5;
+      line-height: 1.3;
       text-align: left;
     }
     
