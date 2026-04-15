@@ -96,6 +96,7 @@
       max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
+      align-items: start;
     }
     
     /* Special single card display to center it */
@@ -166,6 +167,7 @@
       contain: layout style paint;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      height: fit-content;
     }
     
     .card-image {
@@ -182,8 +184,8 @@
     }
     
     .card-content p {
-      margin: 0 0 15px 0;
-      line-height: 1.6;
+      margin: 0 0 10px 0;
+      line-height: 1.5;
       text-align: left;
     }
     
