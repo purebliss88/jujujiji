@@ -77,8 +77,10 @@
     
     .reading-info h2 {
       margin: 0 0 8px 0;
-      font-size: 1.3em;
+      font-size: 1.2em;
       color: #C79535;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     
     .reading-info p {
@@ -185,7 +187,7 @@
     
     .card-content p {
       margin: 0 0 10px 0;
-      line-height: 1.3;
+      line-height: 1.5;
       text-align: left;
     }
     
@@ -227,19 +229,19 @@
     .position-title {
       background: #4A0401;
       color: #C79535;
-      padding: 8px 15px;
+      padding: 12px 15px;
       border-radius: 4px;
       margin-top: 0;
       margin-bottom: 15px;
       text-align: center;
       word-wrap: break-word;
       overflow-wrap: break-word;
-      min-height: 120px;  /* Increased to accommodate 5 lines */
+      min-height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
       line-height: 1.3;
-      font-size: 0.95em;  /* Reduced from default to make text smaller */
+      font-size: 0.95em;
     }
 
     .sub-instruction-text { 
@@ -365,28 +367,57 @@
       .new-reading-button {
         margin-top: 15px;
       }
+      
+      .email-input-group {
+        flex-direction: row;
+      }
+      
+      .email-input {
+        flex: 1;
+      }
+      
+      .email-submit {
+        width: auto;
+      }
     }
 
     @media (max-width: 768px) {
-      .position-title {
-        min-height: 130px;  /* Increased for mobile */
-        font-size: 0.85em;  /* Even smaller on mobile */
-      
+      /* Single column layout for cards on mobile */
       .card-display {
         grid-template-columns: 1fr;
       }
       
+      /* Wider reading type buttons on mobile */
       .reading-card {
         flex-direction: column;
         text-align: center;
+        padding: 25px;
+        width: 100%;
+        max-width: 100%;
+      }
+      
+      .reading-options {
+        padding: 20px 10px;
+        margin: 40px auto;
+        max-width: 100%;
       }
       
       .reading-info {
         text-align: center;
+        width: 100%;
+      }
+      
+      .reading-info h2 {
+        font-size: 1.1em;
       }
       
       .instruction-text {
         max-width: 95%;
+      }
+      
+      .position-title {
+        min-height: 130px;
+        font-size: 0.85em;
       }
       
       .reading-container[data-cards="1"] { min-height: 800px; }
@@ -408,18 +439,6 @@
     @media (min-width: 769px) {
       .tarot-card {
         transition: transform 0.5s ease-in-out;
-      }
-      
-      .email-input-group {
-        flex-direction: row;
-      }
-      
-      .email-input {
-        flex: 1;
-      }
-      
-      .email-submit {
-        width: auto;
       }
     }
     
@@ -510,20 +529,6 @@
           { title: "What you can embody to improve the outcome?" }
         ]
       },
-      relationship: {
-        title: "Relationship Reading",
-        description: "What hidden forces exist between you?",
-        cardCount: 6,
-        emoji: "💕",
-        positions: [
-          { title: "Who you are being in this dynamic" },
-          { title: "Who they are being in this dynamic" },
-          { title: "What is destructive in the dynamic" },
-          { title: "What is healthy in the dynamic" },
-          { title: "What qualities can you embody to improve the dynamic" },
-          { title: "The change that will occur if successful" }
-        ]
-      },
       path_to_success: {
         title: "Your Path to Success",
         description: "What does the path look like for you achieving your vision?",
@@ -537,6 +542,22 @@
           { title: "Support - The types of people who will be supportive to your quest" },
           { title: "Signals - What energies will be present when I'm on the right path?" },
           { title: "Reward - The gifts that will come from success" }
+        ]
+      },
+      relationship: {
+        title: "Relationship Reading",
+        description: "What hidden forces exist between you?",
+        cardCount: 8,
+        emoji: "💕",
+        positions: [
+          { title: "Who you are being in this dynamic" },
+          { title: "Who they are being in this dynamic" },
+          { title: "What is your hidden desire?" },
+          { title: "What is their hidden desire?" },
+          { title: "What is destructive in the dynamic" },
+          { title: "What is healthy in the dynamic" },
+          { title: "What qualities can you embody to improve the dynamic" },
+          { title: "The change that will occur if successful" }
         ]
       },
       business: {
@@ -754,8 +775,8 @@
               }, 200);
             }
           }, [
-            React.createElement("div", { className: "reading-thumbnail" }, config.emoji),
-            React.createElement("div", { className: "reading-info" }, [
+            React.createElement("div", { className: "reading-thumbnail", key: "thumb" }, config.emoji),
+            React.createElement("div", { className: "reading-info", key: "info" }, [
               React.createElement("h2", { key: "title" }, config.title),
               React.createElement("p", { key: "desc" }, config.description)
             ])
@@ -898,7 +919,7 @@
       // Copyright notice
       React.createElement("div", { className: "copyright-notice", key: "copyright" }, [
         React.createElement("p", null, [
-          "Copyright 2026 The Magick Mechanic and Daniel Boutros. All rights reserved.",
+          "Copyright 2025 The Magick Mechanic and Daniel Boutros. All rights reserved.",
           React.createElement("br"),
           "This Oracle Card Reader and all card content are protected by copyright law. Unauthorized reproduction, distribution, or use of these cards or readings is prohibited."
         ])
