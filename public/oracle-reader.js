@@ -21,7 +21,8 @@
       font-size: 22px;
       font-weight: bold;
       transition: background 0.3s ease;
-      margin: 20px 0;
+      margin: 20px auto;
+      display: block;
     }
     
     .oracle-button:hover {
@@ -128,6 +129,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
     }
     
     .card-back {
@@ -814,7 +816,7 @@
       className: "reading-container",
       "data-cards": activeConfig.cardCount
     }, [
-      React.createElement("h2", { className: "reading-title", key: "title" }, activeConfig.title),
+      React.createElement("div", { className: "reading-title", key: "title" }, activeConfig.title),
       React.createElement("div", { 
         className: activeConfig.cardCount === 1 ? "single-card-display" : "card-display",
         id: "reading-results",
