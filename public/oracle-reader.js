@@ -1,6 +1,5 @@
 // Oracle Card Reader
 (function() {
-  // Create styles
   const style = document.createElement('style');
   style.textContent = `
     #oracle-reader-container {
@@ -9,6 +8,10 @@
       padding: 20px;
       font-family: inherit;
       scroll-behavior: smooth;
+    }
+
+    #oracle-reader-container * {
+      box-sizing: border-box;
     }
 
     .oracle-button {
@@ -30,12 +33,11 @@
       color: #4A0401;
     }
     
-    /* KEY FIX: grid instead of flex, margin 40px 0 not auto */
     .reading-options {
       display: grid;
       grid-template-columns: 1fr;
       gap: 20px;
-      margin: 40px 0;   ← no auto
+      margin: 40px 0;
       padding: 0;
       width: 100%;
     }
@@ -52,10 +54,12 @@
       align-items: center;
       gap: 20px;
       min-height: 100px;
+      width: 100%;
     }
     
+    /* FIX: translateY (up) instead of translateX (right) - avoids mobile touch state offset */
     .reading-card:hover {
-      transform: translateX(5px);
+      transform: translateY(-5px);
       border-color: #FFEE86;
       background: rgba(7, 16, 55, 0.95);
     }
@@ -104,7 +108,6 @@
       align-items: start;
     }
     
-    /* Special single card display to center it */
     .single-card-display {
       display: grid;
       grid-template-columns: 1fr;
@@ -112,14 +115,12 @@
       margin: 30px auto;
     }
     
-    /* Reading container screen jump protection */
     .reading-container {
       min-height: 700px;
       position: relative;
       transition: min-height 0.3s ease;
     }
     
-    /* Different heights for different reading types */
     .reading-container[data-cards="1"] { min-height: 600px; }
     .reading-container[data-cards="3"] { min-height: 800px; }
     .reading-container[data-cards="6"] { min-height: 1000px; }
@@ -170,7 +171,6 @@
       color: white;
       max-width: 100%;
       box-sizing: border-box;
-      contain: layout style paint;
       word-wrap: break-word;
       overflow-wrap: break-word;
       height: fit-content;
@@ -189,9 +189,10 @@
       overflow-wrap: break-word;
     }
     
+    /* FIX: reverted body text spacing to original */
     .card-content p {
-      margin: 0 0 10px 0;
-      line-height: 1.5;
+      margin: 0 0 15px 0;
+      line-height: 1.6;
       text-align: left;
     }
     
@@ -255,6 +256,7 @@
       text-align: center;
     }
 
+    /* FIX: uppercase + line-height 1.1 for reading result title */
     .reading-title {
       text-align: center;
       color: #C79535;
@@ -265,6 +267,8 @@
       border-radius: 12px;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      text-transform: uppercase;
+      line-height: 1.1;
     }
 
     .email-form {
@@ -335,9 +339,8 @@
       border: 2px solid #C79535;
       padding: 15px 25px;
       font-size: 18px;
-      font-weight: bold;
-      font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
       font-weight: 600;
+      font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
       text-transform: uppercase;
       letter-spacing: 4.4px;
       border-radius: 8px;
@@ -386,26 +389,14 @@
     }
 
     @media (max-width: 768px) {
-      /* Single column layout for cards on mobile */
       .card-display {
         grid-template-columns: 1fr;
       }
       
-      /* Wider reading type buttons on mobile */
       .reading-card {
         flex-direction: column;
         text-align: center;
         padding: 25px;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;  /* ADD THIS - remove any margin offset */
-      }
-      
-      .reading-options {
-        padding: 20px 0;  /* Changed from 20px 10px - no side padding */
-        margin: 40px 0;   /* Changed from 40px auto - no auto margin */
-        max-width: 100%;
-        width: 100%;      /* ADD THIS - full width */
       }
       
       .reading-info {
@@ -414,7 +405,7 @@
       }
       
       .reading-info h2 {
-        font-size: 0.95em; /* Changed from 1.1em - even smaller on mobile */
+        font-size: 0.95em;
       }
       
       .instruction-text {
@@ -449,14 +440,8 @@
     }
     
     @keyframes cardReveal {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     .card-reveal {
@@ -465,32 +450,15 @@
   `;
   document.head.appendChild(style);
   
-  // Device detection utility
-  const getDeviceType = () => {
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-    const isTablet = /ipad|android(?!.*mobile)/i.test(userAgent);
-    const screenWidth = window.innerWidth;
-    
-    if (isMobile && screenWidth < 768) return 'mobile';
-    if (isTablet || (screenWidth >= 768 && screenWidth < 1024)) return 'tablet';
-    return 'desktop';
-  };
-
-  // Viewport height fix for mobile browsers
   const setViewportHeight = () => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
 
-  // Initialize viewport fixes
   window.addEventListener('load', setViewportHeight);
   window.addEventListener('resize', setViewportHeight);
-  window.addEventListener('orientationchange', () => {
-    setTimeout(setViewportHeight, 100);
-  });
+  window.addEventListener('orientationchange', () => { setTimeout(setViewportHeight, 100); });
   
-  // Helper function to format text with paragraphs
   function formatText(text) {
     if (!text) return null;
     return text.split('\n').map((paragraph, index) => 
@@ -498,29 +466,14 @@
     );
   }
   
-  // React component for Oracle Card Reader
   function OracleCardReader() {
-    // Add reading configurations
     const readingConfigurations = {
       single: {
         title: "Single Card Reading",
         description: "Feel a question in your heart and draw a card for guidance",
         cardCount: 1,
         emoji: "🔮",
-        positions: [
-          { title: "Your Guidance" }
-        ]
-      },
-      situation_action_outcome: {
-        title: "Situation, Action, Outcome",
-        description: "Explore your current challenge and how to address it",
-        cardCount: 3,
-        emoji: "🎯",
-        positions: [
-          { title: "Situation - The current challenge" },
-          { title: "Action - What to do" },
-          { title: "Outcome - The result of taking action" }
-        ]
+        positions: [{ title: "Your Guidance" }]
       },
       forces_decision: {
         title: "Forces Behind a Big Decision",
@@ -535,6 +488,20 @@
           { title: "What you can embody to improve the outcome?" }
         ]
       },
+      situation_action_outcome: {
+        title: "Help me See my Blind Spot",
+        description: "What is creating undesired parts of my reality?",
+        cardCount: 6,
+        emoji: "🎯",
+        positions: [
+          { title: "Situation - The current challenge" },
+          { title: "What is my hidden fear?" },
+          { title: "What is my hidden desire?" },
+          { title: "What is my mask or falsehood?" },
+          { title: "What is my truth under the mask?" },
+          { title: "What can I do to become the truth?" },
+        ]
+      },
       path_to_success: {
         title: "Your Path to Success",
         description: "What does the path look like for you achieving your vision?",
@@ -545,22 +512,25 @@
           { title: "The present - What qualities do you embody most now" },
           { title: "Friction - What keeps you away from your desire" },
           { title: "Your Powers - What must you embody now to best succeed" },
-          { title: "Support - The types of people who will be supportive to your quest" },
-          { title: "Signals - What energies will be present when I'm on the right path?" },
+          { title: "Support - The types of people who will support your quest" },
+          { title: "Signals - Energies that tell you you're on the right path" },
           { title: "Reward - The gifts that will come from success" }
         ]
       },
       relationship: {
         title: "Relationship Reading",
         description: "What hidden forces exist between you?",
-        cardCount: 8,
+        cardCount: 11,
         emoji: "💕",
         positions: [
           { title: "Who you are being in this dynamic" },
           { title: "Who they are being in this dynamic" },
           { title: "What is your hidden desire?" },
           { title: "What is their hidden desire?" },
-          { title: "What is destructive in the dynamic" },
+          { title: "What is your hidden fear?" },
+          { title: "What is their hidden fear?" },
+          { title: "What is destructive in your behavior" },
+          { title: "What is destructive in their behavior" },
           { title: "What is healthy in the dynamic" },
           { title: "What qualities can you embody to improve the dynamic" },
           { title: "The change that will occur if successful" }
@@ -600,7 +570,6 @@
       }
     };
     
-    // State variables
     const [readingType, setReadingType] = React.useState(null);
     const [cards, setCards] = React.useState([]);
     const [selectedCards, setSelectedCards] = React.useState([]);
@@ -608,18 +577,12 @@
     const [error, setError] = React.useState(null);
     const [activeConfig, setActiveConfig] = React.useState(null);
     
-    // Fetch cards when component mounts
     React.useEffect(() => {
       async function fetchCards() {
         try {
           setLoading(true);
-          
           const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?token=jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
-          
-          if (!response.ok) {
-            throw new Error('Failed to load cards. The cats might be asleep.');
-          }
-          
+          if (!response.ok) throw new Error('Failed to load cards. The cats might be asleep.');
           const data = await response.json();
           setCards(data);
           setLoading(false);
@@ -628,27 +591,17 @@
           setLoading(false);
         }
       }
-      
       fetchCards();
-      
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 100);
+      setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 100);
     }, []);
     
-    // Improved scrolling behavior
     React.useEffect(() => {
       if (activeConfig && selectedCards.length === activeConfig.cardCount) {
         setTimeout(() => {
           const resultsArea = document.getElementById('reading-results');
           if (resultsArea) {
             resultsArea.style.opacity = '0';
-            resultsArea.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start',
-              inline: 'nearest'
-            });
-            
+            resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
             setTimeout(() => {
               resultsArea.style.transition = 'opacity 0.5s ease';
               resultsArea.style.opacity = '1';
@@ -658,7 +611,6 @@
       }
     }, [selectedCards.length, activeConfig]);
     
-    // Function to shuffle cards
     const shuffleCards = () => {
       const shuffled = [...cards];
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -668,96 +620,66 @@
       setCards(shuffled);
     };
     
-    // Function to draw a card
     const drawCard = () => {
       if (!activeConfig || selectedCards.length >= activeConfig.cardCount || cards.length === 0) return;
-      
       const randomIndex = Math.floor(Math.random() * cards.length);
       const card = cards[randomIndex];
-      
       const meaning = Math.random() > 0.5 ? 'sun_meaning' : 'moon_meaning';
-      
       setSelectedCards([...selectedCards, {...card, displayMeaning: meaning}]);
       setCards(cards.filter((_, index) => index !== randomIndex));
-      
       setTimeout(() => {
         const drawingArea = document.getElementById('drawing-area');
-        if (drawingArea) {
-          drawingArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        if (drawingArea) drawingArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 100);
     };
     
-    // Enhanced reset function
     const resetReading = () => {
       setReadingType(null);
       setSelectedCards([]);
       setActiveConfig(null);
-      
       setTimeout(() => {
         const oracleContainer = document.getElementById('oracle-reader-container');
-        
         if (oracleContainer) {
           const containerRect = oracleContainer.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const containerTop = containerRect.top + scrollTop;
-          
-          window.scrollTo({
-            top: containerTop - 100,
-            behavior: 'smooth'
-          });
+          window.scrollTo({ top: containerRect.top + scrollTop - 100, behavior: 'smooth' });
         } else {
           const readingOptions = document.querySelector('.reading-options');
           if (readingOptions) {
-            readingOptions.scrollIntoView({ 
-              behavior: 'smooth', 
-              block: 'start'
-            });
-            
-            setTimeout(() => {
-              window.scrollBy(0, -150);
-            }, 300);
+            readingOptions.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => { window.scrollBy(0, -150); }, 300);
           }
         }
       }, 100);
-      
       async function fetchCards() {
         try {
           setLoading(true);
           const response = await fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/get-oracle-cards?token=jTaXzPBxBLuKHfLXsjqCqLmJTTJ3ArCSZ15Hgzy23');
-          if (!response.ok) {
-            throw new Error('Sleeping cats. Failed to summon cards');
-          }
+          if (!response.ok) throw new Error('Sleeping cats.');
           const data = await response.json();
           setCards(data);
           setLoading(false);
         } catch (err) {
-          setError('Unable to load cards due to cats probably napping. Please try again later.');
+          setError('Unable to load cards. Please try again later.');
           setLoading(false);
         }
       }
       fetchCards();
     };
     
-    // Loading state
     if (loading) {
       return React.createElement("div", { className: "drawing-area" },
         React.createElement("p", { className: "instruction-text" }, "Summoning the cats...")
       );
     }
     
-    // Error state
     if (error) {
       return React.createElement("div", { className: "drawing-area" },
         React.createElement("p", { className: "instruction-text" }, error),
-        React.createElement("button", {
-          className: "oracle-button",
-          onClick: () => window.location.reload()
-        }, "Try Again")
+        React.createElement("button", { className: "oracle-button", onClick: () => window.location.reload() }, "Try Again")
       );
     }
     
-    // Reading type selection screen
     if (!readingType) {
       return React.createElement("div", { className: "reading-options" }, 
         Object.keys(readingConfigurations).map(configKey => {
@@ -769,15 +691,9 @@
               shuffleCards();
               setReadingType(configKey);
               setActiveConfig(config);
-              
               setTimeout(() => {
                 const drawingArea = document.getElementById('drawing-area');
-                if (drawingArea) {
-                  drawingArea.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center'
-                  });
-                }
+                if (drawingArea) drawingArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }, 200);
             }
           }, [
@@ -791,32 +707,19 @@
       );
     }
     
-    // Drawing cards view
     if (activeConfig && selectedCards.length < activeConfig.cardCount) {
       const currentPosition = activeConfig.positions[selectedCards.length];
-      return React.createElement("div", { 
-        className: "reading-container",
-        "data-cards": activeConfig.cardCount
-      }, [
+      return React.createElement("div", { className: "reading-container", "data-cards": activeConfig.cardCount }, [
         React.createElement("div", { className: "drawing-area", id: "drawing-area", key: "drawing" }, [
           React.createElement("p", { className: "instruction-text", key: "instruction" },
             `Drawing card ${selectedCards.length + 1} of ${activeConfig.cardCount}: ${currentPosition.title}`),
-          React.createElement("p", { className: "sub-instruction-text", key: "sub" },
-            "Focus on this aspect as you draw your card"),
-          React.createElement("button", {
-            className: "oracle-button",
-            onClick: drawCard,
-            key: "button"
-          }, "Draw Card")
+          React.createElement("p", { className: "sub-instruction-text", key: "sub" }, "Focus on this aspect as you draw your card"),
+          React.createElement("button", { className: "oracle-button", onClick: drawCard, key: "button" }, "Draw Card")
         ])
       ]);
     }
     
-    // Reading results view
-    return React.createElement("div", { 
-      className: "reading-container",
-      "data-cards": activeConfig.cardCount
-    }, [
+    return React.createElement("div", { className: "reading-container", "data-cards": activeConfig.cardCount }, [
       React.createElement("div", { className: "reading-title", key: "title" }, activeConfig.title),
       React.createElement("div", { 
         className: activeConfig.cardCount === 1 ? "single-card-display" : "card-display",
@@ -824,17 +727,9 @@
         key: "results"
       },
         selectedCards.map((card, index) => 
-          React.createElement("div", { 
-            key: index,
-            className: "tarot-card card-reveal"
-          }, [
+          React.createElement("div", { key: index, className: "tarot-card card-reveal" }, [
             React.createElement("h3", { className: "position-title", key: "pos" }, activeConfig.positions[index].title),
-            React.createElement("img", {
-              className: "card-image",
-              src: card.image_url,
-              alt: card.title,
-              key: "img"
-            }),
+            React.createElement("img", { className: "card-image", src: card.image_url, alt: card.title, key: "img" }),
             React.createElement("div", { className: "card-content", key: "content" }, [
               React.createElement("h2", { key: "name" }, card.title),
               React.createElement("div", { className: "card-properties", key: "props" }, [
@@ -843,26 +738,21 @@
                 React.createElement("p", { key: "location" }, `Location: ${card.location}`),
                 React.createElement("p", { key: "element" }, `Element: ${card.element}`)
               ]),
-              React.createElement("h3", { key: "meaning-type" }, 
-                card.displayMeaning === 'sun_meaning' ? "Sun Meaning" : "Moon Meaning"),
+              React.createElement("h3", { key: "meaning-type" }, card.displayMeaning === 'sun_meaning' ? "Sun Meaning" : "Moon Meaning"),
               formatText(card[card.displayMeaning])
             ])
           ])
         )
       ),
       
-      // Email collection form
       React.createElement("div", { className: "email-form", key: "email" }, [
         React.createElement("h3", { className: "email-form-title", key: "email-title" }, "Send this reading to your email inbox!"),
         React.createElement("p", { className: "email-form-description", key: "email-desc" }, 
           "Enter your email address to receive a copy of your reading and future insights:"),
         React.createElement("div", { className: "email-input-group", key: "email-group" }, [
           React.createElement("input", {
-            type: "email",
-            className: "email-input",
-            placeholder: "Your email address",
-            id: "user-email",
-            key: "email-input"
+            type: "email", className: "email-input", placeholder: "Your email address",
+            id: "user-email", key: "email-input"
           }),
           React.createElement("button", {
             className: "oracle-button email-submit",
@@ -872,37 +762,35 @@
               const email = document.getElementById('user-email').value;
               if (email && email.includes('@')) {
                 fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      email: email,
-                      reading: {
-                        type: activeConfig.title,
-                        cards: selectedCards.map((card, i) => ({
-                          position: activeConfig.positions[i].title,
-                          card: card.title,
-                          meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
-                          text: card[card.displayMeaning],
-                          imageUrl: card.image_url
-                        }))
-                      }
-                    })
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                    if (data.success) {
-                      alert('Thank you! This reading has been sent to your email.');
-                    } else {
-                      alert('Failed to send your reading: ' + (data.message || 'Unknown error'));
-                      console.error('Email error:', data);
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    email: email,
+                    reading: {
+                      type: activeConfig.title,
+                      cards: selectedCards.map((card, i) => ({
+                        position: activeConfig.positions[i].title,
+                        card: card.title,
+                        meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
+                        text: card[card.displayMeaning],
+                        imageUrl: card.image_url
+                      }))
                     }
                   })
-                  .catch(error => {
-                    console.error('Error:', error);
-                    alert('The cats got distracted and failed to send your reading. Please try again later.');
-                  });
+                })
+                .then(r => r.json())
+                .then(data => {
+                  if (data.success) {
+                    alert('Thank you! This reading has been sent to your email.');
+                  } else {
+                    alert('Failed to send your reading: ' + (data.message || 'Unknown error'));
+                    console.error('Email error:', data);
+                  }
+                })
+                .catch(err => {
+                  console.error('Error:', err);
+                  alert('The cats got distracted and failed to send your reading. Please try again later.');
+                });
               } else {
                 alert('Please enter a valid email address.');
               }
@@ -911,18 +799,10 @@
         ])
       ]),
       
-      // New Reading button
-      React.createElement("div", { 
-        className: "drawing-area new-reading-button",
-        key: "new-reading"
-      },
-        React.createElement("button", {
-          className: "oracle-button",
-          onClick: resetReading
-        }, "Start New Reading")
+      React.createElement("div", { className: "drawing-area new-reading-button", key: "new-reading" },
+        React.createElement("button", { className: "oracle-button", onClick: resetReading }, "Start New Reading")
       ),
       
-      // Copyright notice
       React.createElement("div", { className: "copyright-notice", key: "copyright" }, [
         React.createElement("p", null, [
           "Copyright 2025 The Magick Mechanic and Daniel Boutros. All rights reserved.",
@@ -933,7 +813,6 @@
     ]);
   }
   
-  // Render the component into the container
   const domContainer = document.getElementById('oracle-reader-container');
   ReactDOM.render(React.createElement(OracleCardReader), domContainer);
 })();
