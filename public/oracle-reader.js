@@ -35,6 +35,7 @@
       gap: 20px;
       margin: 40px auto;
       max-width: 800px;
+      padding: 0;  /* ADD THIS - remove default padding */
     }
     
     .reading-card {
@@ -77,7 +78,7 @@
     
     .reading-info h2 {
       margin: 0 0 8px 0;
-      font-size: 1.2em;
+      font-size: 1.1em;
       color: #C79535;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -394,12 +395,14 @@
         padding: 25px;
         width: 100%;
         max-width: 100%;
+        margin: 0;  /* ADD THIS - remove any margin offset */
       }
       
       .reading-options {
-        padding: 20px 10px;
-        margin: 40px auto;
+        padding: 20px 0;  /* Changed from 20px 10px - no side padding */
+        margin: 40px 0;   /* Changed from 40px auto - no auto margin */
         max-width: 100%;
+        width: 100%;      /* ADD THIS - full width */
       }
       
       .reading-info {
@@ -408,7 +411,7 @@
       }
       
       .reading-info h2 {
-        font-size: 1.1em;
+        font-size: 0.95em; /* Changed from 1.1em - even smaller on mobile */
       }
       
       .instruction-text {
