@@ -192,7 +192,7 @@
     /* FIX: reverted body text spacing to original */
     .card-content p {
       margin: 0 0 15px 0;
-      line-height: 1.3;
+      line-height: 1.1;
       text-align: left;
     }
     
