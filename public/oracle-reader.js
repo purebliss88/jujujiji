@@ -30,13 +30,14 @@
       color: #4A0401;
     }
     
+    /* KEY FIX: grid instead of flex, margin 40px 0 not auto */
     .reading-options {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 20px;
-      margin: 40px auto;
-      max-width: 800px;
-      padding: 0;  /* ADD THIS - remove default padding */
+      margin: 40px 0;   ← no auto
+      padding: 0;
+      width: 100%;
     }
     
     .reading-card {
