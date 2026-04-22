@@ -474,6 +474,17 @@ exports.handler = async function(event, context) {
         "sun_meaning": "An artist brings sensitivity, inspiration, vision, passion, self-exploration and self-discovery together to create something unique.\n\nIt's one of life's most connective and impactful callings and is often derided in 'modern society' as frivolous causing us to devalue it. To debunk that distortion, look at the Rennaisance period and other world renowned artists.\n\nThese people created pieces that elevated people's comprehension of what is possible and what they could feel.\n\nThis being, when fully tuned-in to themselves, is an adept of the art of expressing one's soul, as a powerful mirror or contrast to many others.\n\nThis calling is one that when followed, grants a rich life with all the textures, ups and downs. It can be challenging, but it is deep and rewarding when fully committed to.",
         "moon_meaning": "Sometimes when art becomes our livelihood we can lose connection to the 'why' that drove us initially.\n\nIn that phase, the art we strive to make can become a noose, eroding our sense of self slowly and subtley, sometimes so much so that we can't tell we're having that experience.\n\nIf the one you drew this card for, find themselves in that place, know that they are not alone. This is the sign to stop making for money's sake, and re-visit your 'why'?\n\nEven if our 'why' changes, sometimes we can realign what we create to meet it perfectly. Other times it can become a poorly-fit solution. The core message is this : reconnect with your soul's truth and your desire, find your 'new' why and your path will start to be clear once more. " 
       },
+      { 
+        "id": "kingmoney",
+        "title": "King of Wealth",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/ec221ea1-7d72-4129-ab58-569f2d99c407/Messiah+Narc.png",  
+        "time": "As Needed",
+        "energy": "Faith or Distrust",
+        "location": "Here",
+        "element": "Earth",
+        "sun_meaning": "The one in this oracle is the true steward of wealth energy. They recognize wealth in multiple forms and at best, are able to move through life consistently well-resourced and supported.\n\nThis oracle is a sign you are either this being, or your path is aligning you into a flow of wealth, or an expansion of wealth.",
+        "moon_meaning": "In the pursuit of wealth, we can often get in a cycle of looking for opportunities. Sometimes to receive wealth, we need to contract. When we breathe, our lungs first expand to take in oxygen, then exhale to let it out as carbon dioxide.\n\nIn the path of attaining wealth, trust, faith and patience are critical pieces of the puzzle. It may seem practical and wise to continually put out signals to receive opportunity.\n\nUnder the hood, is there desperation? A lack of faith you're supported? A lack of faith you can ever relax and receive from life? If there is, that's the seed of what you're putting out there.\n\nDo you think that seed will grow into prosperity, or disappointment? This is a time to contract your energy and trust you will receive. Relax, trust and receive. It will come." 
+      },
     ];
 
     return {
