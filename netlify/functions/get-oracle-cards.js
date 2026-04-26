@@ -477,7 +477,7 @@ exports.handler = async function(event, context) {
       { 
         "id": "kingmoney",
         "title": "King of Wealth",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/ec221ea1-7d72-4129-ab58-569f2d99c407/Messiah+Narc.png",  
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/d13fd658-21e7-4000-8002-dd80b5ac5775/king+of+coin2.png",  
         "time": "As Needed",
         "energy": "Faith or Distrust",
         "location": "Here",
