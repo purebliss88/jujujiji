@@ -346,13 +346,11 @@ exports.handler = async function(event, context) {
         </style>
     </head>
     <body>
-
-    <!-- HEADER UNDER THE MAIN READING TITLES
-            <div class="email-container">
-                <div class="header">
+        <div class="email-container">
+            <div class="header">
                 <h1>✨ Your ${reading.type} ✨</h1>
                 <p class="subtitle">A mystical message from Daniel Boutros at The Magick Mechanic</p>
-            </div> -->
+            </div>
             
             <div class="content">
                 <div class="reading-intro">
@@ -382,7 +380,7 @@ exports.handler = async function(event, context) {
             
             <div class="footer">
                 <p class="footer-message">May this reading illuminate your path forward</p>
-                <p>Visit <a href="https://www.themagickmechanic.com">The Magick Mechanic</a>  for more insights, support and more...</p>
+                <p>Visit <a href="https://www.themagickmechanic.com" class="footer-link">The Magick Mechanic</a> for more insights, support and more...</p>
                 <p class="copyright">© ${new Date().getFullYear()} Daniel Boutros and The Magick Mechanic. All rights reserved.</p>
             </div>
         </div>
