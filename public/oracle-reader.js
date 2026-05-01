@@ -761,7 +761,7 @@
               e.preventDefault();
               const email = document.getElementById('user-email').value;
               if (email && email.includes('@')) {
-                fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
+                fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/mailjet-reading', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
@@ -805,7 +805,7 @@
       
       React.createElement("div", { className: "copyright-notice", key: "copyright" }, [
         React.createElement("p", null, [
-          "Copyright 2025 The Magick Mechanic and Daniel Boutros. All rights reserved.",
+          "Copyright 2026 The Magick Mechanic and Daniel Boutros. All rights reserved.",
           React.createElement("br"),
           "This Oracle Card Reader and all card content are protected by copyright law. Unauthorized reproduction, distribution, or use of these cards or readings is prohibited."
         ])
