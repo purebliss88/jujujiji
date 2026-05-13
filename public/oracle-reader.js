@@ -543,6 +543,131 @@
     );
   }
   
+  // Social Sharing Functions - DEFINED BEFORE OracleCardReader
+  async function generateShareImage(readingTitle, cards, positions) {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = 1080;
+      canvas.height = 1080;
+      
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#071037');
+      gradient.addColorStop(0.5, '#161719');
+      gradient.addColorStop(1, '#4A0401');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.strokeStyle = '#C79535';
+      ctx.lineWidth = 8;
+      ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+      
+      ctx.fillStyle = '#C79535';
+      ctx.font = 'bold 48px Georgia, serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('SOMEONE GOT', canvas.width / 2, 120);
+      
+      ctx.fillStyle = '#FFEE86';
+      ctx.font = 'bold 56px Arial, sans-serif';
+      ctx.fillText(cards[0].title.toUpperCase(), canvas.width / 2, 200);
+      
+      ctx.fillStyle = '#FEF7F2';
+      ctx.font = 'italic 32px Arial, sans-serif';
+      ctx.fillText(`In Their ${readingTitle}`, canvas.width / 2, 260);
+      
+      const cardY = 350;
+      const cardHeight = 100;
+      const spacing = 20;
+      
+      cards.slice(0, 3).forEach((card, index) => {
+        const y = cardY + (index * (cardHeight + spacing));
+        ctx.fillStyle = '#020202';
+        ctx.fillRect(60, y, canvas.width - 120, cardHeight);
+        ctx.strokeStyle = '#C79535';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(60, y, canvas.width - 120, cardHeight);
+        ctx.fillStyle = '#FFEE86';
+        ctx.font = 'bold 26px Arial, sans-serif';
+        ctx.fillText(card.title, canvas.width / 2, y + 40);
+        ctx.fillStyle = '#FEF7F2';
+        ctx.font = '20px Arial, sans-serif';
+        ctx.fillText(positions[index].title, canvas.width / 2, y + 70);
+      });
+      
+      const ctaY = canvas.height - 280;
+      ctx.fillStyle = '#A1EBE4';
+      ctx.font = 'bold 32px Arial, sans-serif';
+      ctx.fillText('Click to see what you get', canvas.width / 2, ctaY);
+      ctx.fillText('and the guidance ✨', canvas.width / 2, ctaY + 40);
+      
+      const bottomY = canvas.height - 180;
+      ctx.fillStyle = '#C79535';
+      ctx.font = 'bold 36px Georgia, serif';
+      ctx.fillText('THE MAGICK MECHANIC', canvas.width / 2, bottomY);
+      
+      ctx.fillStyle = '#FFEE86';
+      ctx.font = 'bold 24px Arial, sans-serif';
+      ctx.fillText('TheMagickMechanic.com', canvas.width / 2, bottomY + 60);
+      
+      canvas.toBlob((blob) => resolve({blob, canvas}), 'image/png', 0.9);
+    });
+  }
+
+  async function shareToInstagram(readingTitle, cards, positions) {
+    const {blob} = await generateShareImage(readingTitle, cards, positions);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'oracle-reading-instagram.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    const cardNames = cards.map(c => c.title).join(', ');
+    const caption = `Someone got ${cardNames} in their ${readingTitle}. Click to see what you get for your guidance! ✨\n\nGet your own reading: https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros\n\n#OracleCards #Mystical #TheMagickMechanic #SpiritualGuidance #Tarot`;
+    await navigator.clipboard.writeText(caption);
+    alert('🖼️ Image downloaded!\n📋 Caption copied to clipboard.\n\nUpload to Instagram and paste the caption ✨');
+  }
+
+  async function shareToTikTok(readingTitle, cards, positions) {
+    const {blob} = await generateShareImage(readingTitle, cards, positions);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'oracle-reading-tiktok.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    const cardNames = cards.map(c => c.title).join(', ');
+    const caption = `Someone got ${cardNames} in their ${readingTitle}. Click to see what you get and the guidance! ✨\n\nGet your mystical reading at TheMagickMechanic.com\n\n#OracleCards #Mystical #WitchTok #SpiritualGuidance #TikTokMystic`;
+    await navigator.clipboard.writeText(caption);
+    alert('🎬 Image downloaded for TikTok!\n📋 Caption copied.\n\nUpload as a photo or use in your video ✨');
+  }
+
+  function shareToFacebook(readingTitle) {
+    const url = 'https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros';
+    const text = `Just got my ${readingTitle} from The Magick Mechanic! The Magickal Cat Oracle is speaking... ✨`;
+    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+    window.open(fbUrl, '_blank', 'width=600,height=400');
+  }
+
+  function shareToTwitter(readingTitle) {
+    const url = 'https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros';
+    const text = `Just got my ${readingTitle} from The Magick Mechanic! The Magickal Cat Oracle is speaking... ✨\n\n${url}\n\n#OracleCards #Mystical #SpiritualGuidance`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+    window.open(twitterUrl, '_blank', 'width=600,height=400');
+  }
+
+  function shareToThreads(readingTitle) {
+    const url = 'https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros';
+    const text = `Just got my ${readingTitle} from The Magick Mechanic! The Magickal Cat Oracle is speaking... ✨\n\n${url}`;
+    const threadsUrl = `https://www.threads.net/intent/post?text=${encodeURIComponent(text)}`;
+    window.open(threadsUrl, '_blank', 'width=600,height=400');
+  }
+  
   function OracleCardReader() {
     const readingConfigurations = {
       single: {
@@ -937,123 +1062,7 @@
       ])
     ]);
   }
-  
-  // Social Sharing Functions
-  async function generateShareImage(readingTitle, cards, positions) {
-    return new Promise((resolve) => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = 1080;
-      canvas.height = 1080;
-      
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, '#071037');
-      gradient.addColorStop(0.5, '#161719');
-      gradient.addColorStop(1, '#4A0401');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.strokeStyle = '#C79535';
-      ctx.lineWidth = 8;
-      ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
-      
-      ctx.fillStyle = '#C79535';
-      ctx.font = 'bold 48px Georgia, serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('SOMEONE GOT', canvas.width / 2, 120);
-      
-      ctx.fillStyle = '#FFEE86';
-      ctx.font = 'bold 56px Arial, sans-serif';
-      ctx.fillText(cards[0].title.toUpperCase(), canvas.width / 2, 200);
-      
-      ctx.fillStyle = '#FEF7F2';
-      ctx.font = 'italic 32px Arial, sans-serif';
-      ctx.fillText(`In Their ${readingTitle}`, canvas.width / 2, 260);
-      
-      const cardY = 350;
-      const cardHeight = 100;
-      const spacing = 20;
-      
-      cards.slice(0, 3).forEach((card, index) => {
-        const y = cardY + (index * (cardHeight + spacing));
-        ctx.fillStyle = '#020202';
-        ctx.fillRect(60, y, canvas.width - 120, cardHeight);
-        ctx.strokeStyle = '#C79535';
-        ctx.lineWidth = 3;
-        ctx.strokeRect(60, y, canvas.width - 120, cardHeight);
-        ctx.fillStyle = '#FFEE86';
-        ctx.font = 'bold 26px Arial, sans-serif';
-        ctx.fillText(card.title, canvas.width / 2, y + 40);
-        ctx.fillStyle = '#FEF7F2';
-        ctx.font = '20px Arial, sans-serif';
-        ctx.fillText(positions[index].title, canvas.width / 2, y + 70);
-      });
-      
-      const ctaY = canvas.height - 280;
-      ctx.fillStyle = '#A1EBE4';
-      ctx.font = 'bold 32px Arial, sans-serif';
-      ctx.fillText('Click to see what you get', canvas.width / 2, ctaY);
-      ctx.fillText('and the guidance ✨', canvas.width / 2, ctaY + 40);
-      
-      const bottomY = canvas.height - 180;
-      ctx.fillStyle = '#C79535';
-      ctx.font = 'bold 36px Georgia, serif';
-      ctx.fillText('THE MAGICK MECHANIC', canvas.width / 2, bottomY);
-      
-      ctx.fillStyle = '#FFEE86';
-      ctx.font = 'bold 24px Arial, sans-serif';
-      ctx.fillText('TheMagickMechanic.com', canvas.width / 2, bottomY + 60);
-      
-      canvas.toBlob((blob) => resolve({blob, canvas}), 'image/png', 0.9);
-    });
-  }
 
-  async function shareToInstagram(readingTitle, cards, positions) {
-    const {blob} = await generateShareImage(readingTitle, cards, positions);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'oracle-reading-instagram.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    const cardNames = cards.map(c => c.title).join(', ');
-    const caption = `Someone got ${cardNames} in their ${readingTitle}. Click to see what you get for your guidance! ✨\n\nGet your own reading: https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros\n\n#OracleCards #Mystical #TheMagickMechanic #SpiritualGuidance #Tarot`;
-    await navigator.clipboard.writeText(caption);
-    alert('🖼️ Image downloaded!\n📋 Caption copied to clipboard.\n\nUpload to Instagram and paste the caption ✨');
-  }
-
-  async function shareToTikTok(readingTitle, cards, positions) {
-    const {blob} = await generateShareImage(readingTitle, cards, positions);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'oracle-reading-tiktok.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    const cardNames = cards.map(c => c.title).join(', ');
-    const caption = `Someone got ${cardNames} in their ${readingTitle}. Click to see what you get and the guidance! ✨\n\nGet your mystical reading at TheMagickMechanic.com\n\n#OracleCards #Mystical #WitchTok #SpiritualGuidance #TikTokMystic`;
-    await navigator.clipboard.writeText(caption);
-    alert('🎬 Image downloaded for TikTok!\n📋 Caption copied.\n\nUpload as a photo or use in your video ✨');
-  }
-
-  function shareToFacebook(readingTitle) {
-    const url = 'https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros';
-    const text = `Just got my ${readingTitle} from The Magick Mechanic! The Magickal Cat Oracle is speaking... ✨`;
-    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
-    window.open(fbUrl, '_blank', 'width=600,height=400');
-  }
-
-  function shareToTwitter(readingTitle) {
-    const url = 'https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros';
-    const text = `Just got my ${readingTitle} from The Magick Mechanic! The Magickal Cat Oracle is speaking... ✨\n\n${url}\n\n#OracleCards #Mystical #SpiritualGuidance`;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-    window.open(twitterUrl, '_blank', 'width=600,height=400');
-  }
-
-  function shareToThreads
+  const domContainer = document.getElementById('oracle-reader-container');
+  ReactDOM.render(React.createElement(OracleCardReader), domContainer);
+})();
