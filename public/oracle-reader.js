@@ -57,7 +57,6 @@
       width: 100%;
     }
     
-    /* FIX: translateY (up) instead of translateX (right) - avoids mobile touch state offset */
     .reading-card:hover {
       transform: translateY(-5px);
       border-color: #FFEE86;
@@ -189,7 +188,6 @@
       overflow-wrap: break-word;
     }
     
-    /* FIX: reverted body text spacing to original */
     .card-content p {
       margin: 0 0 15px 0;
       line-height: 1.1;
@@ -256,7 +254,6 @@
       text-align: center;
     }
 
-    /* FIX: uppercase + line-height 1.1 for reading result title */
     .reading-title {
       text-align: center;
       color: #C79535;
@@ -370,6 +367,76 @@
       min-height: auto;
     }
 
+    /* Social Sharing Styles */
+    .social-sharing {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 25px;
+      background: #161719;
+      border: 2px solid #C79535;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(199, 149, 53, 0.2);
+    }
+
+    .social-sharing-title {
+      color: #C79535;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+      font-family: 'Rasputin', Georgia, serif;
+      text-transform: uppercase;
+      letter-spacing: 4.4px;
+    }
+
+    .social-sharing-description {
+      color: #FEF7F2;
+      margin-bottom: 20px;
+      font-family: 'Darker Grotesque', Arial, sans-serif;
+      letter-spacing: 2.5px;
+      line-height: 1.4;
+    }
+
+    .social-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      background: #020202;
+      border: 2px solid #C79535;
+      border-radius: 8px;
+      color: #FEF7F2;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      min-width: 140px;
+      justify-content: center;
+    }
+
+    .social-button:hover {
+      background: #C79535;
+      color: #020202;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(199, 149, 53, 0.4);
+    }
+
+    .social-button svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
     @media (min-width: 769px) {
       .new-reading-button {
         margin-top: 15px;
@@ -430,6 +497,16 @@
       
       .email-input-group {
         flex-direction: column;
+      }
+      
+      .social-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .social-button {
+        width: 80%;
+        max-width: 250px;
       }
     }
 
@@ -799,6 +876,54 @@
         ])
       ]),
       
+      React.createElement("div", { className: "social-sharing", id: "social-sharing", key: "social" }, [
+        React.createElement("h3", { className: "social-sharing-title", key: "social-title" }, "Share Your Reading"),
+        React.createElement("p", { className: "social-sharing-description", key: "social-desc" }, 
+          "Spread the mystical energy! Share your oracle wisdom and invite others to discover their path."),
+        React.createElement("div", { className: "social-buttons", key: "social-buttons" }, [
+          React.createElement("button", {
+            className: "social-button", key: "instagram",
+            onClick: () => shareToInstagram(activeConfig.title, selectedCards, activeConfig.positions)
+          }, [
+            React.createElement("svg", { viewBox: "0 0 24 24", key: "ig-svg" }, 
+              React.createElement("path", { d: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" })),
+            "Instagram"
+          ]),
+          React.createElement("button", {
+            className: "social-button", key: "tiktok",
+            onClick: () => shareToTikTok(activeConfig.title, selectedCards, activeConfig.positions)
+          }, [
+            React.createElement("svg", { viewBox: "0 0 24 24", key: "tt-svg" },
+              React.createElement("path", { d: "M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" })),
+            "TikTok"
+          ]),
+          React.createElement("button", {
+            className: "social-button", key: "facebook",
+            onClick: () => shareToFacebook(activeConfig.title)
+          }, [
+            React.createElement("svg", { viewBox: "0 0 24 24", key: "fb-svg" },
+              React.createElement("path", { d: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" })),
+            "Facebook"
+          ]),
+          React.createElement("button", {
+            className: "social-button", key: "twitter",
+            onClick: () => shareToTwitter(activeConfig.title)
+          }, [
+            React.createElement("svg", { viewBox: "0 0 24 24", key: "tw-svg" },
+              React.createElement("path", { d: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" })),
+            "Twitter"
+          ]),
+          React.createElement("button", {
+            className: "social-button", key: "threads",
+            onClick: () => shareToThreads(activeConfig.title)
+          }, [
+            React.createElement("svg", { viewBox: "0 0 24 24", key: "th-svg" },
+              React.createElement("path", { d: "M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291 2.257-.13 4.102.633 5.05 2.094.176.27.323.56.438.86C15.607 11.817 15.623 12 15.623 12.186l.015.036c.053.228.143.54.286.926.383 1.036 1.024 2.077 1.945 3.086.922 1.01 2.098 1.932 3.527 2.739l-.706 1.821c-1.429-.807-2.698-1.729-3.787-2.738-.918-.851-1.625-1.748-2.127-2.686-.182.311-.394.605-.634.88-1.101 1.26-2.669 1.955-4.538 2.01l-.01.002-.01-.002c-1.868-.055-3.437-.75-4.537-2.01-1.164-1.337-1.78-3.15-1.78-5.25s.616-3.913 1.78-5.25c1.101-1.26 2.67-1.955 4.538-2.01h.02c1.869.055 3.437.75 4.538 2.01.24.275.452.569.634.88.502-.938 1.209-1.835 2.127-2.686 1.089-1.009 2.358-1.931 3.787-2.738l.706 1.821c-1.429.807-2.605 1.729-3.527 2.739-.922 1.009-1.562 2.05-1.945 3.086-.143.386-.233.698-.286.926l-.015.036S15.607 12.183 15.623 12c0-.186-.016-.369-.143-.723-.115-.3-.262-.59-.438-.86-.948-1.461-2.793-2.224-5.05-2.094-1.464.084-2.703.531-3.583 1.291-.922.797-1.395 1.892-1.33 3.082.067 1.224.689 2.275 1.752 2.964.898.583 2.057.866 3.259.801 1.59-.086 2.844-.688 3.73-1.79.662-.826 1.092-1.92 1.284-3.272.761.45 1.324 1.04 1.634 1.75.528 1.205.557 3.185-1.09 4.798-1.442 1.414-3.177 2.025-5.8 2.045z" })),
+            "Threads"
+          ])
+        ])
+      ]),
+      
       React.createElement("div", { className: "drawing-area new-reading-button", key: "new-reading" },
         React.createElement("button", { className: "oracle-button", onClick: resetReading }, "Start New Reading")
       ),
@@ -813,6 +938,122 @@
     ]);
   }
   
-  const domContainer = document.getElementById('oracle-reader-container');
-  ReactDOM.render(React.createElement(OracleCardReader), domContainer);
-})();
+  // Social Sharing Functions
+  async function generateShareImage(readingTitle, cards, positions) {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = 1080;
+      canvas.height = 1080;
+      
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#071037');
+      gradient.addColorStop(0.5, '#161719');
+      gradient.addColorStop(1, '#4A0401');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.strokeStyle = '#C79535';
+      ctx.lineWidth = 8;
+      ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+      
+      ctx.fillStyle = '#C79535';
+      ctx.font = 'bold 48px Georgia, serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('SOMEONE GOT', canvas.width / 2, 120);
+      
+      ctx.fillStyle = '#FFEE86';
+      ctx.font = 'bold 56px Arial, sans-serif';
+      ctx.fillText(cards[0].title.toUpperCase(), canvas.width / 2, 200);
+      
+      ctx.fillStyle = '#FEF7F2';
+      ctx.font = 'italic 32px Arial, sans-serif';
+      ctx.fillText(`In Their ${readingTitle}`, canvas.width / 2, 260);
+      
+      const cardY = 350;
+      const cardHeight = 100;
+      const spacing = 20;
+      
+      cards.slice(0, 3).forEach((card, index) => {
+        const y = cardY + (index * (cardHeight + spacing));
+        ctx.fillStyle = '#020202';
+        ctx.fillRect(60, y, canvas.width - 120, cardHeight);
+        ctx.strokeStyle = '#C79535';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(60, y, canvas.width - 120, cardHeight);
+        ctx.fillStyle = '#FFEE86';
+        ctx.font = 'bold 26px Arial, sans-serif';
+        ctx.fillText(card.title, canvas.width / 2, y + 40);
+        ctx.fillStyle = '#FEF7F2';
+        ctx.font = '20px Arial, sans-serif';
+        ctx.fillText(positions[index].title, canvas.width / 2, y + 70);
+      });
+      
+      const ctaY = canvas.height - 280;
+      ctx.fillStyle = '#A1EBE4';
+      ctx.font = 'bold 32px Arial, sans-serif';
+      ctx.fillText('Click to see what you get', canvas.width / 2, ctaY);
+      ctx.fillText('and the guidance ✨', canvas.width / 2, ctaY + 40);
+      
+      const bottomY = canvas.height - 180;
+      ctx.fillStyle = '#C79535';
+      ctx.font = 'bold 36px Georgia, serif';
+      ctx.fillText('THE MAGICK MECHANIC', canvas.width / 2, bottomY);
+      
+      ctx.fillStyle = '#FFEE86';
+      ctx.font = 'bold 24px Arial, sans-serif';
+      ctx.fillText('TheMagickMechanic.com', canvas.width / 2, bottomY + 60);
+      
+      canvas.toBlob((blob) => resolve({blob, canvas}), 'image/png', 0.9);
+    });
+  }
+
+  async function shareToInstagram(readingTitle, cards, positions) {
+    const {blob} = await generateShareImage(readingTitle, cards, positions);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'oracle-reading-instagram.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    const cardNames = cards.map(c => c.title).join(', ');
+    const caption = `Someone got ${cardNames} in their ${readingTitle}. Click to see what you get for your guidance! ✨\n\nGet your own reading: https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros\n\n#OracleCards #Mystical #TheMagickMechanic #SpiritualGuidance #Tarot`;
+    await navigator.clipboard.writeText(caption);
+    alert('🖼️ Image downloaded!\n📋 Caption copied to clipboard.\n\nUpload to Instagram and paste the caption ✨');
+  }
+
+  async function shareToTikTok(readingTitle, cards, positions) {
+    const {blob} = await generateShareImage(readingTitle, cards, positions);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'oracle-reading-tiktok.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    const cardNames = cards.map(c => c.title).join(', ');
+    const caption = `Someone got ${cardNames} in their ${readingTitle}. Click to see what you get and the guidance! ✨\n\nGet your mystical reading at TheMagickMechanic.com\n\n#OracleCards #Mystical #WitchTok #SpiritualGuidance #TikTokMystic`;
+    await navigator.clipboard.writeText(caption);
+    alert('🎬 Image downloaded for TikTok!\n📋 Caption copied.\n\nUpload as a photo or use in your video ✨');
+  }
+
+  function shareToFacebook(readingTitle) {
+    const url = 'https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros';
+    const text = `Just got my ${readingTitle} from The Magick Mechanic! The Magickal Cat Oracle is speaking... ✨`;
+    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+    window.open(fbUrl, '_blank', 'width=600,height=400');
+  }
+
+  function shareToTwitter(readingTitle) {
+    const url = 'https://www.themagickmechanic.com/magick-cat-oracle-daniel-boutros';
+    const text = `Just got my ${readingTitle} from The Magick Mechanic! The Magickal Cat Oracle is speaking... ✨\n\n${url}\n\n#OracleCards #Mystical #SpiritualGuidance`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+    window.open(twitterUrl, '_blank', 'width=600,height=400');
+  }
+
+  function shareToThreads
