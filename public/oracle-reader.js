@@ -299,30 +299,30 @@
     }
 
     .share-button {
-      background: #4A0401;
-      color: #C79535;
-      padding: 15px 24px;
-      border: 2px solid #C79535;
-      border-radius: 8px;
+      background: #000000;
+      color: #FFFFFF;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 50px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
-      font-family: 'Montserrat', Arial, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 2px;
       transition: all 0.3s ease;
       width: 100%;
-      height: 60px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
     }
 
     .share-button:hover {
-      background: #720400;
-      color: #FFEE86;
-      border-color: #FFEE86;
+      background: #333333;
       transform: translateY(-2px);
+    }
+
+    .share-button i {
+      font-size: 18px;
     }
 
     .email-form {
@@ -359,6 +359,7 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
+      align-items: stretch;
     }
 
     .email-input {
@@ -433,6 +434,7 @@
       
       .email-input-group {
         flex-direction: row;
+        align-items: center;
       }
       
       .email-input {
@@ -441,6 +443,7 @@
       
       .email-submit {
         width: auto;
+        flex-shrink: 0;
       }
     }
 
@@ -515,6 +518,12 @@
   `;
   document.head.appendChild(style);
   
+  // Load Font Awesome
+  const fontAwesome = document.createElement('link');
+  fontAwesome.rel = 'stylesheet';
+  fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+  document.head.appendChild(fontAwesome);
+  
   const setViewportHeight = () => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -531,100 +540,100 @@
     );
   }
 
-// SOCIAL SHARING FUNCTION - FIXED POSITIONING
-async function createShareImage(cardImageUrl, cardTitle) {
-  return new Promise((resolve) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    canvas.width = 1080;
-    canvas.height = 1080;
-    
-    let imagesLoaded = 0;
-    const totalImages = 3;
-    
-    function checkComplete() {
-      imagesLoaded++;
-      if (imagesLoaded === totalImages) {
-        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
+  // SOCIAL SHARING FUNCTION
+  async function createShareImage(cardImageUrl, cardTitle) {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = 1080;
+      canvas.height = 1080;
+      
+      let imagesLoaded = 0;
+      const totalImages = 3;
+      
+      function checkComplete() {
+        imagesLoaded++;
+        if (imagesLoaded === totalImages) {
+          canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
+        }
       }
-    }
-    
-    // CARD IMAGE - crop 15% + position 10% from top
-    const cardImg = new Image();
-    cardImg.crossOrigin = 'anonymous';
-    cardImg.onload = () => {
-      const cropPercent = 0.15;
-      const sourceX = cardImg.width * cropPercent;
-      const sourceY = cardImg.height * cropPercent;
-      const sourceWidth = cardImg.width * (1 - cropPercent * 2);
-      const sourceHeight = cardImg.height * (1 - cropPercent * 2);
       
-      const croppedAspect = sourceWidth / sourceHeight;
-      let drawWidth = canvas.width;
-      let drawHeight = drawWidth / croppedAspect;
-      let offsetX = 0;
-      let offsetY = canvas.height * 0.10; // 10% from top
+      // CARD IMAGE - crop 15% + position 10% from top
+      const cardImg = new Image();
+      cardImg.crossOrigin = 'anonymous';
+      cardImg.onload = () => {
+        const cropPercent = 0.15;
+        const sourceX = cardImg.width * cropPercent;
+        const sourceY = cardImg.height * cropPercent;
+        const sourceWidth = cardImg.width * (1 - cropPercent * 2);
+        const sourceHeight = cardImg.height * (1 - cropPercent * 2);
+        
+        const croppedAspect = sourceWidth / sourceHeight;
+        let drawWidth = canvas.width;
+        let drawHeight = drawWidth / croppedAspect;
+        let offsetX = 0;
+        let offsetY = canvas.height * 0.10;
+        
+        ctx.drawImage(
+          cardImg,
+          sourceX, sourceY, sourceWidth, sourceHeight,
+          offsetX, offsetY, drawWidth, drawHeight
+        );
+        checkComplete();
+      };
+      cardImg.onerror = () => {
+        console.error('Card image failed to load');
+        checkComplete();
+      };
+      cardImg.src = cardImageUrl;
       
-      ctx.drawImage(
-        cardImg,
-        sourceX, sourceY, sourceWidth, sourceHeight,
-        offsetX, offsetY, drawWidth, drawHeight
-      );
-      checkComplete();
-    };
-    cardImg.onerror = () => {
-      console.error('Card image failed to load');
-      checkComplete();
-    };
-    cardImg.src = cardImageUrl;
-    
-    // MW LOGO - top right, 160px
-    const mwImg = new Image();
-    mwImg.crossOrigin = 'anonymous';
-    mwImg.onload = () => {
-      const logoSize = 160;
-      const margin = 30;
-      ctx.drawImage(
-        mwImg, 
-        canvas.width - logoSize - margin,
-        margin, 
-        logoSize, 
-        logoSize
-      );
-      checkComplete();
-    };
-    mwImg.onerror = () => {
-      console.error('MW logo failed to load');
-      checkComplete();
-    };
-    mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
-    
-    // URL LOGO - full width bottom
-    const urlImg = new Image();
-    urlImg.crossOrigin = 'anonymous';
-    urlImg.onload = () => {
-      const sideMargin = 60;
-      const bottomMargin = 20;
-      const availableWidth = canvas.width - (sideMargin * 2);
-      const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
+      // MW LOGO - top right, 160px
+      const mwImg = new Image();
+      mwImg.crossOrigin = 'anonymous';
+      mwImg.onload = () => {
+        const logoSize = 160;
+        const margin = 30;
+        ctx.drawImage(
+          mwImg, 
+          canvas.width - logoSize - margin,
+          margin, 
+          logoSize, 
+          logoSize
+        );
+        checkComplete();
+      };
+      mwImg.onerror = () => {
+        console.error('MW logo failed to load');
+        checkComplete();
+      };
+      mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
       
-      ctx.drawImage(
-        urlImg, 
-        sideMargin,
-        canvas.height - logoHeight - bottomMargin,
-        availableWidth,
-        logoHeight
-      );
-      checkComplete();
-    };
-    urlImg.onerror = () => {
-      console.error('URL logo failed to load');
-      checkComplete();
-    };
-    urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
-  });
-}
+      // URL LOGO - full width bottom
+      const urlImg = new Image();
+      urlImg.crossOrigin = 'anonymous';
+      urlImg.onload = () => {
+        const sideMargin = 60;
+        const bottomMargin = 20;
+        const availableWidth = canvas.width - (sideMargin * 2);
+        const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
+        
+        ctx.drawImage(
+          urlImg, 
+          sideMargin,
+          canvas.height - logoHeight - bottomMargin,
+          availableWidth,
+          logoHeight
+        );
+        checkComplete();
+      };
+      urlImg.onerror = () => {
+        console.error('URL logo failed to load');
+        checkComplete();
+      };
+      urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
+    });
+  }
   
   function OracleCardReader() {
     const readingConfigurations = {
@@ -905,7 +914,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
         )
       ),
 
-// SOCIAL SHARING SECTION
+      // SOCIAL SHARING SECTION
       React.createElement("div", { className: "social-share-section", key: "social" }, [
         React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Reading"),
         React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
@@ -933,7 +942,10 @@ async function createShareImage(cardImageUrl, cardTitle) {
                 alert('Failed to create share image.');
               }
             }
-          }, "Instagram"),
+          }, [
+            React.createElement("i", { className: "fab fa-instagram", key: "icon" }),
+            "Instagram"
+          ]),
           
           React.createElement("button", {
             className: "share-button",
@@ -957,7 +969,10 @@ async function createShareImage(cardImageUrl, cardTitle) {
                 alert('Failed to create share image.');
               }
             }
-          }, "TikTok"),
+          }, [
+            React.createElement("i", { className: "fab fa-tiktok", key: "icon" }),
+            "TikTok"
+          ]),
           
           React.createElement("button", {
             className: "share-button",
@@ -968,7 +983,10 @@ async function createShareImage(cardImageUrl, cardTitle) {
               const url = window.location.href;
               window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank');
             }
-          }, "Facebook"),
+          }, [
+            React.createElement("i", { className: "fab fa-facebook", key: "icon" }),
+            "Facebook"
+          ]),
           
           React.createElement("button", {
             className: "share-button",
@@ -979,7 +997,10 @@ async function createShareImage(cardImageUrl, cardTitle) {
               const url = window.location.href;
               window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
             }
-          }, "Twitter"),
+          }, [
+            React.createElement("i", { className: "fab fa-twitter", key: "icon" }),
+            "Twitter"
+          ]),
           
           React.createElement("button", {
             className: "share-button",
@@ -990,7 +1011,10 @@ async function createShareImage(cardImageUrl, cardTitle) {
               const url = window.location.href;
               window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
             }
-          }, "Threads")
+          }, [
+            React.createElement("i", { className: "fab fa-threads", key: "icon" }),
+            "Threads"
+          ])
         ])
       ]),
       
