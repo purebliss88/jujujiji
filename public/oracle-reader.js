@@ -497,58 +497,94 @@
     );
   }
 
-  // SOCIAL SHARING FUNCTION
-  async function createShareImage(cardImageUrl, cardTitle) {
-    return new Promise((resolve) => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      
-      canvas.width = 1080;
-      canvas.height = 1080;
-      
-      const cardImg = new Image();
-      cardImg.crossOrigin = 'anonymous';
-      cardImg.onload = () => {
-        // CROP 15% off each side
-        const cropPercent = 0.15;
-        const sourceX = cardImg.width * cropPercent;
-        const sourceY = cardImg.height * cropPercent;
-        const sourceWidth = cardImg.width * (1 - cropPercent * 2);
-        const sourceHeight = cardImg.height * (1 - cropPercent * 2);
-        
-        let drawWidth, drawHeight, offsetX, offsetY;
-        const croppedAspect = sourceWidth / sourceHeight;
-        
-        if (croppedAspect > 1) {
-          drawHeight = canvas.height;
-          drawWidth = drawHeight * croppedAspect;
-          offsetX = (canvas.width - drawWidth) / 2;
-          offsetY = 0;
-        } else {
-          drawWidth = canvas.width;
-          drawHeight = drawWidth / croppedAspect;
-          offsetX = 0;
-          // Move frame UP by 10% of canvas height
-          offsetY = (canvas.height - drawHeight) / 2 - (canvas.height * 0.10);
-        }
-        
-        ctx.drawImage(
-          cardImg,
-          sourceX, sourceY, sourceWidth, sourceHeight,
-          offsetX, offsetY, drawWidth, drawHeight
-        );
-        
-        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
-      };
-      
-      cardImg.onerror = () => {
-        console.error('Card image failed to load');
-        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
-      };
-      
-      cardImg.src = cardImageUrl;
-    });
-  }
+// SOCIAL SHARING SECTION
+      React.createElement("div", { className: "social-share-section", key: "social" }, [
+        React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Reading"),
+        React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
+          "Share your oracle reading on social media"),
+        React.createElement("div", { className: "social-buttons-grid", key: "social-grid" }, [
+          React.createElement("button", {
+            className: "share-button",
+            key: "instagram",
+            onClick: async () => {
+              try {
+                const lastCard = selectedCards[selectedCards.length - 1];
+                const blob = await createShareImage(lastCard.image_url, lastCard.title);
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'oracle-reading-instagram.png';
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
+                await navigator.clipboard.writeText(caption);
+                alert('Image downloaded! Caption copied to clipboard. Now post to Instagram Stories!');
+              } catch (error) {
+                console.error('Instagram share failed:', error);
+                alert('Failed to create share image.');
+              }
+            }
+          }, "📸 Instagram"),
+          
+          React.createElement("button", {
+            className: "share-button",
+            key: "tiktok",
+            onClick: async () => {
+              try {
+                const lastCard = selectedCards[selectedCards.length - 1];
+                const blob = await createShareImage(lastCard.image_url, lastCard.title);
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'oracle-reading-tiktok.png';
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
+                await navigator.clipboard.writeText(caption);
+                alert('Image downloaded! Caption copied to clipboard. Now post to TikTok!');
+              } catch (error) {
+                console.error('TikTok share failed:', error);
+                alert('Failed to create share image.');
+              }
+            }
+          }, "🎵 TikTok"),
+          
+          React.createElement("button", {
+            className: "share-button",
+            key: "facebook",
+            onClick: () => {
+              const lastCard = selectedCards[selectedCards.length - 1];
+              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+              const url = window.location.href;
+              window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank');
+            }
+          }, "📘 Facebook"),
+          
+          React.createElement("button", {
+            className: "share-button",
+            key: "twitter",
+            onClick: () => {
+              const lastCard = selectedCards[selectedCards.length - 1];
+              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+              const url = window.location.href;
+              window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+            }
+          }, "🐦 Twitter"),
+          
+          React.createElement("button", {
+            className: "share-button",
+            key: "threads",
+            onClick: () => {
+              const lastCard = selectedCards[selectedCards.length - 1];
+              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+              const url = window.location.href;
+              window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+            }
+          }, "🧵 Threads")
+        ])
+      ]),
   
   function OracleCardReader() {
     const readingConfigurations = {
