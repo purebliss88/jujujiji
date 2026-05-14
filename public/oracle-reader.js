@@ -905,7 +905,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
         )
       ),
 
-   // SOCIAL SHARING SECTION
+// SOCIAL SHARING SECTION
       React.createElement("div", { className: "social-share-section", key: "social" }, [
         React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Reading"),
         React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
@@ -991,41 +991,6 @@ async function createShareImage(cardImageUrl, cardTitle) {
               window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
             }
           }, "Threads")
-        ])
-      ]),
-          
-          React.createElement("button", {
-            className: "share-button",
-            key: "facebook",
-            onClick: () => {
-              const lastCard = selectedCards[selectedCards.length - 1];
-              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-              const url = window.location.href;
-              window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank');
-            }
-          }, "📘 Facebook"),
-          
-          React.createElement("button", {
-            className: "share-button",
-            key: "twitter",
-            onClick: () => {
-              const lastCard = selectedCards[selectedCards.length - 1];
-              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-              const url = window.location.href;
-              window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-            }
-          }, "🐦 Twitter"),
-          
-          React.createElement("button", {
-            className: "share-button",
-            key: "threads",
-            onClick: () => {
-              const lastCard = selectedCards[selectedCards.length - 1];
-              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-              const url = window.location.href;
-              window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-            }
-          }, "🧵 Threads")
         ])
       ]),
       
