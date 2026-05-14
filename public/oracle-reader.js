@@ -268,6 +268,40 @@
       line-height: 1.1;
     }
 
+    .social-share-section {
+      max-width: 600px;
+      margin: 40px auto 20px auto;
+      padding: 30px;
+      background: #161719;
+      border: 2px solid #C79535;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .share-button {
+      background: #4A0401;
+      color: #C79535;
+      padding: 12px 24px;
+      border: 2px solid #C79535;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      margin: 10px;
+      display: inline-block;
+    }
+
+    .share-button:hover {
+      background: #720400;
+      color: #FFEE86;
+      border-color: #FFEE86;
+      transform: translateY(-2px);
+    }
+
     .email-form {
       max-width: 600px;
       margin: 40px auto;
@@ -351,40 +385,6 @@
       border-color: #FFEE86;
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(199, 149, 53, 0.3);
-    }
-
-    .social-share-section {
-      max-width: 600px;
-      margin: 40px auto 20px auto;
-      padding: 30px;
-      background: #161719;
-      border: 2px solid #C79535;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .share-button {
-      background: #4A0401;
-      color: #C79535;
-      padding: 12px 24px;
-      border: 2px solid #C79535;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 600;
-      font-family: 'Montserrat', Arial, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: all 0.3s ease;
-      margin: 10px;
-      display: inline-block;
-    }
-
-    .share-button:hover {
-      background: #720400;
-      color: #FFEE86;
-      border-color: #FFEE86;
-      transform: translateY(-2px);
     }
 
     .copyright-notice {
@@ -497,105 +497,58 @@
     );
   }
 
-// SOCIAL SHARING FUNCTION - Frame positioned up 10%
-async function createShareImage(cardImageUrl, cardTitle) {
-  return new Promise((resolve) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    canvas.width = 1080;
-    canvas.height = 1080;
-    
-    const cardImg = new Image();
-    cardImg.crossOrigin = 'anonymous';
-    cardImg.onload = () => {
-      // CROP 15% off each side of the card image
-      const cropPercent = 0.15;
-      const sourceX = cardImg.width * cropPercent;
-      const sourceY = cardImg.height * cropPercent;
-      const sourceWidth = cardImg.width * (1 - cropPercent * 2);
-      const sourceHeight = cardImg.height * (1 - cropPercent * 2);
+  // SOCIAL SHARING FUNCTION
+  async function createShareImage(cardImageUrl, cardTitle) {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
       
-      let drawWidth, drawHeight, offsetX, offsetY;
-      const croppedAspect = sourceWidth / sourceHeight;
+      canvas.width = 1080;
+      canvas.height = 1080;
       
-      if (croppedAspect > 1) {
-        drawHeight = canvas.height;
-        drawWidth = drawHeight * croppedAspect;
-        offsetX = (canvas.width - drawWidth) / 2;
-        offsetY = 0;
-      } else {
-        drawWidth = canvas.width;
-        drawHeight = drawWidth / croppedAspect;
-        offsetX = 0;
-        // Move frame UP by 10% of canvas height
-        offsetY = (canvas.height - drawHeight) / 2 - (canvas.height * 0.10);
-      }
+      const cardImg = new Image();
+      cardImg.crossOrigin = 'anonymous';
+      cardImg.onload = () => {
+        // CROP 15% off each side
+        const cropPercent = 0.15;
+        const sourceX = cardImg.width * cropPercent;
+        const sourceY = cardImg.height * cropPercent;
+        const sourceWidth = cardImg.width * (1 - cropPercent * 2);
+        const sourceHeight = cardImg.height * (1 - cropPercent * 2);
+        
+        let drawWidth, drawHeight, offsetX, offsetY;
+        const croppedAspect = sourceWidth / sourceHeight;
+        
+        if (croppedAspect > 1) {
+          drawHeight = canvas.height;
+          drawWidth = drawHeight * croppedAspect;
+          offsetX = (canvas.width - drawWidth) / 2;
+          offsetY = 0;
+        } else {
+          drawWidth = canvas.width;
+          drawHeight = drawWidth / croppedAspect;
+          offsetX = 0;
+          // Move frame UP by 10% of canvas height
+          offsetY = (canvas.height - drawHeight) / 2 - (canvas.height * 0.10);
+        }
+        
+        ctx.drawImage(
+          cardImg,
+          sourceX, sourceY, sourceWidth, sourceHeight,
+          offsetX, offsetY, drawWidth, drawHeight
+        );
+        
+        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
+      };
       
-      ctx.drawImage(
-        cardImg,
-        sourceX, sourceY, sourceWidth, sourceHeight,  // source crop
-        offsetX, offsetY, drawWidth, drawHeight       // destination
-      );
+      cardImg.onerror = () => {
+        console.error('Card image failed to load');
+        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
+      };
       
-      canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
-    };
-    
-    cardImg.onerror = () => {
-      console.error('Card image failed to load');
-      canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
-    };
-    
-    cardImg.src = cardImageUrl;
-  });
-}
-    
-    // MW LOGO - Top right, double the size (160px instead of 80px)
-    const mwImg = new Image();
-    mwImg.crossOrigin = 'anonymous';
-    mwImg.onload = () => {
-      const logoSize = 160;  // doubled from 80
-      const margin = 30;
-      ctx.drawImage(
-        mwImg, 
-        canvas.width - logoSize - margin,  // top right
-        margin, 
-        logoSize, 
-        logoSize
-      );
-      checkComplete();
-    };
-    mwImg.onerror = () => {
-      console.error('MW logo failed to load');
-      checkComplete();
-    };
-    mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
-    
-    // URL LOGO - Full width across bottom with side margins
-    const urlImg = new Image();
-    urlImg.crossOrigin = 'anonymous';
-    urlImg.onload = () => {
-      const sideMargin = 60;
-      const bottomMargin = 20;
-      const availableWidth = canvas.width - (sideMargin * 2);
-      const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
-      
-      ctx.drawImage(
-        urlImg, 
-        sideMargin,                              // centered with margins
-        canvas.height - logoHeight - bottomMargin,  // bottom
-        availableWidth,                          // full width minus margins
-        logoHeight
-      );
-      checkComplete();
-    };
-    urlImg.onerror = () => {
-      console.error('URL logo failed to load');
-      checkComplete();
-    };
-    urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
-  });
-}
+      cardImg.src = cardImageUrl;
+    });
+  }
   
   function OracleCardReader() {
     const readingConfigurations = {
@@ -880,7 +833,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
       React.createElement("div", { className: "social-share-section", key: "social" }, [
         React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Cards"),
         React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
-          "Download your cards with watermarks to share on social media"),
+          "Download your cards to share on social media"),
         React.createElement("div", { key: "share-buttons" },
           selectedCards.map((card, index) => 
             React.createElement("button", {
