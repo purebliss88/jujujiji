@@ -531,7 +531,7 @@
     );
   }
 
-// SOCIAL SHARING FUNCTION - FIXED WITH WATERMARKS
+// SOCIAL SHARING FUNCTION - FIXED POSITIONING
 async function createShareImage(cardImageUrl, cardTitle) {
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas');
@@ -541,7 +541,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
     canvas.height = 1080;
     
     let imagesLoaded = 0;
-    const totalImages = 3; // card + MW logo + URL logo
+    const totalImages = 3;
     
     function checkComplete() {
       imagesLoaded++;
@@ -550,7 +550,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
       }
     }
     
-    // CARD IMAGE - crop 15% + move up 20%
+    // CARD IMAGE - crop 15% + position 10% from top
     const cardImg = new Image();
     cardImg.crossOrigin = 'anonymous';
     cardImg.onload = () => {
@@ -560,21 +560,11 @@ async function createShareImage(cardImageUrl, cardTitle) {
       const sourceWidth = cardImg.width * (1 - cropPercent * 2);
       const sourceHeight = cardImg.height * (1 - cropPercent * 2);
       
-      let drawWidth, drawHeight, offsetX, offsetY;
       const croppedAspect = sourceWidth / sourceHeight;
-      
-      if (croppedAspect > 1) {
-        drawHeight = canvas.height;
-        drawWidth = drawHeight * croppedAspect;
-        offsetX = (canvas.width - drawWidth) / 2;
-        offsetY = 0;
-      } else {
-        drawWidth = canvas.width;
-        drawHeight = drawWidth / croppedAspect;
-        offsetX = 0;
-        // Move frame UP by 20% of canvas height
-        offsetY = (canvas.height - drawHeight) / 2 - (canvas.height * 0.20);
-      }
+      let drawWidth = canvas.width;
+      let drawHeight = drawWidth / croppedAspect;
+      let offsetX = 0;
+      let offsetY = canvas.height * 0.10; // 10% from top
       
       ctx.drawImage(
         cardImg,
@@ -589,7 +579,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
     };
     cardImg.src = cardImageUrl;
     
-    // MW LOGO - top right, 160px size (doubled)
+    // MW LOGO - top right, 160px
     const mwImg = new Image();
     mwImg.crossOrigin = 'anonymous';
     mwImg.onload = () => {
@@ -597,7 +587,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
       const margin = 30;
       ctx.drawImage(
         mwImg, 
-        canvas.width - logoSize - margin,  // top right
+        canvas.width - logoSize - margin,
         margin, 
         logoSize, 
         logoSize
@@ -610,7 +600,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
     };
     mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
     
-    // URL LOGO - full width across bottom with side margins
+    // URL LOGO - full width bottom
     const urlImg = new Image();
     urlImg.crossOrigin = 'anonymous';
     urlImg.onload = () => {
@@ -915,7 +905,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
         )
       ),
 
-      // SOCIAL SHARING SECTION
+   // SOCIAL SHARING SECTION
       React.createElement("div", { className: "social-share-section", key: "social" }, [
         React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Reading"),
         React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
@@ -943,7 +933,7 @@ async function createShareImage(cardImageUrl, cardTitle) {
                 alert('Failed to create share image.');
               }
             }
-          }, "📸 Instagram"),
+          }, "Instagram"),
           
           React.createElement("button", {
             className: "share-button",
@@ -967,7 +957,42 @@ async function createShareImage(cardImageUrl, cardTitle) {
                 alert('Failed to create share image.');
               }
             }
-          }, "🎵 TikTok"),
+          }, "TikTok"),
+          
+          React.createElement("button", {
+            className: "share-button",
+            key: "facebook",
+            onClick: () => {
+              const lastCard = selectedCards[selectedCards.length - 1];
+              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+              const url = window.location.href;
+              window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank');
+            }
+          }, "Facebook"),
+          
+          React.createElement("button", {
+            className: "share-button",
+            key: "twitter",
+            onClick: () => {
+              const lastCard = selectedCards[selectedCards.length - 1];
+              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+              const url = window.location.href;
+              window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+            }
+          }, "Twitter"),
+          
+          React.createElement("button", {
+            className: "share-button",
+            key: "threads",
+            onClick: () => {
+              const lastCard = selectedCards[selectedCards.length - 1];
+              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+              const url = window.location.href;
+              window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+            }
+          }, "Threads")
+        ])
+      ]),
           
           React.createElement("button", {
             className: "share-button",
