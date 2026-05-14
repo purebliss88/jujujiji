@@ -57,7 +57,6 @@
       width: 100%;
     }
     
-    /* FIX: translateY (up) instead of translateX (right) - avoids mobile touch state offset */
     .reading-card:hover {
       transform: translateY(-5px);
       border-color: #FFEE86;
@@ -189,7 +188,6 @@
       overflow-wrap: break-word;
     }
     
-    /* FIX: reverted body text spacing to original */
     .card-content p {
       margin: 0 0 15px 0;
       line-height: 1.1;
@@ -256,7 +254,6 @@
       text-align: center;
     }
 
-    /* FIX: uppercase + line-height 1.1 for reading result title */
     .reading-title {
       text-align: center;
       color: #C79535;
@@ -354,6 +351,40 @@
       border-color: #FFEE86;
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(199, 149, 53, 0.3);
+    }
+
+    .social-share-section {
+      max-width: 600px;
+      margin: 40px auto 20px auto;
+      padding: 30px;
+      background: #161719;
+      border: 2px solid #C79535;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .share-button {
+      background: #4A0401;
+      color: #C79535;
+      padding: 12px 24px;
+      border: 2px solid #C79535;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      margin: 10px;
+      display: inline-block;
+    }
+
+    .share-button:hover {
+      background: #720400;
+      color: #FFEE86;
+      border-color: #FFEE86;
+      transform: translateY(-2px);
     }
 
     .copyright-notice {
@@ -464,6 +495,81 @@
     return text.split('\n').map((paragraph, index) => 
       React.createElement("p", { key: index }, paragraph)
     );
+  }
+
+  // SOCIAL SHARING FUNCTION
+  async function createShareImage(cardImageUrl, cardTitle) {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = 1080;
+      canvas.height = 1080;
+      
+      let imagesLoaded = 0;
+      const totalImages = 3;
+      
+      function checkComplete() {
+        imagesLoaded++;
+        if (imagesLoaded === totalImages) {
+          canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
+        }
+      }
+      
+      const cardImg = new Image();
+      cardImg.crossOrigin = 'anonymous';
+      cardImg.onload = () => {
+        const imgAspect = cardImg.width / cardImg.height;
+        let drawWidth, drawHeight, offsetX, offsetY;
+        
+        if (imgAspect > 1) {
+          drawHeight = canvas.height;
+          drawWidth = drawHeight * imgAspect;
+          offsetX = (canvas.width - drawWidth) / 2;
+          offsetY = 0;
+        } else {
+          drawWidth = canvas.width;
+          drawHeight = drawWidth / imgAspect;
+          offsetX = 0;
+          offsetY = (canvas.height - drawHeight) / 2;
+        }
+        
+        ctx.drawImage(cardImg, offsetX, offsetY, drawWidth, drawHeight);
+        checkComplete();
+      };
+      cardImg.onerror = () => {
+        console.error('Card image failed to load');
+        checkComplete();
+      };
+      cardImg.src = cardImageUrl;
+      
+      const mwImg = new Image();
+      mwImg.crossOrigin = 'anonymous';
+      mwImg.onload = () => {
+        const logoSize = 80;
+        ctx.drawImage(mwImg, 30, canvas.height - logoSize - 30, logoSize, logoSize);
+        checkComplete();
+      };
+      mwImg.onerror = () => {
+        console.error('MW logo failed to load');
+        checkComplete();
+      };
+      mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
+      
+      const urlImg = new Image();
+      urlImg.crossOrigin = 'anonymous';
+      urlImg.onload = () => {
+        const logoWidth = 300;
+        const logoHeight = (urlImg.height / urlImg.width) * logoWidth;
+        ctx.drawImage(urlImg, canvas.width - logoWidth - 30, canvas.height - logoHeight - 20, logoWidth, logoHeight);
+        checkComplete();
+      };
+      urlImg.onerror = () => {
+        console.error('URL logo failed to load');
+        checkComplete();
+      };
+      urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
+    });
   }
   
   function OracleCardReader() {
@@ -744,6 +850,35 @@
           ])
         )
       ),
+
+      // SOCIAL SHARING SECTION
+      React.createElement("div", { className: "social-share-section", key: "social" }, [
+        React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Cards"),
+        React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
+          "Download your cards with watermarks to share on social media"),
+        React.createElement("div", { key: "share-buttons" },
+          selectedCards.map((card, index) => 
+            React.createElement("button", {
+              className: "share-button",
+              key: `share-${index}`,
+              onClick: async () => {
+                try {
+                  const blob = await createShareImage(card.image_url, card.title);
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `${card.title.replace(/\s+/g, '-')}-oracle-card.png`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                } catch (error) {
+                  console.error('Share image creation failed:', error);
+                  alert('Failed to create share image. Please try again.');
+                }
+              }
+            }, `📥 ${card.title}`)
+          )
+        )
+      ]),
       
       React.createElement("div", { className: "email-form", key: "email" }, [
         React.createElement("h3", { className: "email-form-title", key: "email-title" }, "Send this reading to your email inbox!"),
