@@ -497,80 +497,111 @@
     );
   }
 
-  // SOCIAL SHARING FUNCTION
-  async function createShareImage(cardImageUrl, cardTitle) {
-    return new Promise((resolve) => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
+  // SOCIAL SHARING FUNCTION - UPDATED MAY 13
+async function createShareImage(cardImageUrl, cardTitle) {
+  return new Promise((resolve) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = 1080;
+    canvas.height = 1080;
+    
+    let imagesLoaded = 0;
+    const totalImages = 3;
+    
+    function checkComplete() {
+      imagesLoaded++;
+      if (imagesLoaded === totalImages) {
+        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
+      }
+    }
+    
+    const cardImg = new Image();
+    cardImg.crossOrigin = 'anonymous';
+    cardImg.onload = () => {
+      const imgAspect = cardImg.width / cardImg.height;
       
-      canvas.width = 1080;
-      canvas.height = 1080;
+      // CROP 15% off each side of the card image
+      const cropPercent = 0.15;
+      const sourceX = cardImg.width * cropPercent;
+      const sourceY = cardImg.height * cropPercent;
+      const sourceWidth = cardImg.width * (1 - cropPercent * 2);
+      const sourceHeight = cardImg.height * (1 - cropPercent * 2);
       
-      let imagesLoaded = 0;
-      const totalImages = 3;
+      let drawWidth, drawHeight, offsetX, offsetY;
+      const croppedAspect = sourceWidth / sourceHeight;
       
-      function checkComplete() {
-        imagesLoaded++;
-        if (imagesLoaded === totalImages) {
-          canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
-        }
+      if (croppedAspect > 1) {
+        drawHeight = canvas.height;
+        drawWidth = drawHeight * croppedAspect;
+        offsetX = (canvas.width - drawWidth) / 2;
+        offsetY = 0;
+      } else {
+        drawWidth = canvas.width;
+        drawHeight = drawWidth / croppedAspect;
+        offsetX = 0;
+        offsetY = (canvas.height - drawHeight) / 2;
       }
       
-      const cardImg = new Image();
-      cardImg.crossOrigin = 'anonymous';
-      cardImg.onload = () => {
-        const imgAspect = cardImg.width / cardImg.height;
-        let drawWidth, drawHeight, offsetX, offsetY;
-        
-        if (imgAspect > 1) {
-          drawHeight = canvas.height;
-          drawWidth = drawHeight * imgAspect;
-          offsetX = (canvas.width - drawWidth) / 2;
-          offsetY = 0;
-        } else {
-          drawWidth = canvas.width;
-          drawHeight = drawWidth / imgAspect;
-          offsetX = 0;
-          offsetY = (canvas.height - drawHeight) / 2;
-        }
-        
-        ctx.drawImage(cardImg, offsetX, offsetY, drawWidth, drawHeight);
-        checkComplete();
-      };
-      cardImg.onerror = () => {
-        console.error('Card image failed to load');
-        checkComplete();
-      };
-      cardImg.src = cardImageUrl;
+      ctx.drawImage(
+        cardImg,
+        sourceX, sourceY, sourceWidth, sourceHeight,  // source crop
+        offsetX, offsetY, drawWidth, drawHeight       // destination
+      );
+      checkComplete();
+    };
+    cardImg.onerror = () => {
+      console.error('Card image failed to load');
+      checkComplete();
+    };
+    cardImg.src = cardImageUrl;
+    
+    // MW LOGO - Top right, double the size (160px instead of 80px)
+    const mwImg = new Image();
+    mwImg.crossOrigin = 'anonymous';
+    mwImg.onload = () => {
+      const logoSize = 160;  // doubled from 80
+      const margin = 30;
+      ctx.drawImage(
+        mwImg, 
+        canvas.width - logoSize - margin,  // top right
+        margin, 
+        logoSize, 
+        logoSize
+      );
+      checkComplete();
+    };
+    mwImg.onerror = () => {
+      console.error('MW logo failed to load');
+      checkComplete();
+    };
+    mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
+    
+    // URL LOGO - Full width across bottom with side margins
+    const urlImg = new Image();
+    urlImg.crossOrigin = 'anonymous';
+    urlImg.onload = () => {
+      const sideMargin = 60;
+      const bottomMargin = 20;
+      const availableWidth = canvas.width - (sideMargin * 2);
+      const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
       
-      const mwImg = new Image();
-      mwImg.crossOrigin = 'anonymous';
-      mwImg.onload = () => {
-        const logoSize = 80;
-        ctx.drawImage(mwImg, 30, canvas.height - logoSize - 30, logoSize, logoSize);
-        checkComplete();
-      };
-      mwImg.onerror = () => {
-        console.error('MW logo failed to load');
-        checkComplete();
-      };
-      mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
-      
-      const urlImg = new Image();
-      urlImg.crossOrigin = 'anonymous';
-      urlImg.onload = () => {
-        const logoWidth = 300;
-        const logoHeight = (urlImg.height / urlImg.width) * logoWidth;
-        ctx.drawImage(urlImg, canvas.width - logoWidth - 30, canvas.height - logoHeight - 20, logoWidth, logoHeight);
-        checkComplete();
-      };
-      urlImg.onerror = () => {
-        console.error('URL logo failed to load');
-        checkComplete();
-      };
-      urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
-    });
-  }
+      ctx.drawImage(
+        urlImg, 
+        sideMargin,                              // centered with margins
+        canvas.height - logoHeight - bottomMargin,  // bottom
+        availableWidth,                          // full width minus margins
+        logoHeight
+      );
+      checkComplete();
+    };
+    urlImg.onerror = () => {
+      console.error('URL logo failed to load');
+      checkComplete();
+    };
+    urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
+  });
+}
   
   function OracleCardReader() {
     const readingConfigurations = {
