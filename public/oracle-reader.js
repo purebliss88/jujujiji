@@ -268,6 +268,17 @@
       line-height: 1.1;
     }
 
+    .new-reading-prompt {
+      max-width: 600px;
+      margin: 40px auto 10px auto;
+      text-align: center;
+      color: #FEF7F2;
+      font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+      letter-spacing: 1.5px;
+      line-height: 1.5;
+      font-size: 1em;
+    }
+
     .share-email-container {
       max-width: 600px;
       margin: 40px auto;
@@ -294,9 +305,10 @@
       font-weight: bold;
       transition: all 0.3s ease;
       width: 100%;
-      margin: 20px 0;
+      margin: 15px 0;
       text-transform: uppercase;
       letter-spacing: 2px;
+      font-family: 'Montserrat', Arial, sans-serif;
     }
 
     .download-card-button:hover {
@@ -305,51 +317,32 @@
       box-shadow: 0 4px 15px rgba(199, 149, 53, 0.3);
     }
 
-    .social-buttons-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+    .social-icons-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
       margin-top: 20px;
     }
 
-    .social-buttons-grid .share-button:nth-child(4),
-    .social-buttons-grid .share-button:nth-child(5) {
-      grid-column: span 1;
-    }
-
-    .social-buttons-grid .share-button:nth-child(4) {
-      grid-column: 1 / 2;
-    }
-
-    .social-buttons-grid .share-button:nth-child(5) {
-      grid-column: 3 / 4;
-    }
-
-    .share-button {
+    .social-icon-link {
+      width: 48px;
+      height: 48px;
       background: #000000;
-      color: #FFFFFF;
-      padding: 12px 20px;
-      border: none;
       border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      width: 100%;
-      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #FFFFFF;
+      border: none;
+      font-size: 20px;
     }
 
-    .share-button:hover {
+    .social-icon-link:hover {
       background: #333333;
       transform: translateY(-2px);
-    }
-
-    .share-button i {
-      font-size: 18px;
     }
 
     .email-form-title {
@@ -439,7 +432,7 @@
     }
 
     .new-reading-button {
-      margin-top: 40px;
+      margin-top: 20px;
       min-height: auto;
     }
 
@@ -511,15 +504,6 @@
         height: 70px;
         padding: 18px 25px;
       }
-
-      .social-buttons-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .social-buttons-grid .share-button:nth-child(4),
-      .social-buttons-grid .share-button:nth-child(5) {
-        grid-column: auto;
-      }
     }
 
     @media (min-width: 769px) {
@@ -539,7 +523,6 @@
   `;
   document.head.appendChild(style);
   
-  // Load Font Awesome
   const fontAwesome = document.createElement('link');
   fontAwesome.rel = 'stylesheet';
   fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
@@ -561,12 +544,10 @@
     );
   }
 
-  // SOCIAL SHARING FUNCTION
   async function createShareImage(cardImageUrl, cardTitle) {
     return new Promise((resolve) => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
       canvas.width = 1080;
       canvas.height = 1080;
       
@@ -580,7 +561,6 @@
         }
       }
       
-      // CARD IMAGE - crop 15% sides, centered vertically
       const cardImg = new Image();
       cardImg.crossOrigin = 'anonymous';
       cardImg.onload = () => {
@@ -589,69 +569,35 @@
         const sourceY = cardImg.height * cropPercent;
         const sourceWidth = cardImg.width * (1 - cropPercent * 2);
         const sourceHeight = cardImg.height * (1 - cropPercent * 2);
-        
         const croppedAspect = sourceWidth / sourceHeight;
         let drawWidth = canvas.width;
         let drawHeight = drawWidth / croppedAspect;
         let offsetX = 0;
         let offsetY = (canvas.height - drawHeight) / 2;
-        
-        ctx.drawImage(
-          cardImg,
-          sourceX, sourceY, sourceWidth, sourceHeight,
-          offsetX, offsetY, drawWidth, drawHeight
-        );
+        ctx.drawImage(cardImg, sourceX, sourceY, sourceWidth, sourceHeight, offsetX, offsetY, drawWidth, drawHeight);
         checkComplete();
       };
-      cardImg.onerror = () => {
-        console.error('Card image failed to load');
-        checkComplete();
-      };
+      cardImg.onerror = () => checkComplete();
       cardImg.src = cardImageUrl;
       
-      // MW LOGO - top right, 160px
       const mwImg = new Image();
       mwImg.crossOrigin = 'anonymous';
       mwImg.onload = () => {
-        const logoSize = 160;
-        const margin = 30;
-        ctx.drawImage(
-          mwImg, 
-          canvas.width - logoSize - margin,
-          margin, 
-          logoSize, 
-          logoSize
-        );
+        ctx.drawImage(mwImg, canvas.width - 190, 30, 160, 160);
         checkComplete();
       };
-      mwImg.onerror = () => {
-        console.error('MW logo failed to load');
-        checkComplete();
-      };
+      mwImg.onerror = () => checkComplete();
       mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
       
-      // URL LOGO - full width bottom
       const urlImg = new Image();
       urlImg.crossOrigin = 'anonymous';
       urlImg.onload = () => {
-        const sideMargin = 60;
-        const bottomMargin = 30;
-        const availableWidth = canvas.width - (sideMargin * 2);
+        const availableWidth = canvas.width - 120;
         const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
-        
-        ctx.drawImage(
-          urlImg, 
-          sideMargin,
-          canvas.height - logoHeight - bottomMargin,
-          availableWidth,
-          logoHeight
-        );
+        ctx.drawImage(urlImg, 60, canvas.height - logoHeight - 30, availableWidth, logoHeight);
         checkComplete();
       };
-      urlImg.onerror = () => {
-        console.error('URL logo failed to load');
-        checkComplete();
-      };
+      urlImg.onerror = () => checkComplete();
       urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
     });
   }
@@ -689,7 +635,7 @@
           { title: "What is my hidden desire?" },
           { title: "What is my mask or falsehood?" },
           { title: "What is my truth under the mask?" },
-          { title: "What can I do to become the truth?" },
+          { title: "What can I do to become the truth?" }
         ]
       },
       path_to_success: {
@@ -833,12 +779,6 @@
           const containerRect = oracleContainer.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           window.scrollTo({ top: containerRect.top + scrollTop - 100, behavior: 'smooth' });
-        } else {
-          const readingOptions = document.querySelector('.reading-options');
-          if (readingOptions) {
-            readingOptions.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setTimeout(() => { window.scrollBy(0, -150); }, 300);
-          }
         }
       }, 100);
       async function fetchCards() {
@@ -911,6 +851,7 @@
     
     return React.createElement("div", { className: "reading-container", "data-cards": activeConfig.cardCount }, [
       React.createElement("div", { className: "reading-title", key: "title" }, activeConfig.title),
+      
       React.createElement("div", { 
         className: activeConfig.cardCount === 1 ? "single-card-display" : "card-display",
         id: "reading-results",
@@ -935,107 +876,18 @@
         )
       ),
 
-      // COMBINED SHARE + EMAIL CONTAINER
+      // NEW READING PROMPT + BUTTON
+      React.createElement("div", { className: "new-reading-prompt", key: "new-reading-prompt" },
+        "Scroll down to email the reading to yourself, and explore more options for psychic readings, learning and other cool stuff."
+      ),
+      React.createElement("div", { className: "drawing-area new-reading-button", key: "new-reading" },
+        React.createElement("button", { className: "oracle-button", onClick: resetReading }, "Start New Reading")
+      ),
+
+      // COMBINED EMAIL + SHARE CONTAINER
       React.createElement("div", { className: "share-email-container", key: "share-email" }, [
-        // DOWNLOAD CARD SECTION
-        React.createElement("div", { key: "download-section" }, [
-          React.createElement("h3", { className: "email-form-title", key: "download-title" }, "Share Your Reading"),
-          React.createElement("p", { className: "email-form-description", key: "download-desc" }, 
-            "Download your card image with caption to share on social media"),
-          React.createElement("button", {
-            className: "download-card-button",
-            key: "download-button",
-            onClick: async () => {
-              try {
-                const lastCard = selectedCards[selectedCards.length - 1];
-                const blob = await createShareImage(lastCard.image_url, lastCard.title);
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'oracle-reading.png';
-                a.click();
-                URL.revokeObjectURL(url);
-                
-                const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
-                await navigator.clipboard.writeText(caption);
-                alert('✅ Image downloaded!\n📋 Caption copied to clipboard!\n\nNow share it on your favorite platform below.');
-              } catch (error) {
-                console.error('Download failed:', error);
-                alert('Failed to download image. Please try again.');
-              }
-            }
-          }, "Download Card & Copy Caption")
-        ]),
 
-        // SHARE ON PLATFORMS SECTION
-        React.createElement("div", { key: "platforms-section", style: { marginTop: '20px' } }, [
-          React.createElement("p", { className: "email-form-description", key: "platforms-desc", style: { marginBottom: '15px' } }, 
-            "Share on:"),
-          React.createElement("div", { className: "social-buttons-grid", key: "social-grid" }, [
-            React.createElement("button", {
-              className: "share-button",
-              key: "instagram",
-              onClick: () => {
-                window.open('https://www.instagram.com/', '_blank');
-              }
-            }, [
-              React.createElement("i", { className: "fab fa-instagram", key: "icon" }),
-              "Instagram"
-            ]),
-            
-            React.createElement("button", {
-              className: "share-button",
-              key: "tiktok",
-              onClick: () => {
-                window.open('https://www.tiktok.com/', '_blank');
-              }
-            }, [
-              React.createElement("i", { className: "fab fa-tiktok", key: "icon" }),
-              "TikTok"
-            ]),
-            
-            React.createElement("button", {
-              className: "share-button",
-              key: "facebook",
-              onClick: () => {
-                window.open('https://www.facebook.com/', '_blank');
-              }
-            }, [
-              React.createElement("i", { className: "fab fa-facebook", key: "icon" }),
-              "Facebook"
-            ]),
-            
-            React.createElement("button", {
-              className: "share-button",
-              key: "twitter",
-              onClick: () => {
-                const lastCard = selectedCards[selectedCards.length - 1];
-                const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-                const url = window.location.href;
-                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-              }
-            }, [
-              React.createElement("i", { className: "fab fa-twitter", key: "icon" }),
-              "Twitter"
-            ]),
-            
-            React.createElement("button", {
-              className: "share-button",
-              key: "threads",
-              onClick: () => {
-                window.open('https://www.threads.net/', '_blank');
-              }
-            }, [
-              React.createElement("i", { className: "fas fa-at", key: "icon" }),
-              "Threads"
-            ])
-          ])
-        ]),
-
-        // DIVIDER
-        React.createElement("div", { className: "section-divider", key: "divider" }),
-
-        // EMAIL SECTION
+        // EMAIL SECTION - FIRST
         React.createElement("div", { key: "email-section" }, [
           React.createElement("h3", { className: "email-form-title", key: "email-title" }, "Send this reading to your email inbox!"),
           React.createElement("p", { className: "email-form-description", key: "email-desc" }, 
@@ -1075,12 +927,11 @@
                       alert('Thank you! This reading has been sent to your email.');
                     } else {
                       alert('Failed to send your reading: ' + (data.message || 'Unknown error'));
-                      console.error('Email error:', data);
                     }
                   })
                   .catch(err => {
                     console.error('Error:', err);
-                    alert('The cats got distracted and failed to send your reading. Please try again later.');
+                    alert('The cats got distracted. Please try again later.');
                   });
                 } else {
                   alert('Please enter a valid email address.');
@@ -1088,12 +939,73 @@
               }
             }, "Send My Reading")
           ])
+        ]),
+
+        // DIVIDER
+        React.createElement("div", { className: "section-divider", key: "divider" }),
+
+        // SOCIAL SHARING SECTION - SECOND
+        React.createElement("div", { key: "social-section" }, [
+          React.createElement("p", { className: "email-form-description", key: "share-prompt", style: { textAlign: 'center', marginBottom: '5px' } },
+            "Want to share your Cat Oracle result?"),
+          React.createElement("button", {
+            className: "download-card-button",
+            key: "download-button",
+            onClick: async () => {
+              try {
+                const lastCard = selectedCards[selectedCards.length - 1];
+                const blob = await createShareImage(lastCard.image_url, lastCard.title);
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'oracle-reading.png';
+                a.click();
+                URL.revokeObjectURL(url);
+                const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? themagickmechanic.com`;
+                await navigator.clipboard.writeText(caption);
+                alert('Image downloaded and caption copied to clipboard!');
+              } catch (error) {
+                console.error('Download failed:', error);
+                alert('Failed to download. Please try again.');
+              }
+            }
+          }, "Download Card & Copy Caption"),
+          React.createElement("p", { className: "email-form-description", key: "share-instruction", style: { textAlign: 'center', marginTop: '10px', marginBottom: '15px' } },
+            "Now paste your caption and image into any of your socials:"),
+          React.createElement("div", { className: "social-icons-row", key: "social-icons" }, [
+            React.createElement("a", {
+              className: "social-icon-link", key: "instagram",
+              href: "https://www.instagram.com/", target: "_blank", rel: "noopener noreferrer",
+              title: "Instagram"
+            }, React.createElement("i", { className: "fab fa-instagram" })),
+            React.createElement("a", {
+              className: "social-icon-link", key: "tiktok",
+              href: "https://www.tiktok.com/", target: "_blank", rel: "noopener noreferrer",
+              title: "TikTok"
+            }, React.createElement("i", { className: "fab fa-tiktok" })),
+            React.createElement("a", {
+              className: "social-icon-link", key: "facebook",
+              href: "https://www.facebook.com/", target: "_blank", rel: "noopener noreferrer",
+              title: "Facebook"
+            }, React.createElement("i", { className: "fab fa-facebook" })),
+            React.createElement("a", {
+              className: "social-icon-link", key: "twitter",
+              href: () => {
+                const lastCard = selectedCards[selectedCards.length - 1];
+                const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? themagickmechanic.com`;
+                return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+              },
+              target: "_blank", rel: "noopener noreferrer",
+              title: "Twitter"
+            }, React.createElement("i", { className: "fab fa-twitter" })),
+            React.createElement("a", {
+              className: "social-icon-link", key: "threads",
+              href: "https://www.threads.net/", target: "_blank", rel: "noopener noreferrer",
+              title: "Threads"
+            }, React.createElement("i", { className: "fas fa-at" }))
+          ])
         ])
       ]),
-      
-      React.createElement("div", { className: "drawing-area new-reading-button", key: "new-reading" },
-        React.createElement("button", { className: "oracle-button", onClick: resetReading }, "Start New Reading")
-      ),
       
       React.createElement("div", { className: "copyright-notice", key: "copyright" }, [
         React.createElement("p", null, [
