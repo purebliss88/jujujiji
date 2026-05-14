@@ -268,15 +268,17 @@
       line-height: 1.1;
     }
 
-    .new-reading-prompt {
-      max-width: 600px;
-      margin: 40px auto 10px auto;
-      text-align: center;
-      color: #FEF7F2;
-      font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
-      letter-spacing: 1.5px;
-      line-height: 1.5;
+    .scroll-prompt {
+      margin: 30px auto;
+      font-style: italic;
+      color: #FFEE86;
       font-size: 1em;
+      padding: 15px 20px;
+      background: rgba(7, 16, 55, 0.85);
+      border: 1px solid #C79535;
+      border-radius: 8px;
+      max-width: 80%;
+      text-align: center;
     }
 
     .share-email-container {
@@ -294,10 +296,10 @@
       margin: 30px 0;
     }
 
-    .download-card-button {
+    .action-button {
       background: #C79535;
       color: #000000;
-      padding: 15px 30px;
+      padding: 18px 30px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -309,12 +311,50 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       font-family: 'Montserrat', Arial, sans-serif;
+      display: block;
+      text-align: center;
+      line-height: 1.3;
+      min-height: 60px;
     }
 
-    .download-card-button:hover {
+    .action-button:hover {
       background: #FFEE86;
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(199, 149, 53, 0.3);
+    }
+
+    .caption-preview {
+      background: rgba(7, 16, 55, 0.85);
+      border: 1px solid #C79535;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0 20px 0;
+      color: #FEF7F2;
+      font-family: 'Darker Grotesque', Arial, Helvetica, sans-serif;
+      font-size: 0.95em;
+      line-height: 1.5;
+      letter-spacing: 1px;
+      width: 100%;
+      cursor: pointer;
+      text-align: left;
+      position: relative;
+    }
+
+    .caption-preview-label {
+      font-size: 0.75em;
+      color: #C79535;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .caption-copy-hint {
+      font-size: 0.75em;
+      color: rgba(199, 149, 53, 0.7);
+      margin-top: 8px;
+      text-align: center;
+      display: block;
     }
 
     .social-icons-row {
@@ -402,16 +442,19 @@
       background: #4A0401;
       color: #C79535;
       border: 2px solid #C79535;
-      padding: 15px 25px;
+      padding: 18px 25px;
       font-size: 18px;
-      font-weight: 600;
-      font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
+      font-weight: bold;
+      font-family: 'Montserrat', Arial, sans-serif;
       text-transform: uppercase;
-      letter-spacing: 4.4px;
+      letter-spacing: 2px;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
-      height: 60px;
+      min-height: 60px;
+      line-height: 1.3;
+      display: block;
+      text-align: center;
     }
 
     .email-submit:hover {
@@ -501,8 +544,11 @@
       }
 
       .email-submit {
-        height: 70px;
-        padding: 18px 25px;
+        width: 100%;
+      }
+
+      .scroll-prompt {
+        max-width: 95%;
       }
     }
 
@@ -544,64 +590,78 @@
     );
   }
 
-  async function createShareImage(cardImageUrl, cardTitle) {
+  function buildCaption(card, readingTitle) {
+    const meaning = card[card.displayMeaning] || '';
+    const truncated = meaning.length > 180 
+      ? meaning.substring(0, 177) + '...' 
+      : meaning;
+    return `${card.title}: ${truncated}\n\nGet your own reading at themagickmechanic.com/magick-cat-oracle-daniel-boutros`;
+  }
+
+  async function createShareImage(cardImageUrl) {
     return new Promise((resolve) => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       canvas.width = 1080;
       canvas.height = 1080;
       
-      let imagesLoaded = 0;
-      const totalImages = 3;
+      // Load all 3 images then composite
+      const cardImg = new Image();
+      const mwImg = new Image();
+      const urlImg = new Image();
       
-      function checkComplete() {
-        imagesLoaded++;
-        if (imagesLoaded === totalImages) {
-          canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
+      let loaded = 0;
+      
+      function tryComposite() {
+        loaded++;
+        if (loaded < 3) return;
+        
+        // Draw card first
+        if (cardImg.complete && cardImg.naturalWidth > 0) {
+          const cropPercent = 0.15;
+          const sourceX = cardImg.width * cropPercent;
+          const sourceY = cardImg.height * cropPercent;
+          const sourceWidth = cardImg.width * (1 - cropPercent * 2);
+          const sourceHeight = cardImg.height * (1 - cropPercent * 2);
+          const croppedAspect = sourceWidth / sourceHeight;
+          const drawWidth = canvas.width;
+          const drawHeight = drawWidth / croppedAspect;
+          const offsetY = (canvas.height - drawHeight) / 2;
+          ctx.drawImage(cardImg, sourceX, sourceY, sourceWidth, sourceHeight, 0, offsetY, drawWidth, drawHeight);
         }
+        
+        // Draw MW logo top right
+        if (mwImg.complete && mwImg.naturalWidth > 0) {
+          ctx.drawImage(mwImg, canvas.width - 190, 30, 160, 160);
+        }
+        
+        // Draw URL logo bottom
+        if (urlImg.complete && urlImg.naturalWidth > 0) {
+          const availableWidth = canvas.width - 120;
+          const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
+          ctx.drawImage(urlImg, 60, canvas.height - logoHeight - 30, availableWidth, logoHeight);
+        }
+        
+        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
       }
       
-      const cardImg = new Image();
       cardImg.crossOrigin = 'anonymous';
-      cardImg.onload = () => {
-        const cropPercent = 0.15;
-        const sourceX = cardImg.width * cropPercent;
-        const sourceY = cardImg.height * cropPercent;
-        const sourceWidth = cardImg.width * (1 - cropPercent * 2);
-        const sourceHeight = cardImg.height * (1 - cropPercent * 2);
-        const croppedAspect = sourceWidth / sourceHeight;
-        let drawWidth = canvas.width;
-        let drawHeight = drawWidth / croppedAspect;
-        let offsetX = 0;
-        let offsetY = (canvas.height - drawHeight) / 2;
-        ctx.drawImage(cardImg, sourceX, sourceY, sourceWidth, sourceHeight, offsetX, offsetY, drawWidth, drawHeight);
-        checkComplete();
-      };
-      cardImg.onerror = () => checkComplete();
-      cardImg.src = cardImageUrl;
-      
-      const mwImg = new Image();
       mwImg.crossOrigin = 'anonymous';
-      mwImg.onload = () => {
-        ctx.drawImage(mwImg, canvas.width - 190, 30, 160, 160);
-        checkComplete();
-      };
-      mwImg.onerror = () => checkComplete();
-      mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
-      
-      const urlImg = new Image();
       urlImg.crossOrigin = 'anonymous';
-      urlImg.onload = () => {
-        const availableWidth = canvas.width - 120;
-        const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
-        ctx.drawImage(urlImg, 60, canvas.height - logoHeight - 30, availableWidth, logoHeight);
-        checkComplete();
-      };
-      urlImg.onerror = () => checkComplete();
+      
+      cardImg.onload = tryComposite;
+      cardImg.onerror = tryComposite;
+      mwImg.onload = tryComposite;
+      mwImg.onerror = tryComposite;
+      urlImg.onload = tryComposite;
+      urlImg.onerror = tryComposite;
+      
+      cardImg.src = cardImageUrl;
+      mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
       urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
     });
   }
-  
+
   function OracleCardReader() {
     const readingConfigurations = {
       single: {
@@ -712,6 +772,7 @@
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
     const [activeConfig, setActiveConfig] = React.useState(null);
+    const [captionText, setCaptionText] = React.useState(null);
     
     React.useEffect(() => {
       async function fetchCards() {
@@ -773,6 +834,7 @@
       setReadingType(null);
       setSelectedCards([]);
       setActiveConfig(null);
+      setCaptionText(null);
       setTimeout(() => {
         const oracleContainer = document.getElementById('oracle-reader-container');
         if (oracleContainer) {
@@ -876,10 +938,12 @@
         )
       ),
 
-      // NEW READING PROMPT + BUTTON
-      React.createElement("div", { className: "new-reading-prompt", key: "new-reading-prompt" },
+      // SCROLL PROMPT - visually prominent
+      React.createElement("div", { className: "scroll-prompt", key: "scroll-prompt" },
         "Scroll down to email the reading to yourself, and explore more options for psychic readings, learning and other cool stuff."
       ),
+
+      // NEW READING BUTTON
       React.createElement("div", { className: "drawing-area new-reading-button", key: "new-reading" },
         React.createElement("button", { className: "oracle-button", onClick: resetReading }, "Start New Reading")
       ),
@@ -887,7 +951,7 @@
       // COMBINED EMAIL + SHARE CONTAINER
       React.createElement("div", { className: "share-email-container", key: "share-email" }, [
 
-        // EMAIL SECTION - FIRST
+        // EMAIL SECTION FIRST
         React.createElement("div", { key: "email-section" }, [
           React.createElement("h3", { className: "email-form-title", key: "email-title" }, "Send this reading to your email inbox!"),
           React.createElement("p", { className: "email-form-description", key: "email-desc" }, 
@@ -898,7 +962,7 @@
               id: "user-email", key: "email-input"
             }),
             React.createElement("button", {
-              className: "oracle-button email-submit",
+              className: "email-submit",
               key: "email-button",
               onClick: (e) => {
                 e.preventDefault();
@@ -944,34 +1008,73 @@
         // DIVIDER
         React.createElement("div", { className: "section-divider", key: "divider" }),
 
-        // SOCIAL SHARING SECTION - SECOND
+        // SOCIAL SHARING SECOND
         React.createElement("div", { key: "social-section" }, [
-          React.createElement("p", { className: "email-form-description", key: "share-prompt", style: { textAlign: 'center', marginBottom: '5px' } },
-            "Want to share your Cat Oracle result?"),
+          React.createElement("p", { 
+            className: "email-form-description", key: "share-prompt", 
+            style: { textAlign: 'center', marginBottom: '5px' } 
+          }, "Want to share your Cat Oracle result?"),
+          
           React.createElement("button", {
-            className: "download-card-button",
+            className: "action-button",
             key: "download-button",
             onClick: async () => {
               try {
                 const lastCard = selectedCards[selectedCards.length - 1];
-                const blob = await createShareImage(lastCard.image_url, lastCard.title);
+                const blob = await createShareImage(lastCard.image_url);
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
                 a.download = 'oracle-reading.png';
                 a.click();
                 URL.revokeObjectURL(url);
-                const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? themagickmechanic.com`;
-                await navigator.clipboard.writeText(caption);
-                alert('Image downloaded and caption copied to clipboard!');
+                
+                const caption = buildCaption(lastCard, activeConfig.title);
+                setCaptionText(caption);
+                
+                // Try clipboard, fall back gracefully
+                try {
+                  await navigator.clipboard.writeText(caption);
+                } catch (clipErr) {
+                  // Clipboard failed - caption will show in preview box below
+                  console.log('Clipboard not available - showing caption preview');
+                }
               } catch (error) {
                 console.error('Download failed:', error);
                 alert('Failed to download. Please try again.');
               }
             }
           }, "Download Card & Copy Caption"),
-          React.createElement("p", { className: "email-form-description", key: "share-instruction", style: { textAlign: 'center', marginTop: '10px', marginBottom: '15px' } },
-            "Now paste your caption and image into any of your socials:"),
+
+          // CAPTION PREVIEW - shows after download, tap to copy
+          captionText ? React.createElement("div", { 
+            className: "caption-preview",
+            key: "caption-preview",
+            onClick: async () => {
+              try {
+                await navigator.clipboard.writeText(captionText);
+                alert('Caption copied!');
+              } catch (err) {
+                // Select the text manually as fallback
+                const el = document.querySelector('.caption-preview');
+                const range = document.createRange();
+                range.selectNodeContents(el);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+              }
+            }
+          }, [
+            React.createElement("span", { className: "caption-preview-label", key: "label" }, "Your caption:"),
+            captionText,
+            React.createElement("span", { className: "caption-copy-hint", key: "hint" }, "Tap to copy")
+          ]) : null,
+
+          React.createElement("p", { 
+            className: "email-form-description", key: "share-instruction", 
+            style: { textAlign: 'center', marginTop: '10px', marginBottom: '15px' } 
+          }, "Now paste your caption and image into any of your socials:"),
+          
           React.createElement("div", { className: "social-icons-row", key: "social-icons" }, [
             React.createElement("a", {
               className: "social-icon-link", key: "instagram",
@@ -990,11 +1093,7 @@
             }, React.createElement("i", { className: "fab fa-facebook" })),
             React.createElement("a", {
               className: "social-icon-link", key: "twitter",
-              href: () => {
-                const lastCard = selectedCards[selectedCards.length - 1];
-                const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? themagickmechanic.com`;
-                return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-              },
+              href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(captionText || '')}`,
               target: "_blank", rel: "noopener noreferrer",
               title: "Twitter"
             }, React.createElement("i", { className: "fab fa-twitter" })),
