@@ -283,6 +283,28 @@
       margin: 30px 0;
     }
 
+    .download-card-button {
+      background: #C79535;
+      color: #000000;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin: 20px 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .download-card-button:hover {
+      background: #FFEE86;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(199, 149, 53, 0.3);
+    }
+
     .social-buttons-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -485,6 +507,11 @@
         flex-direction: column;
       }
 
+      .email-submit {
+        height: 70px;
+        padding: 18px 25px;
+      }
+
       .social-buttons-grid {
         grid-template-columns: 1fr;
       }
@@ -534,7 +561,7 @@
     );
   }
 
-  // SOCIAL SHARING FUNCTION - FIXED
+  // SOCIAL SHARING FUNCTION
   async function createShareImage(cardImageUrl, cardTitle) {
     return new Promise((resolve) => {
       const canvas = document.createElement('canvas');
@@ -567,7 +594,7 @@
         let drawWidth = canvas.width;
         let drawHeight = drawWidth / croppedAspect;
         let offsetX = 0;
-        let offsetY = (canvas.height - drawHeight) / 2; // CENTER vertically
+        let offsetY = (canvas.height - drawHeight) / 2;
         
         ctx.drawImage(
           cardImg,
@@ -910,33 +937,46 @@
 
       // COMBINED SHARE + EMAIL CONTAINER
       React.createElement("div", { className: "share-email-container", key: "share-email" }, [
-        // SOCIAL SHARING SECTION
-        React.createElement("div", { key: "social-section" }, [
-          React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Reading"),
-          React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
-            "Share your oracle reading on social media"),
+        // DOWNLOAD CARD SECTION
+        React.createElement("div", { key: "download-section" }, [
+          React.createElement("h3", { className: "email-form-title", key: "download-title" }, "Share Your Reading"),
+          React.createElement("p", { className: "email-form-description", key: "download-desc" }, 
+            "Download your card image with caption to share on social media"),
+          React.createElement("button", {
+            className: "download-card-button",
+            key: "download-button",
+            onClick: async () => {
+              try {
+                const lastCard = selectedCards[selectedCards.length - 1];
+                const blob = await createShareImage(lastCard.image_url, lastCard.title);
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'oracle-reading.png';
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
+                await navigator.clipboard.writeText(caption);
+                alert('✅ Image downloaded!\n📋 Caption copied to clipboard!\n\nNow share it on your favorite platform below.');
+              } catch (error) {
+                console.error('Download failed:', error);
+                alert('Failed to download image. Please try again.');
+              }
+            }
+          }, "Download Card & Copy Caption")
+        ]),
+
+        // SHARE ON PLATFORMS SECTION
+        React.createElement("div", { key: "platforms-section", style: { marginTop: '20px' } }, [
+          React.createElement("p", { className: "email-form-description", key: "platforms-desc", style: { marginBottom: '15px' } }, 
+            "Share on:"),
           React.createElement("div", { className: "social-buttons-grid", key: "social-grid" }, [
             React.createElement("button", {
               className: "share-button",
               key: "instagram",
-              onClick: async () => {
-                try {
-                  const lastCard = selectedCards[selectedCards.length - 1];
-                  const blob = await createShareImage(lastCard.image_url, lastCard.title);
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = 'oracle-reading-instagram.png';
-                  a.click();
-                  URL.revokeObjectURL(url);
-                  
-                  const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
-                  await navigator.clipboard.writeText(caption);
-                  alert('Image downloaded! Caption copied to clipboard. Now post to Instagram Stories!');
-                } catch (error) {
-                  console.error('Instagram share failed:', error);
-                  alert('Failed to create share image.');
-                }
+              onClick: () => {
+                window.open('https://www.instagram.com/', '_blank');
               }
             }, [
               React.createElement("i", { className: "fab fa-instagram", key: "icon" }),
@@ -946,24 +986,8 @@
             React.createElement("button", {
               className: "share-button",
               key: "tiktok",
-              onClick: async () => {
-                try {
-                  const lastCard = selectedCards[selectedCards.length - 1];
-                  const blob = await createShareImage(lastCard.image_url, lastCard.title);
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = 'oracle-reading-tiktok.png';
-                  a.click();
-                  URL.revokeObjectURL(url);
-                  
-                  const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
-                  await navigator.clipboard.writeText(caption);
-                  alert('Image downloaded! Caption copied to clipboard. Now post to TikTok!');
-                } catch (error) {
-                  console.error('TikTok share failed:', error);
-                  alert('Failed to create share image.');
-                }
+              onClick: () => {
+                window.open('https://www.tiktok.com/', '_blank');
               }
             }, [
               React.createElement("i", { className: "fab fa-tiktok", key: "icon" }),
@@ -973,32 +997,8 @@
             React.createElement("button", {
               className: "share-button",
               key: "facebook",
-              onClick: async () => {
-                const lastCard = selectedCards[selectedCards.length - 1];
-                const blob = await createShareImage(lastCard.image_url, lastCard.title);
-                const file = new File([blob], 'oracle-reading.png', { type: 'image/png' });
-                
-                if (navigator.share && navigator.canShare({ files: [file] })) {
-                  try {
-                    await navigator.share({
-                      files: [file],
-                      title: 'My Oracle Reading',
-                      text: `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`
-                    });
-                  } catch (error) {
-                    console.error('Facebook share failed:', error);
-                  }
-                } else {
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = 'oracle-reading-facebook.png';
-                  a.click();
-                  URL.revokeObjectURL(url);
-                  const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-                  await navigator.clipboard.writeText(text);
-                  alert('Image downloaded and caption copied! Share on Facebook.');
-                }
+              onClick: () => {
+                window.open('https://www.facebook.com/', '_blank');
               }
             }, [
               React.createElement("i", { className: "fab fa-facebook", key: "icon" }),
@@ -1022,32 +1022,8 @@
             React.createElement("button", {
               className: "share-button",
               key: "threads",
-              onClick: async () => {
-                const lastCard = selectedCards[selectedCards.length - 1];
-                const blob = await createShareImage(lastCard.image_url, lastCard.title);
-                const file = new File([blob], 'oracle-reading.png', { type: 'image/png' });
-                
-                if (navigator.share && navigator.canShare({ files: [file] })) {
-                  try {
-                    await navigator.share({
-                      files: [file],
-                      title: 'My Oracle Reading',
-                      text: `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`
-                    });
-                  } catch (error) {
-                    console.error('Threads share failed:', error);
-                  }
-                } else {
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = 'oracle-reading-threads.png';
-                  a.click();
-                  URL.revokeObjectURL(url);
-                  const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-                  await navigator.clipboard.writeText(text);
-                  alert('Image downloaded and caption copied! Share on Threads.');
-                }
+              onClick: () => {
+                window.open('https://www.threads.net/', '_blank');
               }
             }, [
               React.createElement("i", { className: "fas fa-at", key: "icon" }),
