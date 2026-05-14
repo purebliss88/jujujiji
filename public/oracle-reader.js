@@ -497,7 +497,7 @@
     );
   }
 
-  // SOCIAL SHARING FUNCTION - UPDATED MAY 13
+// SOCIAL SHARING FUNCTION - Frame positioned up 10%
 async function createShareImage(cardImageUrl, cardTitle) {
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas');
@@ -506,21 +506,9 @@ async function createShareImage(cardImageUrl, cardTitle) {
     canvas.width = 1080;
     canvas.height = 1080;
     
-    let imagesLoaded = 0;
-    const totalImages = 3;
-    
-    function checkComplete() {
-      imagesLoaded++;
-      if (imagesLoaded === totalImages) {
-        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
-      }
-    }
-    
     const cardImg = new Image();
     cardImg.crossOrigin = 'anonymous';
     cardImg.onload = () => {
-      const imgAspect = cardImg.width / cardImg.height;
-      
       // CROP 15% off each side of the card image
       const cropPercent = 0.15;
       const sourceX = cardImg.width * cropPercent;
@@ -540,7 +528,8 @@ async function createShareImage(cardImageUrl, cardTitle) {
         drawWidth = canvas.width;
         drawHeight = drawWidth / croppedAspect;
         offsetX = 0;
-        offsetY = (canvas.height - drawHeight) / 2;
+        // Move frame UP by 10% of canvas height
+        offsetY = (canvas.height - drawHeight) / 2 - (canvas.height * 0.10);
       }
       
       ctx.drawImage(
@@ -548,13 +537,18 @@ async function createShareImage(cardImageUrl, cardTitle) {
         sourceX, sourceY, sourceWidth, sourceHeight,  // source crop
         offsetX, offsetY, drawWidth, drawHeight       // destination
       );
-      checkComplete();
+      
+      canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
     };
+    
     cardImg.onerror = () => {
       console.error('Card image failed to load');
-      checkComplete();
+      canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
     };
+    
     cardImg.src = cardImageUrl;
+  });
+}
     
     // MW LOGO - Top right, double the size (160px instead of 80px)
     const mwImg = new Image();
