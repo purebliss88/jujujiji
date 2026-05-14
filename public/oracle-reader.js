@@ -531,58 +531,110 @@
     );
   }
 
-  // SOCIAL SHARING FUNCTION
-  async function createShareImage(cardImageUrl, cardTitle) {
-    return new Promise((resolve) => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      
-      canvas.width = 1080;
-      canvas.height = 1080;
-      
-      const cardImg = new Image();
-      cardImg.crossOrigin = 'anonymous';
-      cardImg.onload = () => {
-        // CROP 15% off each side
-        const cropPercent = 0.15;
-        const sourceX = cardImg.width * cropPercent;
-        const sourceY = cardImg.height * cropPercent;
-        const sourceWidth = cardImg.width * (1 - cropPercent * 2);
-        const sourceHeight = cardImg.height * (1 - cropPercent * 2);
-        
-        let drawWidth, drawHeight, offsetX, offsetY;
-        const croppedAspect = sourceWidth / sourceHeight;
-        
-        if (croppedAspect > 1) {
-          drawHeight = canvas.height;
-          drawWidth = drawHeight * croppedAspect;
-          offsetX = (canvas.width - drawWidth) / 2;
-          offsetY = 0;
-        } else {
-          drawWidth = canvas.width;
-          drawHeight = drawWidth / croppedAspect;
-          offsetX = 0;
-          // Move frame UP by 10% of canvas height
-          offsetY = (canvas.height - drawHeight) / 2 - (canvas.height * 0.10);
-        }
-        
-        ctx.drawImage(
-          cardImg,
-          sourceX, sourceY, sourceWidth, sourceHeight,
-          offsetX, offsetY, drawWidth, drawHeight
-        );
-        
+// SOCIAL SHARING FUNCTION - FIXED WITH WATERMARKS
+async function createShareImage(cardImageUrl, cardTitle) {
+  return new Promise((resolve) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = 1080;
+    canvas.height = 1080;
+    
+    let imagesLoaded = 0;
+    const totalImages = 3; // card + MW logo + URL logo
+    
+    function checkComplete() {
+      imagesLoaded++;
+      if (imagesLoaded === totalImages) {
         canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
-      };
+      }
+    }
+    
+    // CARD IMAGE - crop 15% + move up 20%
+    const cardImg = new Image();
+    cardImg.crossOrigin = 'anonymous';
+    cardImg.onload = () => {
+      const cropPercent = 0.15;
+      const sourceX = cardImg.width * cropPercent;
+      const sourceY = cardImg.height * cropPercent;
+      const sourceWidth = cardImg.width * (1 - cropPercent * 2);
+      const sourceHeight = cardImg.height * (1 - cropPercent * 2);
       
-      cardImg.onerror = () => {
-        console.error('Card image failed to load');
-        canvas.toBlob((blob) => resolve(blob), 'image/png', 0.95);
-      };
+      let drawWidth, drawHeight, offsetX, offsetY;
+      const croppedAspect = sourceWidth / sourceHeight;
       
-      cardImg.src = cardImageUrl;
-    });
-  }
+      if (croppedAspect > 1) {
+        drawHeight = canvas.height;
+        drawWidth = drawHeight * croppedAspect;
+        offsetX = (canvas.width - drawWidth) / 2;
+        offsetY = 0;
+      } else {
+        drawWidth = canvas.width;
+        drawHeight = drawWidth / croppedAspect;
+        offsetX = 0;
+        // Move frame UP by 20% of canvas height
+        offsetY = (canvas.height - drawHeight) / 2 - (canvas.height * 0.20);
+      }
+      
+      ctx.drawImage(
+        cardImg,
+        sourceX, sourceY, sourceWidth, sourceHeight,
+        offsetX, offsetY, drawWidth, drawHeight
+      );
+      checkComplete();
+    };
+    cardImg.onerror = () => {
+      console.error('Card image failed to load');
+      checkComplete();
+    };
+    cardImg.src = cardImageUrl;
+    
+    // MW LOGO - top right, 160px size (doubled)
+    const mwImg = new Image();
+    mwImg.crossOrigin = 'anonymous';
+    mwImg.onload = () => {
+      const logoSize = 160;
+      const margin = 30;
+      ctx.drawImage(
+        mwImg, 
+        canvas.width - logoSize - margin,  // top right
+        margin, 
+        logoSize, 
+        logoSize
+      );
+      checkComplete();
+    };
+    mwImg.onerror = () => {
+      console.error('MW logo failed to load');
+      checkComplete();
+    };
+    mwImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/3f5b430e-fdfb-42f0-a0f6-19ec9072809c/TMM+logo+MM+MW+flatgold+Icon+transp.png';
+    
+    // URL LOGO - full width across bottom with side margins
+    const urlImg = new Image();
+    urlImg.crossOrigin = 'anonymous';
+    urlImg.onload = () => {
+      const sideMargin = 60;
+      const bottomMargin = 20;
+      const availableWidth = canvas.width - (sideMargin * 2);
+      const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
+      
+      ctx.drawImage(
+        urlImg, 
+        sideMargin,
+        canvas.height - logoHeight - bottomMargin,
+        availableWidth,
+        logoHeight
+      );
+      checkComplete();
+    };
+    urlImg.onerror = () => {
+      console.error('URL logo failed to load');
+      checkComplete();
+    };
+    urlImg.src = 'https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5117cc93-1e47-4809-994a-ac4fbe558ef2/TMM+logo+gold-URL+only+transp.png';
+  });
+}
   
   function OracleCardReader() {
     const readingConfigurations = {
