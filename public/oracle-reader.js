@@ -268,14 +268,19 @@
       line-height: 1.1;
     }
 
-    .social-share-section {
+    .share-email-container {
       max-width: 600px;
-      margin: 40px auto 20px auto;
+      margin: 40px auto;
       padding: 30px;
       background: #161719;
       border: 2px solid #C79535;
       border-radius: 12px;
-      text-align: center;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: rgba(199, 149, 53, 0.3);
+      margin: 30px 0;
     }
 
     .social-buttons-grid {
@@ -303,7 +308,7 @@
       color: #FFFFFF;
       padding: 12px 20px;
       border: none;
-      border-radius: 50px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
       font-weight: 600;
@@ -323,17 +328,6 @@
 
     .share-button i {
       font-size: 18px;
-    }
-
-    .email-form {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 30px;
-      background: #161719;
-      border: 2px solid #C79535;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(199, 149, 53, 0.2);
     }
 
     .email-form-title {
@@ -540,7 +534,7 @@
     );
   }
 
-  // SOCIAL SHARING FUNCTION
+  // SOCIAL SHARING FUNCTION - FIXED
   async function createShareImage(cardImageUrl, cardTitle) {
     return new Promise((resolve) => {
       const canvas = document.createElement('canvas');
@@ -559,7 +553,7 @@
         }
       }
       
-      // CARD IMAGE - crop 15% + position 10% from top
+      // CARD IMAGE - crop 15% sides, centered vertically
       const cardImg = new Image();
       cardImg.crossOrigin = 'anonymous';
       cardImg.onload = () => {
@@ -573,7 +567,7 @@
         let drawWidth = canvas.width;
         let drawHeight = drawWidth / croppedAspect;
         let offsetX = 0;
-        let offsetY = canvas.height * 0.10;
+        let offsetY = (canvas.height - drawHeight) / 2; // CENTER vertically
         
         ctx.drawImage(
           cardImg,
@@ -614,7 +608,7 @@
       urlImg.crossOrigin = 'anonymous';
       urlImg.onload = () => {
         const sideMargin = 60;
-        const bottomMargin = 20;
+        const bottomMargin = 30;
         const availableWidth = canvas.width - (sideMargin * 2);
         const logoHeight = (urlImg.height / urlImg.width) * availableWidth;
         
@@ -914,161 +908,210 @@
         )
       ),
 
-      // SOCIAL SHARING SECTION
-      React.createElement("div", { className: "social-share-section", key: "social" }, [
-        React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Reading"),
-        React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
-          "Share your oracle reading on social media"),
-        React.createElement("div", { className: "social-buttons-grid", key: "social-grid" }, [
-          React.createElement("button", {
-            className: "share-button",
-            key: "instagram",
-            onClick: async () => {
-              try {
+      // COMBINED SHARE + EMAIL CONTAINER
+      React.createElement("div", { className: "share-email-container", key: "share-email" }, [
+        // SOCIAL SHARING SECTION
+        React.createElement("div", { key: "social-section" }, [
+          React.createElement("h3", { className: "email-form-title", key: "social-title" }, "Share Your Reading"),
+          React.createElement("p", { className: "email-form-description", key: "social-desc" }, 
+            "Share your oracle reading on social media"),
+          React.createElement("div", { className: "social-buttons-grid", key: "social-grid" }, [
+            React.createElement("button", {
+              className: "share-button",
+              key: "instagram",
+              onClick: async () => {
+                try {
+                  const lastCard = selectedCards[selectedCards.length - 1];
+                  const blob = await createShareImage(lastCard.image_url, lastCard.title);
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'oracle-reading-instagram.png';
+                  a.click();
+                  URL.revokeObjectURL(url);
+                  
+                  const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
+                  await navigator.clipboard.writeText(caption);
+                  alert('Image downloaded! Caption copied to clipboard. Now post to Instagram Stories!');
+                } catch (error) {
+                  console.error('Instagram share failed:', error);
+                  alert('Failed to create share image.');
+                }
+              }
+            }, [
+              React.createElement("i", { className: "fab fa-instagram", key: "icon" }),
+              "Instagram"
+            ]),
+            
+            React.createElement("button", {
+              className: "share-button",
+              key: "tiktok",
+              onClick: async () => {
+                try {
+                  const lastCard = selectedCards[selectedCards.length - 1];
+                  const blob = await createShareImage(lastCard.image_url, lastCard.title);
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'oracle-reading-tiktok.png';
+                  a.click();
+                  URL.revokeObjectURL(url);
+                  
+                  const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
+                  await navigator.clipboard.writeText(caption);
+                  alert('Image downloaded! Caption copied to clipboard. Now post to TikTok!');
+                } catch (error) {
+                  console.error('TikTok share failed:', error);
+                  alert('Failed to create share image.');
+                }
+              }
+            }, [
+              React.createElement("i", { className: "fab fa-tiktok", key: "icon" }),
+              "TikTok"
+            ]),
+            
+            React.createElement("button", {
+              className: "share-button",
+              key: "facebook",
+              onClick: async () => {
                 const lastCard = selectedCards[selectedCards.length - 1];
                 const blob = await createShareImage(lastCard.image_url, lastCard.title);
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'oracle-reading-instagram.png';
-                a.click();
-                URL.revokeObjectURL(url);
+                const file = new File([blob], 'oracle-reading.png', { type: 'image/png' });
                 
-                const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
-                await navigator.clipboard.writeText(caption);
-                alert('Image downloaded! Caption copied to clipboard. Now post to Instagram Stories!');
-              } catch (error) {
-                console.error('Instagram share failed:', error);
-                alert('Failed to create share image.');
+                if (navigator.share && navigator.canShare({ files: [file] })) {
+                  try {
+                    await navigator.share({
+                      files: [file],
+                      title: 'My Oracle Reading',
+                      text: `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`
+                    });
+                  } catch (error) {
+                    console.error('Facebook share failed:', error);
+                  }
+                } else {
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'oracle-reading-facebook.png';
+                  a.click();
+                  URL.revokeObjectURL(url);
+                  const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+                  await navigator.clipboard.writeText(text);
+                  alert('Image downloaded and caption copied! Share on Facebook.');
+                }
               }
-            }
-          }, [
-            React.createElement("i", { className: "fab fa-instagram", key: "icon" }),
-            "Instagram"
-          ]),
-          
-          React.createElement("button", {
-            className: "share-button",
-            key: "tiktok",
-            onClick: async () => {
-              try {
+            }, [
+              React.createElement("i", { className: "fab fa-facebook", key: "icon" }),
+              "Facebook"
+            ]),
+            
+            React.createElement("button", {
+              className: "share-button",
+              key: "twitter",
+              onClick: () => {
+                const lastCard = selectedCards[selectedCards.length - 1];
+                const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+                const url = window.location.href;
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+              }
+            }, [
+              React.createElement("i", { className: "fab fa-twitter", key: "icon" }),
+              "Twitter"
+            ]),
+            
+            React.createElement("button", {
+              className: "share-button",
+              key: "threads",
+              onClick: async () => {
                 const lastCard = selectedCards[selectedCards.length - 1];
                 const blob = await createShareImage(lastCard.image_url, lastCard.title);
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'oracle-reading-tiktok.png';
-                a.click();
-                URL.revokeObjectURL(url);
+                const file = new File([blob], 'oracle-reading.png', { type: 'image/png' });
                 
-                const caption = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨ themagickmechanic.com`;
-                await navigator.clipboard.writeText(caption);
-                alert('Image downloaded! Caption copied to clipboard. Now post to TikTok!');
-              } catch (error) {
-                console.error('TikTok share failed:', error);
-                alert('Failed to create share image.');
+                if (navigator.share && navigator.canShare({ files: [file] })) {
+                  try {
+                    await navigator.share({
+                      files: [file],
+                      title: 'My Oracle Reading',
+                      text: `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`
+                    });
+                  } catch (error) {
+                    console.error('Threads share failed:', error);
+                  }
+                } else {
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'oracle-reading-threads.png';
+                  a.click();
+                  URL.revokeObjectURL(url);
+                  const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
+                  await navigator.clipboard.writeText(text);
+                  alert('Image downloaded and caption copied! Share on Threads.');
+                }
               }
-            }
-          }, [
-            React.createElement("i", { className: "fab fa-tiktok", key: "icon" }),
-            "TikTok"
-          ]),
-          
-          React.createElement("button", {
-            className: "share-button",
-            key: "facebook",
-            onClick: () => {
-              const lastCard = selectedCards[selectedCards.length - 1];
-              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-              const url = window.location.href;
-              window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank');
-            }
-          }, [
-            React.createElement("i", { className: "fab fa-facebook", key: "icon" }),
-            "Facebook"
-          ]),
-          
-          React.createElement("button", {
-            className: "share-button",
-            key: "twitter",
-            onClick: () => {
-              const lastCard = selectedCards[selectedCards.length - 1];
-              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-              const url = window.location.href;
-              window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-            }
-          }, [
-            React.createElement("i", { className: "fab fa-twitter", key: "icon" }),
-            "Twitter"
-          ]),
-          
-          React.createElement("button", {
-            className: "share-button",
-            key: "threads",
-            onClick: () => {
-              const lastCard = selectedCards[selectedCards.length - 1];
-              const text = `I got ${lastCard.title} in my ${activeConfig.title}. What will you get? ✨`;
-              const url = window.location.href;
-              window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-            }
-          }, [
-            React.createElement("i", { className: "fab fa-threads", key: "icon" }),
-            "Threads"
+            }, [
+              React.createElement("i", { className: "fas fa-at", key: "icon" }),
+              "Threads"
+            ])
           ])
-        ])
-      ]),
-      
-      React.createElement("div", { className: "email-form", key: "email" }, [
-        React.createElement("h3", { className: "email-form-title", key: "email-title" }, "Send this reading to your email inbox!"),
-        React.createElement("p", { className: "email-form-description", key: "email-desc" }, 
-          "Enter your email address to receive a copy of your reading and future insights:"),
-        React.createElement("div", { className: "email-input-group", key: "email-group" }, [
-          React.createElement("input", {
-            type: "email", className: "email-input", placeholder: "Your email address",
-            id: "user-email", key: "email-input"
-          }),
-          React.createElement("button", {
-            className: "oracle-button email-submit",
-            key: "email-button",
-            onClick: (e) => {
-              e.preventDefault();
-              const email = document.getElementById('user-email').value;
-              if (email && email.includes('@')) {
-                fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    email: email,
-                    reading: {
-                      type: activeConfig.title,
-                      cards: selectedCards.map((card, i) => ({
-                        position: activeConfig.positions[i].title,
-                        card: card.title,
-                        meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
-                        text: card[card.displayMeaning],
-                        imageUrl: card.image_url
-                      }))
+        ]),
+
+        // DIVIDER
+        React.createElement("div", { className: "section-divider", key: "divider" }),
+
+        // EMAIL SECTION
+        React.createElement("div", { key: "email-section" }, [
+          React.createElement("h3", { className: "email-form-title", key: "email-title" }, "Send this reading to your email inbox!"),
+          React.createElement("p", { className: "email-form-description", key: "email-desc" }, 
+            "Enter your email address to receive a copy of your reading and future insights:"),
+          React.createElement("div", { className: "email-input-group", key: "email-group" }, [
+            React.createElement("input", {
+              type: "email", className: "email-input", placeholder: "Your email address",
+              id: "user-email", key: "email-input"
+            }),
+            React.createElement("button", {
+              className: "oracle-button email-submit",
+              key: "email-button",
+              onClick: (e) => {
+                e.preventDefault();
+                const email = document.getElementById('user-email').value;
+                if (email && email.includes('@')) {
+                  fetch('https://heartfelt-kataifi-572e68.netlify.app/.netlify/functions/save-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      email: email,
+                      reading: {
+                        type: activeConfig.title,
+                        cards: selectedCards.map((card, i) => ({
+                          position: activeConfig.positions[i].title,
+                          card: card.title,
+                          meaning: card.displayMeaning === 'sun_meaning' ? 'Sun' : 'Moon',
+                          text: card[card.displayMeaning],
+                          imageUrl: card.image_url
+                        }))
+                      }
+                    })
+                  })
+                  .then(r => r.json())
+                  .then(data => {
+                    if (data.success) {
+                      alert('Thank you! This reading has been sent to your email.');
+                    } else {
+                      alert('Failed to send your reading: ' + (data.message || 'Unknown error'));
+                      console.error('Email error:', data);
                     }
                   })
-                })
-                .then(r => r.json())
-                .then(data => {
-                  if (data.success) {
-                    alert('Thank you! This reading has been sent to your email.');
-                  } else {
-                    alert('Failed to send your reading: ' + (data.message || 'Unknown error'));
-                    console.error('Email error:', data);
-                  }
-                })
-                .catch(err => {
-                  console.error('Error:', err);
-                  alert('The cats got distracted and failed to send your reading. Please try again later.');
-                });
-              } else {
-                alert('Please enter a valid email address.');
+                  .catch(err => {
+                    console.error('Error:', err);
+                    alert('The cats got distracted and failed to send your reading. Please try again later.');
+                  });
+                } else {
+                  alert('Please enter a valid email address.');
+                }
               }
-            }
-          }, "Send My Reading")
+            }, "Send My Reading")
+          ])
         ])
       ]),
       
