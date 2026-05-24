@@ -504,7 +504,7 @@ exports.handler = async function(event, context) {
         "energy": "Truth, Lies",
         "location": "You",
         "element": "Air, Earth",
-        "sun_meaning": "This one is about digging within for the truth.\n\nGaining knowledge of self is the message here. This one uses their mind and pen to reflect on their values, desires, new lessons, and truths of their life, no matter how challenging.\n\nWhomever you drew this oracle for, know that it's time for them to do some deep self-exploration and get clarity on all that's important to you.",
+        "sun_meaning": "This one is about digging within for the truth.\n\nGaining knowledge of self is the message here. This one uses their mind and pen to reflect on their values, desires, new lessons, and truths of their life, no matter how challenging.\n\nWhomever you drew this oracle for, know that it's time for them to do some deep self-exploration and get clarity on all that's important to their hearts.\n\nThis is a time for raw and uncompromising authenticity within.",
         "moon_meaning": "This oracle is a sign that information is being kept from you\n\nThe being may not be specifically seeking to deceive you for the desire of harm, but this is a clear message that information pertinent to your sovreignty and ability to choose for your better interest is not being shared.\n\nIn this case, if you drew this oracle around a specific being, it is they who are withholding imformation from you. If it is not tied to a person, and rather a community, family, team or company, it's important to explore whether it's for justified means or if it's a sign of an environment that is hostile for your well-being." 
       }, 
       {
