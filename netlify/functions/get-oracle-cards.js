@@ -518,6 +518,17 @@ exports.handler = async function(event, context) {
         "sun_meaning": "Rule of Law is intended as a structure designed to serve, protect and foster peace among the collective. The right structure of agreements as law can create a social environment that enables harmony where a social conscience may be frail.\n\nThis oracle is about either honoring an existing structure of rules that may have been causing you frustration, or creating a structure that will safely contain a collective, family or team so they can foster values of harmony and peace.\n\nIt's likely there are many types of people who don't see eye to eye, and in that case, a safe structure for all is more possible than an aligned vision among you.",
         "moon_meaning": "Sometimes rules are no longer useful to serve the needs of a social contract, as people and the world evolve. Sometimes they simply did not fit the needs of the collective identity and only served the ones making the rules.\n\nAny rules or laws that do not consider and contain the safety of the whole they are meant to serve are ideas that need to be changed or abolished.\n\nRules are meant to assist harmony of the collective identity. If they don't, they verge on enabling an unhealthy dictatorial structure and crumbling connective, healthy dynamics within.\n\nIf the one you drew this for is in an unhealthy structure or law or rule, this is a sign to break the rules or take efforts to change them." 
       },
+      {
+        "id": "Addict",
+        "title": "The addict",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/99952e96-1dc5-425d-acf9-2f038ac5a37f/addict.png",  
+        "time": "The Past",
+        "energy": "Loop or Let Go",
+        "location": "Past",
+        "element": "Spirit, Earth and Soul",
+        "sun_meaning": "This one has a crutch they rely upon - it could be a substance to enhance a state of being, or an emotional cycle that feels familiar and 'comforting' even if it's destructive to engage.\n\nThere's a clinging to a cycle of feelings that are as-yet unacknowledged. Addiction is rarely ever about a substance and more the feelings it helps us to numb or hide.\n\nThe being you drew this for is likely engaged in cycles of addictive behavior, and is encouraged to explore what feelings they are craving or avoiding, so they can finally reveal the truth to themselves and be liberated from this loop.\n\nBehind their cycle is deep sensitivity and heart, and it begs to be welcomed into presence.",
+        "moon_meaning": "Letting go and walking away from something that has been so pivotal to an identity is one of life's toughest experiences.\n\nWhen we walk away from something that is seen to define us, it can feel like ripping off a limb.\n\nHowever, the one who this oracle represents must consider the cost of holding on. Is it better for their life to continue as things are, or is it better for their lives to finally let this go, and be free of it, despite the expected suffering that will come?\n\nThankfully, all suffering is temporary, however, when a person hangs onto something not meant for them far longer than is appropriate, it costs them distance from something that could truly bring them closer to their own joy, fulfillment and happiness." 
+      },
     ];
   
     return {
