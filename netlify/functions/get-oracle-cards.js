@@ -412,13 +412,13 @@ exports.handler = async function(event, context) {
         "id": "futurist",
         "title": "Techno Cat",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/9b46fe56-44b1-45f9-9607-5c59abaf2be5/techno.png",  
-        "time": "Bright Future",
-        "energy": "Expansion or Disconnection",
-        "location": "The Workshop",
-        "element": "Air, Spirit, Ether",
-        "sun_meaning": "Technology is meant to evolve and expand our human experience and capacity for expression and creation. \n\nIt's a powerful part of our lives and when truly free, can run wild with possibility. 'Infinite' is one of the unspoken promises of technology's growth, and the one this speaks to feels aligned with that possibility.\n\nTechnology enables exponential growth. In healthy alignment with the flow of nature, resources and social consciousness, it can create amazing opportunities to improve the condition of human lives globally.",
-        "moon_meaning": "With great power comes great responsibility. Technology represents the expansion of great ability and can easily corrupt into a pursuit of rapid power. \n\nWhen the reach of tech is so vast, it can permeate so much of people's lives and so easily be used to harm them. Technology in this case can be a metaphor.\n\nIs there a great power or enabling opportunity before you that can be easily corrupted? Are you feeling tempted by something that can empower you, which also challenges your ethics? \n\nThis is a time to get deeply honest with yourself and your motives, as the power being offered to you carries a dark cost that must be brought to light if your path is to remain in alignment." 
-      }, 
+        "time": "All possibilities",
+        "energy": "Connection or Corruption",
+        "location": "The Future",
+        "element": "Electricity",
+        "sun_meaning": "Technology is meant to evolve and expand our human experience and capacity for expression and creation.\n\nIt's a powerful part of our lives and when truly free, can run wild with possibility. 'Infinite' is one of the unspoken promises of technology's growth, and the one this speaks to feels aligned with that possibility. \n\nTechnology enables exponential growth. In healthy alignment with the flow of nature, resources and social consciousness, it can create amazing opportunities to improve the condition of human lives globally.",
+        "moon_meaning": "With great power comes great responsibility. Technology represents the expansion of great ability and can easily corrupt into a pursuit of rapid power, pulling one away from their humanity and connection to others.\n\nWhen the reach of tech is so vast, it can permeate so much of people's lives and become easily exploited to cause them harm.\n\nAre you being met with a great power or enabling opportunity that can be easily disconnect you from self or others? Does it have the potential to 'corrupt' you? Are you feeling tempted by something that can empower you, which also challenges your ethics?\n\nThis is the time to get deeply honest with yourself and your motives - overt and hidden, your temptations and your vulnerabilities." 
+      },
       {
         "id": "knightmoney",
         "title": "Knight of Achievement",
