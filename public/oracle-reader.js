@@ -673,74 +673,79 @@
       },
       forces_decision: {
         title: "Forces Behind a Big Decision",
-        description: "What forces are at play around your big decision?",
+        description: "What forces are at play around my big decision?",
         cardCount: 5,
         emoji: "⚖️",
         positions: [
-          { title: "Key force(s) moving in support of your decision" },
-          { title: "Energies you're being drawn or inspired by" },
-          { title: "Key force(s) moving against your decision" },
-          { title: "Energies you're feeling fear around" },
-          { title: "What you can embody to improve the outcome?" }
+          { title: "Key force(s) moving in support of my decision" },
+          { title: "Energies I'm being drawn to or inspired by" },
+          { title: "Key force(s) moving against my decision" },
+          { title: "Energies I'm feeling fear around" },
+          { title: "What can I embody to improve the outcome?" }
         ]
       },
       situation_action_outcome: {
-        title: "Help me See my Blind Spot",
+        title: "Where is my blind spot",
         description: "What is creating undesired parts of my reality?",
-        cardCount: 6,
+        cardCount: 7,
         emoji: "🎯",
         positions: [
           { title: "Situation - The current challenge" },
           { title: "What is my hidden fear?" },
           { title: "What is my hidden desire?" },
+          { title: "What lie is keeping me blind to truth?" },
           { title: "What is my mask or falsehood?" },
           { title: "What is my truth under the mask?" },
           { title: "What can I do to become the truth?" }
         ]
       },
       path_to_success: {
-        title: "Your Path to Success",
-        description: "What does the path look like for you achieving your vision?",
-        cardCount: 7,
+        title: "Show me my path to Success",
+        description: "What does the path look like for me achieving my vision?",
+        cardCount: 9,
         emoji: "🌟",
         positions: [
-          { title: "How I got here - What qualities did you most embody" },
-          { title: "The present - What qualities do you embody most now" },
-          { title: "Friction - What keeps you away from your desire" },
-          { title: "Your Powers - What must you embody now to best succeed" },
-          { title: "Support - The types of people who will support your quest" },
-          { title: "Signals - Energies that tell you you're on the right path" },
+          { title: "How I got here - What qualities did I most embody" },
+          { title: "The present - What qualities do I most embody now" },
+          { title: "Friction - What keeps me away from my desire" },
+          { title: "Friction - What lie do I keep believing" },
+          { title: "North star - What I need to trust" },        
+          { title: "My 'Power' - What I can embody now to best succeed" },
+          { title: "Support - The types of people who will support my quest" },
+          { title: "Signals - Energies that tell me I am on the right path" },
           { title: "Reward - The gifts that will come from success" }
         ]
       },
       relationship: {
         title: "Relationship Reading",
-        description: "What hidden forces exist between you?",
-        cardCount: 11,
+        description: "What hidden forces exist between me and the one in mind?",
+        cardCount: 13,
         emoji: "💕",
         positions: [
-          { title: "Who you are being in this dynamic" },
+          { title: "Who I am being in this dynamic" },
           { title: "Who they are being in this dynamic" },
-          { title: "What is your hidden desire?" },
-          { title: "What is their hidden desire?" },
-          { title: "What is your hidden fear?" },
-          { title: "What is their hidden fear?" },
-          { title: "What is destructive in your behavior" },
+          { title: "Reveal my hidden desire" },
+          { title: "Reveal their hidden desire" },
+          { title: "Reveal my hidden fear" },
+          { title: "Reveal their hidden fear" },
+          { title: "What is destructive in my behavior" },
           { title: "What is destructive in their behavior" },
           { title: "What is healthy in the dynamic" },
-          { title: "What qualities can you embody to improve the dynamic" },
+          { title: "What qualities can I embody to improve the dynamic" },
           { title: "The change that will occur if successful" }
+          { title: "The gift they get from this connection" },
+          { title: "The gift I get from this connection" },
         ]
       },
       business: {
         title: "Business Reading",
-        description: "The current energetic arc of your business",
+        description: "The current energetic arc of my business",
         cardCount: 24,
         emoji: "💼",
         positions: [
-          { title: "The energy of your biz: past" },
-          { title: "The energy of your biz: present" },
-          { title: "The energy of your biz during next 3 months" },
+          { title: "The energy of my biz: past" },
+          { title: "The energy of my biz: present" },
+          { title: "The energy of my biz during next 3 months" },
           { title: "Market and Customers: past" },
           { title: "Market and Customers: present" },
           { title: "Market and Customers during next 3 months" },
@@ -758,10 +763,10 @@
           { title: "Strategy and Timing during next 3 months" },
           { title: "Biggest threat right now" },
           { title: "Biggest opportunity right now" },
-          { title: "What is working against your biz" },
-          { title: "What do you most need to embody" },
-          { title: "What does your plan need to embody" },
-          { title: "How your biz looks in 3 months" }
+          { title: "What is working against my biz" },
+          { title: "What do I most need to embody" },
+          { title: "What does my plan need to embody" },
+          { title: "How my biz looks in 3 months" }
         ]
       }
     };
