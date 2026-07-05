@@ -734,7 +734,7 @@
           { title: "What qualities can I embody to improve the dynamic" },
           { title: "The change that will occur if successful" }
           { title: "The gift they get from this connection" },
-          { title: "The gift I get from this connection" },
+          { title: "The gift I get from this connection" }
         ]
       },
       business: {
