@@ -266,17 +266,6 @@ exports.handler = async function(event, context) {
         "moon_meaning": "When self confidence and faith in self takes a hit, we can lose peace with where we are. This is a sign to take a broad view of where you’ve been and where you are today. A rich life is one where many textures have existed. Much like a song has pauses or big build-ups before your favorite bit, life too has its slow moments, its peaceful parts and the moments where experiences are less enjoyable. \n\nThis can simply mean we’re in a period of reflection, appreciation or re-evaluation. Maybe the next steps you take are meant to bring all your experiences together in one big crescendo where it all clicks?\n\nMaybe you’re moving into another set of events that bring you another flavor to add to your magical repertoire? Perhaps you’re simply being given the space you need to integrate all that occured before today. Or you are being challenged to re-evaluate how you exercise discernment in your choices, for your next adventure." 
       },  
       {
-        "id": "suave",
-        "title": "The Suave One",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5051e080-f5a4-4d74-a739-2fbd5bfd86c2/douchebag.png",  
-        "time": "Later or Never",
-        "energy": "Agress or Disengage",
-        "location": "Away",
-        "element": "Dark",
-        "sun_meaning": "Romantic, smooth and adventurous, this being enjoys the thrill of a chase won, along with whatever covetous prize comes with it.\n\nThey enjoy richness in life by way of sensory pleasures and highs, such as delicious foods, gorgeous art and comfortable, luxurious spaces.n\n\nFor this one, life and experiences become moments to be romanticized and perhaps dramatized. This being moves with a sense of urgency when in pursuit of what arouses and excites.\n\nIt is not immediately clear that the true inspiration behind the pursuit may be compelled by an unexamined wounding or desire.\n\nThis sauve one possess assertiveness, boldness and appears confident. At times, this can over-correct into aggressiveness and overbearing presence.\n\nComplex and rich, and sometimes sweet with a hidden innocence, this is a unique being and should be met with patience when in the dance of getting to know them.",
-        "moon_meaning": "The shadow of The Suave One is a mind born of the old world. A form of being born of a world where control and domination hide in plain site.\n\nWhere romance is grounded in a form of capture, control or conquest, rather than what soothes, stabilizes and builds connects an authentic form of love and intimacy.\n\nWhat happens when the focus of this one's affections is pursued from an egoic wound? What happens when the 'prize' is won? Is the prize seen as a sovereign person, or a treasure to capture and own?\n\nWhen the high of a capture is hit, the flames of passion fade. Discomfort and disastisfaction arises and their ego, expecting to feel good, is confused. If a person was the subject of Suave One's affections, they may feel neglected and hurt - a whiplash tainting any romance.\n\nA deep need to feel self-worth is often the root of this one's shadow cycle.\n\nThese behaviors are best understood rather than demonized. This behaviour is seeking to fill a deep fear of unlovability or undeservedness.\n\nThis is not a project for you to solve, but a living lesson to give grace, kindness and thanks while you move forward, to somewhere more authentically rooted, elsewhere." 
-      },  // update Sep 2
-      {
         "id": "oracle",
         "title": "The Oracle",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/cc91f607-cc52-4094-a394-1a8c658a72a8/the+seer.png",
@@ -308,17 +297,6 @@ exports.handler = async function(event, context) {
         "element": "Air",
         "sun_meaning": "Finally! A space to rest. To simply let the body, mind and heart take a deep breath in, and exhale all tension held in the body for so long. The deeper and more meaningful the rest, the greater the movements to follow. The kind of rest calling to you is the slowing down, de-armoring, rejuvinating kind. \n\nThe type you cannot shortcut or speed up. Where guilt is prohibited from eyeballing you as you surrender to your nerves de-escalating day by day. The kind where your digital notifications remain ignored, or at least significantly de-prioritized. A rest that is enhanced over time, so muscles can slowly empty of tension, over-use and labor. \n\nDespite societal assertions to the contrary, rest is not a thing we earn; it's a neccessity so our bodies, minds and hearts can empty of emotional inflamations, then reconfigure and synchronize to guide us toward our most aligned excitement and fulfilling life. It is this ever-evolving grounding point that becomes our true foundation of where our most radiant inner light grows from. No music has meaningful peaks without the constrasting dips.",
         "moon_meaning": "If you find yourself stagnant, uninspired and unmotivated, yet desiring to create something meaningful, this is your cue to prioritize inspiration. When we feel stagnation for a long period of time, but hold a yearning to create something, it's due to a lack of inspiration as a guiding light or propelling force. \n\nInspiration rarely fails to awaken the energies within, however, when felt, it's also a signal sign-posting toward something connected to your authentic alignment. Does a person ever feel inspired by something they don't care for? Looking for that which genuinely awakens your excitement is one of the most reliable ways to find alignment, and a path to your authentic voice and heart. \n\nThis is a message to use your full senses to find what inspires the fire within you. Do not give in to the temptation of the familiar and easy; seek that which reminds you why you want to be alive, here on this Earth, even right now. It may be something obvious, or something that surprises you completely.\n\nBe open to all possibilities!" 
-      },  
-      {
-        "id": "warlock",
-        "title": "The Warlock",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/87108913-f250-4eb8-ba36-ff62501a019d/Manipulator.png",  
-        "time": "Unstable",
-        "energy": "Influence and Control",
-        "location": "A stormy ocean",
-        "element": "Wind",
-        "sun_meaning": "This one uses their charisma and intellect to shape reality to their desires. Able to tune in to the needs and desires of others, this one is adpet at shaping realities through dialogue and influence. Influential is a great way to describe them at their best. Their key leadership quality is combining magnetic presence and an eluring vision to draw support. \n\nFollowers eventually become inspired to lead a mass-calling or movement which can take on a life of its own! Movements can shift cultures, societies and communities. Movements can seed entire companies and eco systems into immediate success. \n\nWhen one naturally influences movements, they have great power to play with. Choose thoughtfully how to use your influence and be mindful to remain aligned with your true values. Power like this can be easy to polute and corrupt.",
-        "moon_meaning": "This one in their shadow uses their influence and 'power' to gain more, as if the power is the grounding point, the purpose and the reward. When will satiation come? When power is grounded in a purpose aligned with a person's heart, it becomes magnetic and can generate a transformative movement. \n\nWhen power is grounded in the pursuit of more power, it becomes a cycle of hunger and disastisfaction. It can seem like progress is happening. Growth, gain, validation, attraction... all the classic addictions of a glutonous ego. 'Progress' is happening in those areas, but it won't sustain long term. \n\nIn silence, the weight of many ignored messages of the heart are being carried. Over time, the weight will wear this one down. For whoever that is, remember this famous Japanese proverb...\n\nIf you get on the wrong train, get off at the nearest station. The longer it takes you to get off, the more expensive the return trip will be." 
       },  
       {
         "id": "kept",
@@ -453,17 +431,6 @@ exports.handler = async function(event, context) {
         "moon_meaning": "The one always learning can forget they've attained a wealth of wisdom already.\n\nSometimes the pursuit of more knowledge is a hidden wound expression of not enough-ness.You are worthy, knwoledgable, and enough right now, as you are.\n\nSomeone will benefit from your wisdom in this moment, as you've learned from others in their similar moments.\n\nDo not let doubt cloud your vision of what wealth and value to others you truly hold." 
       },
       { 
-        "id": "artist",
-        "title": "The Artist",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/753193f5-5e0d-4ad3-8310-28743dadf87e/crafts+and+potions.png",  
-        "time": "Collapsed",
-        "energy": "Passion or Frustration",
-        "location": "The Heart",
-        "element": "Ether, Air, Fire, Earth, Water",
-        "sun_meaning": "An artist brings sensitivity, inspiration, vision, passion, self-exploration and self-discovery together to create something unique.\n\nIt's one of life's most connective and impactful callings and is often derided in 'modern society' as frivolous causing us to devalue it. To debunk that distortion, look at the Rennaisance period and other world renowned artists.\n\nThese people created pieces that elevated people's comprehension of what is possible and what they could feel.\n\nThis being, when fully tuned-in to themselves, is an adept of the art of expressing one's soul, as a powerful mirror or contrast to many others.\n\nThis calling is one that when followed, grants a rich life with all the textures, ups and downs. It can be challenging, but it is deep and rewarding when fully committed to.",
-        "moon_meaning": "Sometimes when art becomes our livelihood we can lose connection to the 'why' that drove us initially.\n\nIn that phase, the art we strive to make can become a noose, eroding our sense of self slowly and subtley, sometimes so much so that we can't tell we're having that experience.\n\nIf the one you drew this card for, find themselves in that place, know that they are not alone. This is the sign to re-visit your 'why'?\n\nEven if or when our 'why' changes, sometimes we can realign what we create to meet it perfectly. Other times it can become a poorly-fit solution and is just hanging on to a thing long past. The core message is this : reconnect with your soul's truth and your desire, find your 'new' why and your path will start to be clear once more." 
-      },
-      { 
         "id": "kingmoney",
         "title": "King of Wealth",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/d13fd658-21e7-4000-8002-dd80b5ac5775/king+of+coin2.png",  
@@ -561,7 +528,62 @@ exports.handler = async function(event, context) {
         "element": "Darkness",
         "sun_meaning": "The One Who Curses is a being who sits in the seat of harming another.\n\nWhomever you drew this card to represent, they are one carrying ill intent in their heart and are setting down a path that will harm the one on their mind and eventually, themselves.\n\nIf this card was drawn for you, take a step back and pause before you commit fully to this action or path. When we seed actions with harm to another, it will always return to us multiplied and not always in an obvious manner. Even with that in mind, do you wish to live in a world where this behavior exists?\n\nIf the one you drew this for is harming you, taking the initiative now to protect yourself through gathering truth-based information, safety, protection and community support, as you may need it.",
         "moon_meaning": "A motion of challenging, and potentially destructive energies and actions are coming toward whomever this oracle represents.\n\nThis is a time to take stock of harm caused in the past, and to face or resolve them as best one can, whether in person, in action or through spiritual means.\n\nThis is not a time to wait to see if the problem will magickally go away - this is a time for radical accountability and initiation of healing, whether it concludes with an undesired end or otherwise.\n\nTaking accountability and action based off it, may not give you the result you desire, but it will correct a path that can easily get a lot worse and in ways you may not know or see for some time.\n\nAct now, with courage and integrity." 
-      }, //Updated Sep 12
+      },  //Updated Sep 17
+      {
+        "id": "entity",
+        "title": "The Hijacked Mind",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5e29ddbc-9671-4378-af00-1220ad913c47/entity.png",  
+        "time": "A Distorted Past",
+        "energy": "Influenced or Liberated",
+        "location": "The Heart",
+        "element": "Spirit",
+        "sun_meaning": "Sometimes it feels safest to let the ideas, beliefs and energies of another penetrate us so deeply that we can completely abandon ourselves.\n\nWe can become a lost vessel, running partly on what feels like the ghost of instinct and the next door neighbor of intuition.\n\nTruthfully though, this is when the self is divided into a survival self merging with a masked self.\n\nThe voice, the thoughts and the choices are coming from 'the self' but this being is a creation designed around a distorted version of safety. It's a being chasing the illusion of what feels non threatening, while avoiding anything that challenges the survival personality's worldview.\n\nWhomever you drew this for is one controlled by a cycle of fear and it lays within their repressed past pains. To break out, they need to be present without everything they fear to meet in themselves and let it overwhelm them until its charge disappates and they experience how it was all a false demon hiding a piece of their personal power.",
+        "moon_meaning": "This one is a warning. Whatever path the one you drew this card for, is on, it is leading to a place where they lose themselves to the ideas of another.\n\nThis could be a relationship, a job role offering greater security or safety through power, or a trade that will cost this one's principles\n\nThe warning is - don't do it. Turn around. Turn back. Leave. This isn't it. When you enter any kind of termed relationship, be it love or business, giving up a piece of what is integral to self will result in what is often called 'soul loss'. While one doesn't actually lose their soul, they do lose their sense of connection and alignment to it, often resulting in feeling 'not like myself' and similar symptoms of hollowness or loss.\n\nHeed this warning as a blessing in good timing. " 
+      },  //Updated Sep 17
+      {
+        "id": "Polarity",
+        "title": "Polarity",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/0353a79e-a1b1-44ee-a75f-df3996648eba/The+Contrast.png",  
+        "time": "Now",
+        "energy": "Polarities",
+        "location": "Here",
+        "element": "Will",
+        "sun_meaning": "A full f*ck yes. This is a clear sign for whomever this card is for, to go for it, full steam ahead\n\nEverything is aligned behind you, in front of you, to your sides and above.\n\nSay f*cking yes and do 'it', all-in, or allow yourself to trust and receive whatever the 'it' is.",
+        "moon_meaning": "This is an absolute, unambiguous 'nope' for whatever was asked.\n\nIf it's about entering a new relationship with a particular person, it's a nope. If it's about a job, or whether to pull the trigger on a certain choice - another nope.\n\nDo not go. Stop. Perhaps ask again later, but now, today, it is a clear and divinely cast N - O." 
+      }, //Updated Sep 17
+      {
+        "id": "warlock",
+        "title": "The Warlock",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/87108913-f250-4eb8-ba36-ff62501a019d/Manipulator.png",  
+        "time": "Unstable",
+        "energy": "Influence and Control",
+        "location": "A stormy ocean",
+        "element": "Wind",
+        "sun_meaning": "This one uses their charisma and intellect to shape reality to their desires. Able to tune in to the needs and desires of others, this one is adept at shaping realities through dialogue and influence.\n\nInfluential is a great way to describe them at their best. Their key leadership quality is combining magnetic presence and an eluring vision to draw support.\n\nFollowers eventually become inspired to lead a mass-calling or movement which can take on a life of its own! Movements can shift cultures, societies and communities. Movements can seed entire companies and eco systems into immediate success.\n\nWhen one naturally influences movements, they have great power to play with. Choose thoughtfully how to use your influence and be mindful to remain aligned with your true values. Power like this can be easy to polute and corrupt.",
+        "moon_meaning": "This one in their shadow uses their influence and 'power' to gain more, as if the power is the grounding point, the purpose and the reward.\n\nWhen will satiation come? When power is grounded in a purpose aligned with a person's heart, it becomes magnetic and can generate a transformative movement.\n\nWhen power is grounded in the pursuit of more power, it becomes a cycle of hunger and disastisfaction. It can seem like progress is happening. Growth, gain, validation, attraction... all the classic addictions of a glutonous ego. 'Progress' is happening in those areas, but it won't sustain long term.\n\nIn silence, the weight of many ignored messages of the heart are being carried. Over time, the weight will wear this one down. For whoever that is, remember this famous Japanese proverb... \n\nIf you get on the wrong train, get off at the nearest station. The longer it takes you to get off, the more expensive the return trip will be." 
+      },  // Sep 17 update
+      {
+        "id": "suave",
+        "title": "The Suave One",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5051e080-f5a4-4d74-a739-2fbd5bfd86c2/douchebag.png",  
+        "time": "Later or Never",
+        "energy": "Aggress or Disengage",
+        "location": "Away",
+        "element": "Dark",
+        "sun_meaning": "Romantic, smooth and adventurous, this being enjoys the thrill of a chase won, along with whatever covetous prize comes with it.\n\nThey enjoy richness in life by way of sensory pleasures and highs, such as delicious foods, gorgeous art and comfortable, luxurious spaces.n\n\nFor this one, life and experiences become moments to be romanticized and perhaps dramatized. This being moves with a sense of urgency when in pursuit of what arouses and excites.\n\nIt is not immediately clear that the true inspiration behind the pursuit may be compelled by an unexamined wounding or desire.\n\nThis sauve one possess assertiveness, boldness and appears confident. At times, this can over-correct into aggressiveness and overbearing presence.\n\nComplex and rich, and sometimes sweet with a hidden innocence, this is a unique being and should be met with patience when in the dance of getting to know them.",
+        "moon_meaning": "The shadow of The Suave One is a mind born of the old world. A form of being born of a world where control and domination hide in plain site.\n\nWhere romance is grounded in a form of capture, control or conquest, rather than what soothes, stabilizes and builds connects an authentic form of love and intimacy.\n\nWhat happens when the focus of this one's affections is pursued from an egoic wound? What happens when the 'prize' is won? Is the prize seen as a sovereign person, or a treasure to capture and own?\n\nWhen the high of a capture is hit, the flames of passion fade. Discomfort and disastisfaction arises and their ego, expecting to feel good, is confused. If a person was the subject of Suave One's affections, they may feel neglected and hurt - a whiplash tainting any romance.\n\nA deep need to feel self-worth is often the root of this one's shadow cycle.\n\nThese behaviors are best understood rather than demonized. This behaviour is seeking to fill a deep fear of unlovability or undeservedness.\n\nThis is not a project for you to solve, but a living lesson to give grace, kindness and thanks while you move forward, to somewhere more authentically rooted, elsewhere." 
+      },  // update Sep 17  
+      { 
+        "id": "artist",
+        "title": "The Artiste",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/753193f5-5e0d-4ad3-8310-28743dadf87e/crafts+and+potions.png",  
+        "time": "Collapsed",
+        "energy": "Passion or Frustration",
+        "location": "The Heart",
+        "element": "Ether, Air, Fire, Earth, Water",
+        "sun_meaning": "An artist brings sensitivity, inspiration, vision, passion, self-exploration and self-discovery together to create something unique.\n\nIt's one of life's most connective and impactful callings and is often derided in 'modern society' as frivolous causing us to devalue it. To debunk that distortion, look at the Rennaisance period and other world renowned artists.\n\nThese people created pieces that elevated people's comprehension of what is possible and what they could feel.\n\nThis being, when fully tuned-in to themselves, is an adept of the art of expressing one's soul, as a powerful mirror or contrast to many others.\n\nThis calling is one that when followed, grants a rich existence with all the textures and gradients of life - pleasurable and painful.\n\nIt can be challenging, but it is deep and rewarding when fully committed to.",
+        "moon_meaning": "Sometimes when art becomes our livelihood we can lose connection to the 'why' that drove us initially.\n\nIn that phase, the art we strive to make can become a noose, eroding our sense of self slowly and subtley, sometimes so much so that we can't tell we're having that experience.\n\nIf the one you drew this card for, find themselves in that place, know that they are not alone. This is the sign to stop making for money's sake, and re-visit your 'why'?\n\nEven if our 'why' changes, sometimes we can realign what we create to meet it perfectly. Other times it can become a poorly-fit solution. The core message is this : reconnect with your soul's truth and your desire, find your 'new' why and your path will start to be clear once more. " 
+      }, // update Sep 17
     ];
   
     return {
