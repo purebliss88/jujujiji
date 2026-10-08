@@ -74,6 +74,19 @@
       justify-content: center;
       font-size: 32px;
       border: 2px solid #C79535;
+      overflow: hidden;
+    }
+
+    .reading-thumbnail.has-image {
+      background: transparent;
+    }
+
+    .reading-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 6px;
     }
     
     .reading-info {
@@ -590,6 +603,26 @@
     );
   }
 
+  // Thumbnail for each reading option.
+  // Shows the image if one is set; falls back to the emoji if the image
+  // is missing or fails to load.
+  function ReadingThumbnail({ image, emoji }) {
+    const [failed, setFailed] = React.useState(false);
+    const showImage = image && !failed;
+    return React.createElement("div", {
+      className: "reading-thumbnail" + (showImage ? " has-image" : "")
+    },
+      showImage
+        ? React.createElement("img", {
+            src: image,
+            alt: "",
+            loading: "lazy",
+            onError: () => setFailed(true)
+          })
+        : emoji
+    );
+  }
+
   function buildCaption(card, readingTitle) {
     const meaning = card[card.displayMeaning] || '';
     const truncated = meaning.length > 180 
@@ -663,12 +696,15 @@
   }
 
   function OracleCardReader() {
+    // Paste an image URL into each "image" field below.
+    // Leave it as "" to keep showing the emoji.
     const readingConfigurations = {
       single: {
         title: "Single Card Reading",
         description: "Feel a question in your heart and draw a card for guidance",
         cardCount: 1,
         emoji: "🔮",
+        image: "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/a1f37acb-7e3b-43b7-885c-c32729d6b327/tmcobox.png",
         positions: [{ title: "Your Guidance" }]
       },
       forces_decision: {
@@ -676,6 +712,7 @@
         description: "What forces are at play around my big decision?",
         cardCount: 5,
         emoji: "⚖️",
+        image: "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/6da4e635-6520-4cf1-907b-c3ee7859ab11/storms.png",
         positions: [
           { title: "Key force(s) moving in support of my decision" },
           { title: "Energies I'm being drawn to or inspired by" },
@@ -689,6 +726,7 @@
         description: "What is creating undesired parts of my reality?",
         cardCount: 7,
         emoji: "🎯",
+        image: "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/6d3d0195-3403-43d3-8d49-e4d3ea13788c/blindspotarrows.png",
         positions: [
           { title: "Situation - The current challenge" },
           { title: "What is my hidden fear?" },
@@ -704,6 +742,7 @@
         description: "What does the path look like for me achieving my vision?",
         cardCount: 9,
         emoji: "🌟",
+        image: "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/578b1883-1f76-4cc2-b2b7-889bfedc663a/wavyroad.png",
         positions: [
           { title: "How I got here - What qualities did I most embody" },
           { title: "The present - What qualities do I most embody now" },
@@ -721,6 +760,7 @@
         description: "What hidden forces exist between me and the one in mind?",
         cardCount: 13,
         emoji: "💕",
+        image: "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/17464484-664f-4970-83a5-9454cf6bde2d/Hearts.png",
         positions: [
           { title: "Who I am being in this dynamic" },
           { title: "Who they are being in this dynamic" },
@@ -742,6 +782,7 @@
         description: "The current energetic arc of my business",
         cardCount: 24,
         emoji: "💼",
+        image: "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/82ff11b4-13d8-4d1f-86a5-bbf142aa92e8/bidness.png",
         positions: [
           { title: "The energy of my biz: past" },
           { title: "The energy of my biz: present" },
@@ -894,7 +935,7 @@
               }, 200);
             }
           }, [
-            React.createElement("div", { className: "reading-thumbnail", key: "thumb" }, config.emoji),
+            React.createElement(ReadingThumbnail, { key: "thumb", image: config.image, emoji: config.emoji }),
             React.createElement("div", { className: "reading-info", key: "info" }, [
               React.createElement("h2", { key: "title" }, config.title),
               React.createElement("p", { key: "desc" }, config.description)
