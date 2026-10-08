@@ -760,7 +760,7 @@
         description: "What hidden forces exist between me and the one in mind?",
         cardCount: 13,
         emoji: "💕",
-        image: "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/17464484-664f-4970-83a5-9454cf6bde2d/Hearts.png",
+        image: "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/8b7704a1-3cf2-4a7e-99c4-c11ca4dfb66e/Hearts-smol.png",
         positions: [
           { title: "Who I am being in this dynamic" },
           { title: "Who they are being in this dynamic" },
