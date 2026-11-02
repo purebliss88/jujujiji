@@ -584,6 +584,28 @@ exports.handler = async function(event, context) {
         "sun_meaning": "An artist brings sensitivity, inspiration, vision, passion, self-exploration and self-discovery together to create something unique.\n\nIt's one of life's most connective and impactful callings and is often derided in 'modern society' as frivolous causing us to devalue it. To debunk that distortion, look at the Rennaisance period and other world renowned artists.\n\nThese people created pieces that elevated people's comprehension of what is possible and what they could feel.\n\nThis being, when fully tuned-in to themselves, is an adept of the art of expressing one's soul, as a powerful mirror or contrast to many others.\n\nThis calling is one that when followed, grants a rich existence with all the textures and gradients of life - pleasurable and painful.\n\nIt can be challenging, but it is deep and rewarding when fully committed to.",
         "moon_meaning": "Sometimes when art becomes our livelihood we can lose connection to the 'why' that drove us initially.\n\nIn that phase, the art we strive to make can become a noose, eroding our sense of self slowly and subtley, sometimes so much so that we can't tell we're having that experience.\n\nIf the one you drew this card for, find themselves in that place, know that they are not alone. This is the sign to stop making for money's sake, and re-visit your 'why'?\n\nEven if our 'why' changes, sometimes we can realign what we create to meet it perfectly. Other times it can become a poorly-fit solution. The core message is this : reconnect with your soul's truth and your desire, find your 'new' why and your path will start to be clear once more. " 
       }, // update Sep 17
+      {
+        "id": "Cataclysm",
+        "title": "Catalcysm",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/54c2ae7b-cdee-4cdd-a7cf-1a91c6bc42ef/cataclysm.png",  
+        "time": "Present and Future",
+        "energy": "Destruction or Path opens",
+        "location": "Here and Now",
+        "element": "Light and Void",
+        "sun_meaning": "An unstoppable force is coming to move huge obstacles from your path.\n\nThink of this as divine intervention, though this kind of intervention can look a catastrophe or something otherwise unpleasant, at least for those things obstructing your forward path.\n\nYour path is about to open once again.",
+        "moon_meaning": "Some moments in our lives require upheavel to shake away what's out of alignment.\n\nIn this case, a catalysmic event is here to rock the foundations and make what's been long out of alignment break apart and fall away.\n\nWhile the manner of forced change is out of your control, the outcome will eventually settle to your benefit.\n\nThis cataclysm can show up across any area of your life - relationship, health, family or business.\n\nIf it's here, know that it serves a higher purpose, strap in and get yourself set up with whatever will support you to ride the wave as best you are able.\n\n" 
+      }, //update Nov 1
+      {
+        "id": "boistrous",
+        "title": "Mischief Maker",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/7ee95578-a9e8-4e4f-9882-ba671a68a689/9.png",  
+        "time": "No time",
+        "energy": "Play or Pretend",
+        "location": "The Stage",
+        "element": "Spirit",
+        "sun_meaning": "This one is the fullest embodiment of pure fun and play. Full big-kid out and happy energy. Free, shameless and not letting anyone dim their light.\n\nWhomever this card represents is one who is deeply playful, or needs to embody that part of themselves with full commitment right now.\n\nIt is time to shed seriousness and really have some fun.",
+        "moon_meaning": "Beware who this card represents for they may be showing you a face of joy and happiness, but secretly hold a different self under the smile.\n\nThis oracle represents a face showing one energy and a heart holding another.\n\nThe duplicitous presentation may seem dishonest on paper, but it could actually be subconscious.\n\nRegardless, heed this message for the one this represents and act accordingly.\n\nIf the one this represents is you, this is a message to explore your own authenticity, or simply to do a deeper dive underneath what could be a coping mechanism." 
+      }, // update Nov 1
     ];
   
     return {
