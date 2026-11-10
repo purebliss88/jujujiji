@@ -563,16 +563,27 @@ exports.handler = async function(event, context) {
         "moon_meaning": "This one in their shadow uses their influence and 'power' to gain more, as if the power is the grounding point, the purpose and the reward.\n\nWhen will satiation come? When power is grounded in a purpose aligned with a person's heart, it becomes magnetic and can generate a transformative movement.\n\nWhen power is grounded in the pursuit of more power, it becomes a cycle of hunger and disastisfaction. It can seem like progress is happening. Growth, gain, validation, attraction... all the classic addictions of a glutonous ego. 'Progress' is happening in those areas, but it won't sustain long term.\n\nIn silence, the weight of many ignored messages of the heart are being carried. Over time, the weight will wear this one down. For whoever that is, remember this famous Japanese proverb... \n\nIf you get on the wrong train, get off at the nearest station. The longer it takes you to get off, the more expensive the return trip will be." 
       },  // Sep 17 update
       {
+        "id": "meister",
+        "title": "The Meowster",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/fa22480d-5a33-4282-86cb-ebe84e87de08/archiv2.png",  
+        "time": "A planned later time",
+        "energy": "Truth, Lies",
+        "location": "You",
+        "element": "Air, Earth",
+        "sun_meaning": "This one is about digging within for the truth.\n\nGaining knowledge of self is the message here. This one uses their mind and pen to reflect on their values, desires, new lessons, and truths of their life, no matter how challenging.\n\nWhomever you drew this oracle for, know that it's time for them to do some deep self-exploration and get clarity on all that's important to you.",
+        "moon_meaning": "This oracle is a sign that information is being kept from you\n\nThe being may not be specifically seeking to deceive you for the desire of harm, but this is a clear message that information pertinent to your sovreignty and ability to choose for your better interest is not being shared.\n\nIn this case, if you drew this oracle around a specific being, it is they who are withholding imformation from you. If it is not tied to a person, and rather a community, family, team or company, it's important to explore whether it's for justified means or if it's a sign of an environment that is hostile for your well-being." 
+      }, // Oct 1
+      {
         "id": "suave",
-        "title": "The Suave One",
+        "title": "Distinguished Gentlecat",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5051e080-f5a4-4d74-a739-2fbd5bfd86c2/douchebag.png",  
         "time": "Later or Never",
         "energy": "Aggress or Disengage",
         "location": "Away",
         "element": "Dark",
-        "sun_meaning": "Romantic, smooth and adventurous, this being enjoys the thrill of a chase won, along with whatever covetous prize comes with it.\n\nThey enjoy richness in life by way of sensory pleasures and highs, such as delicious foods, gorgeous art and comfortable, luxurious spaces.n\n\nFor this one, life and experiences become moments to be romanticized and perhaps dramatized. This being moves with a sense of urgency when in pursuit of what arouses and excites.\n\nIt is not immediately clear that the true inspiration behind the pursuit may be compelled by an unexamined wounding or desire.\n\nThis sauve one possess assertiveness, boldness and appears confident. At times, this can over-correct into aggressiveness and overbearing presence.\n\nComplex and rich, and sometimes sweet with a hidden innocence, this is a unique being and should be met with patience when in the dance of getting to know them.",
-        "moon_meaning": "The shadow of The Suave One is a mind born of the old world. A form of being born of a world where control and domination hide in plain site.\n\nWhere romance is grounded in a form of capture, control or conquest, rather than what soothes, stabilizes and builds connects an authentic form of love and intimacy.\n\nWhat happens when the focus of this one's affections is pursued from an egoic wound? What happens when the 'prize' is won? Is the prize seen as a sovereign person, or a treasure to capture and own?\n\nWhen the high of a capture is hit, the flames of passion fade. Discomfort and disastisfaction arises and their ego, expecting to feel good, is confused. If a person was the subject of Suave One's affections, they may feel neglected and hurt - a whiplash tainting any romance.\n\nA deep need to feel self-worth is often the root of this one's shadow cycle.\n\nThese behaviors are best understood rather than demonized. This behaviour is seeking to fill a deep fear of unlovability or undeservedness.\n\nThis is not a project for you to solve, but a living lesson to give grace, kindness and thanks while you move forward, to somewhere more authentically rooted, elsewhere." 
-      },  // update Sep 17  
+        "sun_meaning": "Romantic, smooth and adventurous, this being enjoys the thrill of a chase won, along with whatever covetous prize comes with it.\n\nThey enjoy richness in life by way of sensory pleasures and highs, such as delicious foods, gorgeous art and comfortable, luxurious spaces.n\n\nFor this one, life and experiences become moments to be romanticized and perhaps dramatized. This being moves with a sense of urgency when in pursuit of what arouses and excites.\n\nIt is not immediately clear that the true inspiration behind the pursuit may be compelled by an unexamined wounding or desire.\n\nThis one possess assertiveness, boldness and appears confident. At times, this can over-correct into aggressiveness and overbearing presence.\n\nComplex and rich, and sometimes sweet with a hidden innocence, this is a unique being and should be met with patience when in the dance of getting to know them.",
+        "moon_meaning": "The shadow of The Distinguished One is a mind born of the old world - the world where control and domination hide in plain site as 'protection'.\n\nWhere pursuit of love is conditioned to be a form of capture, control or conquest.\n\nWhat happens when this one's affections are driven by an egoic wound? What happens when the 'prize' is won? Is the prize seen as a sovereign person, or a treasure to capture and own?\n\nWhen the high of a capture is hit, the flames of passion fade. Discomfort and disastisfaction arises and their ego, expecting to feel good, is confused.\n\nA deep need to feel self-worth is often the root of this one's shadow cycle. The one(s) displaying these behaviors are best understood rather than demonized or 'rescued'.\n\nThe being this oracle represents is not a project to be solved or fixed, but rather a living lesson to learn from.\n\nThe one impacted can choose to give grace, kindness, thanks for the new lessons, and move forward to somewhere more authentically rooted, elsewhere." 
+      },  // update Oct 3
       { 
         "id": "artist",
         "title": "The Artiste",
@@ -584,17 +595,28 @@ exports.handler = async function(event, context) {
         "sun_meaning": "An artist brings sensitivity, inspiration, vision, passion, self-exploration and self-discovery together to create something unique.\n\nIt's one of life's most connective and impactful callings and is often derided in 'modern society' as frivolous causing us to devalue it. To debunk that distortion, look at the Rennaisance period and other world renowned artists.\n\nThese people created pieces that elevated people's comprehension of what is possible and what they could feel.\n\nThis being, when fully tuned-in to themselves, is an adept of the art of expressing one's soul, as a powerful mirror or contrast to many others.\n\nThis calling is one that when followed, grants a rich existence with all the textures and gradients of life - pleasurable and painful.\n\nIt can be challenging, but it is deep and rewarding when fully committed to.",
         "moon_meaning": "Sometimes when art becomes our livelihood we can lose connection to the 'why' that drove us initially.\n\nIn that phase, the art we strive to make can become a noose, eroding our sense of self slowly and subtley, sometimes so much so that we can't tell we're having that experience.\n\nIf the one you drew this card for, find themselves in that place, know that they are not alone. This is the sign to stop making for money's sake, and re-visit your 'why'?\n\nEven if our 'why' changes, sometimes we can realign what we create to meet it perfectly. Other times it can become a poorly-fit solution. The core message is this : reconnect with your soul's truth and your desire, find your 'new' why and your path will start to be clear once more. " 
       }, // update Sep 17
-      {
+     {
         "id": "Cataclysm",
         "title": "Catalcysm",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/54c2ae7b-cdee-4cdd-a7cf-1a91c6bc42ef/cataclysm.png",  
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/0f0727e7-1fc1-4c72-8dfb-e202fe21e97a/2.png",  
         "time": "Present and Future",
         "energy": "Destruction or Path opens",
         "location": "Here and Now",
         "element": "Light and Void",
         "sun_meaning": "An unstoppable force is coming to move huge obstacles from your path.\n\nThink of this as divine intervention, though this kind of intervention can look a catastrophe or something otherwise unpleasant, at least for those things obstructing your forward path.\n\nYour path is about to open once again.",
         "moon_meaning": "Some moments in our lives require upheavel to shake away what's out of alignment.\n\nIn this case, a catalysmic event is here to rock the foundations and make what's been long out of alignment break apart and fall away.\n\nWhile the manner of forced change is out of your control, the outcome will eventually settle to your benefit.\n\nThis cataclysm can show up across any area of your life - relationship, health, family or business.\n\nIf it's here, know that it serves a higher purpose, strap in and get yourself set up with whatever will support you to ride the wave as best you are able.\n\n" 
-      }, //update Nov 1
+      }, //update Nov 7
+      {
+        "id": "Lovers",
+        "title": "The Lovers",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/c3c9c52a-109d-42df-bd95-6a02568c143a/lovers.png",  
+        "time": "Infinite",
+        "energy": "Connected or Mis-connection",
+        "location": "The Soul",
+        "element": "Love",
+        "sun_meaning": "Some connections are fleeting moments and others are deeply meaningful.\n\nEven before these two speak, there's a knowing beyond time and space that they're meant to connect and that the relationship - however it unfolds - carries a weight of significance.\n\nWhomever you drew this Oracle for is connecting with a person who will be, or is now of great significance to their life's unfolding.\n\nThis Oracle reveals that the person in mind carries life-changing lessons and a deep, ancient love for whomever they are showing up for, whether they know it or not. Expect to hear some resonant and synchonistic stories.\n\nThese connections are special and to be treated as such. Intimacy, safety and expansion should feel natural here.\n\nThis is meant to be a nurturing, healing, healthy connection - not a challenging one.",
+        "moon_meaning": "To be alone is to allow ourselves space to reflect.\n\nSometimes, due to childhood-era pains unmet, we may experience being alone as something painful. Space appears around us, and suddenly the voices we've ignored within us start to be heard - the loving ones and the hurtful ones.\n\nThis is not a moment to pursue or connect to a lover, as it's likely such a connection will be seeded from pain and the pursuit of soothing.\n\nThe seed planted for any relationship - and how it's cared for over time - defines the plant that grows.\n\nThe one this oracle is drawn for must be honest with themselves, take pause and reflect on their desire to seek a romantic connection at this time, as it is likely coming from a place of suffering. " 
+      }, // update Nov 7
       {
         "id": "boistrous",
         "title": "Mischief Maker",
@@ -603,9 +625,31 @@ exports.handler = async function(event, context) {
         "energy": "Play or Pretend",
         "location": "The Stage",
         "element": "Spirit",
-        "sun_meaning": "This one is the fullest embodiment of pure fun and play. Full big-kid out and happy energy. Free, shameless and not letting anyone dim their light.\n\nWhomever this card represents is one who is deeply playful, or needs to embody that part of themselves with full commitment right now.\n\nIt is time to shed seriousness and really have some fun.",
+        "sun_meaning": "This one is the fullest embodiment of pure fun and play. Full big-kid out and happy energy. Free, shameless and not letting anyone dim their light.\n\nWhomever this card represents is one who is deeply playful, or needs to embody that part of themselves with full commitment right now.\n\nIt is time to shed seriousness and really have some fun. Do not think it frivolous, but rather a way to reconnect with a part of you that reminds you why you want to be alive.",
         "moon_meaning": "Beware who this card represents for they may be showing you a face of joy and happiness, but secretly hold a different self under the smile.\n\nThis oracle represents a face showing one energy and a heart holding another.\n\nThe duplicitous presentation may seem dishonest on paper, but it could actually be subconscious.\n\nRegardless, heed this message for the one this represents and act accordingly.\n\nIf the one this represents is you, this is a message to explore your own authenticity, or simply to do a deeper dive underneath what could be a coping mechanism." 
       }, // update Nov 1
+      {
+        "id": "Mother",
+        "title": "Mother Spirit",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/db131210-4b1e-4021-9809-a868a4e85c8c/1.png",  
+        "time": "Eternity",
+        "energy": "Belonging or Rejection",
+        "location": "The Womb",
+        "element": "All",
+        "sun_meaning": "The mother spirit is what teaches us how to feel safe to be who we are. If we are able to be nourished, held and adored, then we are safe.\n\nThis is also a fertile space for creation to birth.\n\nA mother is naturally the safest place for a child. It's through the mother we receive our most urgent primal needs.\n\nThe one this oracle speaks for is either stewarding the mother archetype, or being called to it.",
+        "moon_meaning": "Is it safe to be? Will I be caught when I fall? Will I be loved regardless of my choices in the human experience?\n\nAn inner 'no' to these questions may signify a deficit of the mother energy in your life.\n\nIn this moment, it is important to explore the nature of resentments and emotional challenges you may be cycling through in regards to women in your life - know that if you reacted with denial and felt any somatic discomfort, or 'numbness' from asking this question, they're likely hidden in the subconscious.\n\nDoes the one this oracle represents, cycle through unmet needs for acceptance, love and emotional support?\n\nAre they over-supporting others past their internal capacity, or perhaps mothering where it's not wanted as a way of soothing themselves?\n\nThrough the wisdom of the mother, we can hold, adore and care for ourselves, or do it for others.\n\nThrough the absence of the mother, we can get lost, resentful and hunger deeply for those experiences." 
+      }, // Update Nov 8 - needs a massive edit
+      {
+        "id": "family",
+        "title": "The Family System",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/7ee95578-a9e8-4e4f-9882-ba671a68a689/9.png",  
+        "time": "The Present",
+        "energy": "Connected or Rejected",
+        "location": "The Village",
+        "element": "Soul",
+        "sun_meaning": "The optimal family system is not common in modern 'civilized' society, where individualist containment away from community is encouraged.\n\nThis Oracle is a call to prioritize return to, finding or creating this for whomever the Oracle is drawn for.\n\nThere is a uniquely powerful healing experience to be had, when one is in a space where should they fall, others will catch them, regardless of perceived contribution or transactions occuring.\n\nOn the flip, that level of safety enables also where one can feel empowered, safe and priveleged to do the same for those in the family or tribal environment.\n\nA deeply connected, unconditionally supportive and loving family system is a wealth rarer than any gem, and even moreso a wonder to behold.",
+        "moon_meaning": "The family system can condition our minds into many types of relational dysfunction we unknowingly take into our adult lives as 'personality'.\n\nThese dysfunctions can impact our ability to have healthy relationships and true sovereignty in ourselves.\n\nAssumed 'roles' in family systems can imprint on our psyche for decades, and until we see those dynamics, we may find ourselves stuck in repeating cycles.\n\nThis is a sign that whomever this Oracle is for, is in need to address these dynamics, or about to begin this process through an initiatory event.\n\nIt can often be a bumpy and tenuous path, but the rewards of completion are a new lease on life, peace with past pains, and a new lens with which to see your own existence." 
+      }, // update Sep 29
     ];
   
     return {
