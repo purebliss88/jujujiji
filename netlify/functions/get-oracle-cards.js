@@ -130,7 +130,7 @@ exports.handler = async function(event, context) {
         "energy": "Hibernation",
         "location": "Inside, Caverns, The Womb",
         "element": "Darkness",
-        "sun_meaning": "The one who is perfectly at peace in solitude and may be perceived as a hermit, or recluse. In the safety of their castle, they are safe and undisturbed, preferring their peace and space to develop themselves or whatever they choose. It's here they can meditate upon musings in great depth. \n\nUnmoved by social pressures they are rarely seen in common gatherings and may be the subject of gossip among the basic-minded. Maybe the stories are true? This one remains unmoved. If needed, they can always leave the confines of their abode and reaquaint others with their uniqueness and presence, but for now, this is not needed. \n\nEnjoy this phase of disconnection from the herd, and the joy of exploration in solitude. The amount of their noise your remove is equal to the grandness of mental space your thought, imagination and reflection gets to occupy.", 
+        "sun_meaning": "The one who is perfectly at peace in solitude and may be perceived as a hermit, or recluse. In the safety of their castle, they are safe and undisturbed, preferring their peace and space to develop themselves or whatever they choose. It's here they can meditate upon musings in great depth. \n\nUnmoved by social pressures they are rarely seen in common gatherings and may be the subject of gossip among the basic-minded. Maybe the stories are true? This one remains unmoved. If needed, they can always leave the confines of their abode and reaquaint others with their uniqueness and presence, but for now, this is not needed. \n\nEnjoy this phase of disconnection from the herd, and the joy of exploration in solitude. The amount of their noise you remove is equal to the grandness of mental space your thought, imagination and reflection gets to occupy.", 
         "moon_meaning": "Too much reclusion can erode into an avoidance of life's many wonders. When one stops engaging with all the good things in living, it can be easy to fall into heavier emotional cycles such as bitterness and depression. There's a reason solitary confinement is considered punishment in prisons. \n\nTo get the most richness out of our lived experience, other people present can grant reflection, contrast and expansion... even healing! Being around certain people helps us grow, face ourselves, love ourselves in ways we didn't see before, and thrive. The message here is to explore whether you are denying yourself parts of life that could expand you right now. \n\nHas hiding turned you bitter or afraid when in connection to others? If you are experiencing a state of loneliness or depression, perhaps finding or connecting with people - even prioritizing finding your tribe, your chosen family - is the medicine you need. At the very least, you'd do well to get some sunlight."
       },
       {   
@@ -630,7 +630,7 @@ exports.handler = async function(event, context) {
       }, // update Nov 1
       {
         "id": "Mother",
-        "title": "Mother Spirit",
+        "title": "The Mother",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/db131210-4b1e-4021-9809-a868a4e85c8c/1.png",  
         "time": "Eternity",
         "energy": "Belonging or Rejection",
@@ -650,6 +650,17 @@ exports.handler = async function(event, context) {
         "sun_meaning": "The optimal family system is not common in modern 'civilized' society, where individualist containment away from community is encouraged.\n\nThis Oracle is a call to prioritize return to, finding or creating this for whomever the Oracle is drawn for.\n\nThere is a uniquely powerful healing experience to be had, when one is in a space where should they fall, others will catch them, regardless of perceived contribution or transactions occuring.\n\nOn the flip, that level of safety enables also where one can feel empowered, safe and priveleged to do the same for those in the family or tribal environment.\n\nA deeply connected, unconditionally supportive and loving family system is a wealth rarer than any gem, and even moreso a wonder to behold.",
         "moon_meaning": "The family system can condition our minds into many types of relational dysfunction we unknowingly take into our adult lives as 'personality'.\n\nThese dysfunctions can impact our ability to have healthy relationships and true sovereignty in ourselves.\n\nAssumed 'roles' in family systems can imprint on our psyche for decades, and until we see those dynamics, we may find ourselves stuck in repeating cycles.\n\nThis is a sign that whomever this Oracle is for, is in need to address these dynamics, or about to begin this process through an initiatory event.\n\nIt can often be a bumpy and tenuous path, but the rewards of completion are a new lease on life, peace with past pains, and a new lens with which to see your own existence." 
       }, // update Sep 29
+      {
+        "id": "Griever",
+        "title": "The Griever",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/1f721a8b-f26a-4347-afec-5f9e4c8bd2f8/2.png",  
+        "time": "The End",
+        "energy": "Grieve or Burn",
+        "location": "Mountain Top",
+        "element": "Spirit",
+        "sun_meaning": "The griever holds the pain of loss in deep reverence, as for them, grief is not just seen as the pain of a love gone, but rather a spirit of love enduring towards a subject that has changed.\n\nChange could mean physical death, an emotional connection ending, or a person's path you once shared, moving elsewhere, among others.\n\nThe one this oracle represents is in a deep process of expanding their capacity to feel the depth of love from the place of what was loved, being unable to love back in the way we knew.\n\nIt requires patience in reaching acceptance, acceptance with usually judged emotions, and peace with the new form of reality.\n\nThe truth of grief is it's a deep re-attunement to self and the richer depth within.\n\nDo not resist or judge it - it's a powerful process and ultimately serves evolution of self in the long run.",
+        "moon_meaning": "There is a grief hiding in shadowed places within the one whom this oracle speaks for.\n\nThe grief lies burried under a rubble of fear, and the only way to free it is to let the fear be honored first.\n\nOnce honored truthfully, without shame or judgement, compassion is hopeful to follow.\n\nFrom that place can the grief finally be touched and the powerful experience of the wisdom it contains will finally be revealed.\n\nHowever, know that grief speaks in waves and rarely shares all its wisdom in one moment. Be patient and may the one the oracle speaks for expect to return to this as they gain additional awareness, wisdom, capacity and courage." 
+      }, // Update Nov 19
     ];
   
     return {
