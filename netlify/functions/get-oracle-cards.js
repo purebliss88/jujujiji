@@ -597,15 +597,15 @@ exports.handler = async function(event, context) {
       }, // update Sep 17
      {
         "id": "Cataclysm",
-        "title": "Catalcysm",
+        "title": "Cataclysm",
         "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/0f0727e7-1fc1-4c72-8dfb-e202fe21e97a/2.png",  
         "time": "Present and Future",
         "energy": "Destruction or Path opens",
         "location": "Here and Now",
         "element": "Light and Void",
-        "sun_meaning": "An unstoppable force is coming to move huge obstacles from your path.\n\nThink of this as divine intervention, though this kind of intervention can look a catastrophe or something otherwise unpleasant, at least for those things obstructing your forward path.\n\nYour path is about to open once again.",
-        "moon_meaning": "Some moments in our lives require upheavel to shake away what's out of alignment.\n\nIn this case, a catalysmic event is here to rock the foundations and make what's been long out of alignment break apart and fall away.\n\nWhile the manner of forced change is out of your control, the outcome will eventually settle to your benefit.\n\nThis cataclysm can show up across any area of your life - relationship, health, family or business.\n\nIf it's here, know that it serves a higher purpose, strap in and get yourself set up with whatever will support you to ride the wave as best you are able.\n\n" 
-      }, //update Nov 7
+        "sun_meaning": "An unstoppable force is coming to remove major obstacles.\n\nThink of this as divine intervention, though this kind of intervention can look a catastrophe or something otherwise unpleasant, at least for those things obstructing your forward path.\n\nFor the one this oracle is drawn for, a boulder in the path is about to be cleared, and forward movement is returning once again.",
+        "moon_meaning": "Some moments in our lives require upheavel to shake away what's out of alignment.\n\nIn this case, a cataclysmic event is here to rock the foundations and make what's been long out of alignment break apart and fall away.\n\nWhile the manner of forced change is out of one's control, the outcome will eventually settle to create benefit for the one this oracle is for.\n\nThis cataclysm can show up across any area of life - relationship, health, family or business.\n\nIf it's here, know that it serves a higher purpose, and it's time to strap in and get set up with whatever will be supportive to ride the wave as easefully as possible.\n\n" 
+      }, //update Nov 19
       {
         "id": "Lovers",
         "title": "The Lovers",
