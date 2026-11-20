@@ -620,14 +620,14 @@ exports.handler = async function(event, context) {
       {
         "id": "boistrous",
         "title": "Mischief Maker",
-        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/7ee95578-a9e8-4e4f-9882-ba671a68a689/9.png",  
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/1a459e12-7b63-4cdb-94de-66a2af4b7551/trickster.png",  
         "time": "No time",
         "energy": "Play or Pretend",
         "location": "The Stage",
         "element": "Spirit",
         "sun_meaning": "This one is the fullest embodiment of pure fun and play. Full big-kid out and happy energy. Free, shameless and not letting anyone dim their light.\n\nWhomever this card represents is one who is deeply playful, or needs to embody that part of themselves with full commitment right now.\n\nIt is time to shed seriousness and really have some fun. Do not think it frivolous, but rather a way to reconnect with a part of you that reminds you why you want to be alive.",
         "moon_meaning": "Beware who this card represents for they may be showing you a face of joy and happiness, but secretly hold a different self under the smile.\n\nThis oracle represents a face showing one energy and a heart holding another.\n\nThe duplicitous presentation may seem dishonest on paper, but it could actually be subconscious.\n\nRegardless, heed this message for the one this represents and act accordingly.\n\nIf the one this represents is you, this is a message to explore your own authenticity, or simply to do a deeper dive underneath what could be a coping mechanism." 
-      }, // update Nov 1
+      }, // update Nov 19
       {
         "id": "Mother",
         "title": "The Mother",
