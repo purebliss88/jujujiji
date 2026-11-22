@@ -661,6 +661,28 @@ exports.handler = async function(event, context) {
         "sun_meaning": "The griever holds the pain of loss in deep reverence, as for them, grief is not just seen as the pain of a love gone, but rather a spirit of love enduring towards a subject that has changed.\n\nChange could mean physical death, an emotional connection ending, or a person's path you once shared, moving elsewhere, among others.\n\nThe one this oracle represents is in a deep process of expanding their capacity to feel the depth of love from the place of what was loved, being unable to love back in the way we knew.\n\nIt requires patience in reaching acceptance, acceptance with usually judged emotions, and peace with the new form of reality.\n\nThe truth of grief is it's a deep re-attunement to self and the richer depth within.\n\nDo not resist or judge it - it's a powerful process and ultimately serves evolution of self in the long run.",
         "moon_meaning": "There is a grief hiding in shadowed places within the one whom this oracle speaks for.\n\nThe grief lies burried under a rubble of fear, and the only way to free it is to let the fear be honored first.\n\nOnce honored truthfully, without shame or judgement, compassion is hopeful to follow.\n\nFrom that place can the grief finally be touched and the powerful experience of the wisdom it contains will finally be revealed.\n\nHowever, know that grief speaks in waves and rarely shares all its wisdom in one moment. Be patient and may the one the oracle speaks for expect to return to this as they gain additional awareness, wisdom, capacity and courage." 
       }, // Update Nov 19
+      {
+        "id": "ancient",
+        "title": "The Ancient Ones",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/afdef9e4-264e-431c-8f6d-30c02a0f38ac/Anicent+Ones.png",  
+        "time": "The Past",
+        "energy": "Recycle or Reconfigure",
+        "location": "The Cave Depths",
+        "element": "Shadow",
+        "sun_meaning": "The past of our cells carries talents, wisdom and sometimes, quests from our ancestors and their lands, to expand our present inner and outer world.\n\nThe calling from this oracle is to embrace your ancestry and its connected gifts fully - within them is a part of the soul aching to be expressed and seen.\n\nThrough honoring them, one might find themselves feeling more whole than before.",
+        "moon_meaning": "For the one this oracle calls, it's time to connect to and deepen a connection to their ancestral roots.\n\nLooking into family stories helps us see a narrative path that can telegraph our own.\n\nSometimes it's the surface story, but most times it's the story under the hood - the emotional themes of a tale.\n\nThese explorations can give us an angle on where we struggle in our talents, our desires and our relationship patterns.\n\nThis calling to connect and explore is aimed to liberate and move one toward truth and deeper connection to self. It's time to look backward, to open up the highest path forward." 
+      }, // Update Nov 21
+      {
+        "id": "inferno",
+        "title": "Fury's Flame",
+        "image_url": "https://images.squarespace-cdn.com/content/63851693a72d772add4d6c00/5f4a9cb9-c147-4b33-bfc1-c4f4934bf8ba/Rage.png",  
+        "time": "The Past",
+        "energy": "Rage or Purification",
+        "location": "The Flame",
+        "element": "Fire",
+        "sun_meaning": "The flames of rage are often spoken of in mutterings of fear, shame or aversion, as rage often leads to destruction.\n\nIn this case, anger in any form is coming through to purify an emotional system that has long rehearsed surpression.\n\nWhen fire has guidance and containment, it can be cleansing and purifying. If this oracle speaks to you, it's an encouragement to give long time anger a real, uncensored, outlet of full expression.\n\nThrough letting the flames burn as they feel, eventually a truth will roar up and begin a path to emotional lightness and freedom.",
+        "moon_meaning": "Rage is never pleasant to experience as a recipient.\n\nIntense, unpredictable and potentially dangerous in some cases.\n\nIf one this oracle speaks for, struggling to contain their rage, the message is not to react, or fall into it.\n\nThe one in the cycle of rage has not yet decoded the true emotion underneath. It could be grief, sadness, or something else they're struggling to be with.\n\nIt's important to not take it personally so calm is easier to hold, and the rageful subject can have an easier time coming back to their truth.\n\nOf course, there's a line and when anger comes abuse, then safe departure is best." 
+      }, // Update Nov 21
     ];
   
     return {
